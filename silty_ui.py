@@ -7,7 +7,8 @@ import psutil
 import sqlite3
 from tkinter import *
 from PIL import ImageTk, Image
-
+def current_dir():
+    return os.path.dirname(os.path.realpath(sys.argv[0]))
 def status(program):
 	if program == 'nginx':
 		path = '/var/run/nginx.pid'
@@ -101,7 +102,7 @@ def update():
 	else:
 		mumble.config(text='voip', bg='#e6005b')
 	
-	star_chart.config(text=get_stars())
+	#star_chart.config(text=get_stars())
 	
 	root.after(1000, update)
 
@@ -142,7 +143,7 @@ share_free= Label(system, padx=12, font=('FreeSans', 14),anchor=W, bg='#88A8A7',
 
 stars = Frame(root, bg='#BC3522')
 
-image_dir = '/home/pi/'
+image_dir = current_dir()
 
 curly_star=Image.open(image_dir+"curlystar.png")
 curly_star=curly_star.resize((150,150), Image.ANTIALIAS)
