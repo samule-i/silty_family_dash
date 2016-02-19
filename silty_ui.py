@@ -29,7 +29,7 @@ def uptime():
 def cpu_usage():
 	return psutil.cpu_percent()
 def get_stars():
-    database = '/mnt/share/public/html/lib/database.db'
+	database = '/mnt/share/public/html/lib/database.db'
 	connect = sqlite3.connect(database)
 	cursor = connect.cursor()
 	cursor.execute('select count(*) from star_chart')
@@ -72,14 +72,16 @@ def update():
 	global deluge
 	global mumble
 	
+	disk_dir = '/mnt/share'
+	
 	currtime.config(text=time.strftime('%I:%M'))
 	currdate.config(text=time.strftime('%d/%m/%Y'))
 	cpu.config(text='cpu usage: '+str(cpu_usage())+'%')
 	pi_uptime.config(text='uptime: '+uptime())
 	vmem=psutil.virtual_memory()
 	ram.config(text='ram usage: '+str(vmem.percent)+'%')
-	share_usage=str(psutil.disk_usage('/mnt/share').used>>30)[::1]+'gb'
-	share_left=str(psutil.disk_usage('/mnt/share/').free>>30)[::1]+'gb'
+	share_usage=str(psutil.disk_usage(disk_dir).used>>30)[::1]+'gb'
+	share_left=str(psutil.disk_usage(disk_dir).free>>30)[::1]+'gb'
 	share_used.config(text='disk usage: '+share_usage)
 	share_free.config(text='disk free: '+share_left)
 	if status('nginx') == True:
