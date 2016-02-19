@@ -73,7 +73,7 @@ def update():
 	global deluge
 	global mumble
 	
-	disk_dir = '/mnt/share'
+	disk_dir = '/'
 	
 	currtime.config(text=time.strftime('%I:%M'))
 	currdate.config(text=time.strftime('%d/%m/%Y'))
