@@ -114,7 +114,7 @@ root.overrideredirect(1)
 root.geometry("%dx%d+0+0" % (w, h))
 root.focus_set() # <-- move focus to this widget
 root.bind("<Escape>", lambda e: e.widget.quit())
-root.config(cursor="none")
+#root.config(cursor="none")
 
 #create widgets
 title = Label(root, text="silty", font=('FreeSans', 14), pady=5, bg='#BC3522', fg='#F4EDE3')
