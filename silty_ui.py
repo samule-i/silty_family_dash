@@ -142,14 +142,16 @@ share_free= Label(system, padx=12, font=('FreeSans', 14),anchor=W, bg='#88A8A7',
 
 stars = Frame(root, bg='#BC3522')
 
-curly_star=Image.open("/mnt/share/public/programs/silty_ui/img/curlystar.png")
+image_dir = '/home/pi/'
+
+curly_star=Image.open(image_dir+"curlystar.png")
 curly_star=curly_star.resize((150,150), Image.ANTIALIAS)
 silty_star_image = ImageTk.PhotoImage(curly_star)
 
 silty_star = Label(stars, bg='#BC3522', fg='#F4EDE3', image = silty_star_image)
 star_chart = Label(stars, font=('FreeSans', 22), bg='#BC3522', fg='#F4EDE3')
 
-img = Image.open("/mnt/share/public/programs/silty_ui/img/curly.png")
+img = Image.open(image_dir+'img1.png')
 img = img.resize((165,220), Image.ANTIALIAS)
 
 pic = ImageTk.PhotoImage(img)
