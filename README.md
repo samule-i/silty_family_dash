@@ -1,6 +1,6 @@
 # silty_ui
 Full-screen display.
 
-Currently images are stored at /home/pi, I'll fix this once I've figured out a decent way to get the current directory of a script.
+to change the image that shows in the lowest-right panel, replace the img1.png that's in the same directory as the script.
 
 edit the variable disk_dir to set the location of the disk you want storage data on.
