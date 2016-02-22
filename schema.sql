@@ -85,6 +85,13 @@ username TEXT NOT NULL,
 title TEXT NOT NULL,
 note TEXT NOT NULL);
 
+CREATE TABLE "external_links"(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+date INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+username TEXT NOT NULL,
+title TEXT NOT NULL,
+link TEXT NOT NULL);
+
 CREATE TRIGGER update_username UPDATE OF username ON users
     BEGIN
         UPDATE rules SET username = new.username WHERE username = old.username;
@@ -98,4 +105,5 @@ CREATE TRIGGER update_username UPDATE OF username ON users
 		UPDATE rewards_archive SET username = new.username WHERE username = old.username;
 		UPDATE calendar SET username = new.username WHERE username = old.username;
 		UPDATE calendar_archive SET username = new.username WHERE username = old.username;
+                UPDATE external_links SET username = new.username WHERE username = old.username;
 	END;
