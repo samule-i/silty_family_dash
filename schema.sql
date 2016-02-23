@@ -60,7 +60,10 @@ id INTEGER PRIMARY KEY AUTOINCREMENT,
 date INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
 username TEXT NOT NULL,
 cost INTEGER NOT NULL,
+title TEXT NOT NULL,
+note TEXT,
 image TEXT,
+owner TEXT,
 award_date INTEGER);
 
 CREATE TABLE "rewards_archive"(
@@ -68,7 +71,10 @@ id INTEGER PRIMARY KEY AUTOINCREMENT,
 date INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
 username TEXT NOT NULL,
 cost INTEGER NOT NULL,
+title TEXT NOT NULL,
+note TEXT,
 image TEXT,
+owner TEXT,
 award_date INTEGER);
 
 CREATE TABLE "notes"(
