@@ -16,7 +16,25 @@ def initialise_db():
 	cursor = connect.cursor()
 	sql_script = open(current_path()+'/schema.sql', 'r')
 	cursor.executescript(sql_script.read())
+<<<<<<< HEAD
 	
+=======
+
+def get_stars():
+	db_path = current_path()+'/main.db'
+	connect = sqlite3.connect(db_path)
+	cursor = connect.cursor()
+	cursor.execute('select count(*) from stars')
+	total = cursor.fetchone()
+	cursor.execute('select cost from rewards where not award_date = ""')
+	rewards = cursor.fetchall()
+	spent = sum(sum(tuple) for tuple in rewards)
+	left = total[0] - spent
+	if connect:
+		connect.close()
+	return str(left) +' / '+ str(total[0])
+
+>>>>>>> 94239991a91ee44617d1a59be098e040e2bf49eb
 # toggle between system / processes window
 def left_panel_system(event):
 	global system
@@ -35,6 +53,7 @@ def left_panel_processes(event):
 	processes.grid(row=1, sticky=E+W+N+S)
 
 #get data for updates
+<<<<<<< HEAD
 
 def get_stars():
 	db_path = current_path()+'/main.db'
@@ -60,6 +79,8 @@ def get_notes():
 		connect.close()
 	return results
 
+=======
+>>>>>>> 94239991a91ee44617d1a59be098e040e2bf49eb
 def status(program):
 	if program == 'nginx':
 		path = '/var/run/nginx.pid'
@@ -129,6 +150,7 @@ def system_update():
 def stars_update():
 	star_chart.config(text=get_stars())
 
+<<<<<<< HEAD
 def note_update():
 	global note1
 	global note2
@@ -182,12 +204,17 @@ def note_update():
 	except IndexError:
 		pass
 
+=======
+>>>>>>> 94239991a91ee44617d1a59be098e040e2bf49eb
 def update():	
 	clock_update()
 	processes_update()
 	system_update()
 	stars_update()
+<<<<<<< HEAD
 	note_update()
+=======
+>>>>>>> 94239991a91ee44617d1a59be098e040e2bf49eb
 	
 	root.after(1000, update)
 #test database existence, if not create it..
@@ -239,6 +266,7 @@ silty_star_image = ImageTk.PhotoImage(curly_star)
 silty_star = Label(stars, bg='#BC3522', fg='#F4EDE3', image = silty_star_image)
 star_chart = Label(stars, font=('FreeSans', 22), bg='#BC3522', fg='#F4EDE3')
 
+<<<<<<< HEAD
 note = Frame(root, bg='#BC3522')
 
 note1 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
@@ -256,6 +284,10 @@ note10 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3'
 
 img = Image.open(image_dir+"/img.png")
 img = img.resize((220,220), Image.ANTIALIAS)
+=======
+img = Image.open(image_dir+"/curly.png")
+img = img.resize((165,220), Image.ANTIALIAS)
+>>>>>>> 94239991a91ee44617d1a59be098e040e2bf49eb
 
 pic = ImageTk.PhotoImage(img)
 panel = Label(root, image = pic, bg='#88A8A7', highlightthickness=0, anchor=SE)
@@ -293,6 +325,7 @@ stars.grid(row=2, column=1, sticky=N+E+W+S, padx=0, pady=0, ipadx=0, ipady=0)
 silty_star.grid(column=0, row=0, sticky=E+W+S, padx=0, pady=0, ipadx=0, ipady=0)
 star_chart.grid(column=0, row=1, sticky=E+W+N, padx=0, pady=0, ipadx=0, ipady=0)
 
+<<<<<<< HEAD
 note.grid(column=2, row=1, sticky=N+E+W+S)
 note1.grid(sticky=N+E+W+S)
 note2.grid(sticky=N+E+W+S)
@@ -306,6 +339,8 @@ note9.grid(sticky=N+E+W+S)
 note10.grid(sticky=N+E+W+S)
 
 
+=======
+>>>>>>> 94239991a91ee44617d1a59be098e040e2bf49eb
 panel.grid(row=2, column=2, sticky=N+E+W+S, ipadx=0, ipady=0, padx=0, pady=0)
 
 #Weighting
