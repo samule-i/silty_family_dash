@@ -16,21 +16,7 @@ def initialise_db():
 	cursor = connect.cursor()
 	sql_script = open(current_path()+'/schema.sql', 'r')
 	cursor.executescript(sql_script.read())
-
-def get_stars():
-	db_path = current_path()+'/main.db'
-	connect = sqlite3.connect(db_path)
-	cursor = connect.cursor()
-	cursor.execute('select count(*) from stars')
-	total = cursor.fetchone()
-	cursor.execute('select cost from rewards where not award_date = ""')
-	rewards = cursor.fetchall()
-	spent = sum(sum(tuple) for tuple in rewards)
-	left = total[0] - spent
-	if connect:
-		connect.close()
-	return str(left) +' / '+ str(total[0])
-
+	
 # toggle between system / processes window
 def left_panel_system(event):
 	global system
@@ -49,6 +35,31 @@ def left_panel_processes(event):
 	processes.grid(row=1, sticky=E+W+N+S)
 
 #get data for updates
+
+def get_stars():
+	db_path = current_path()+'/main.db'
+	connect = sqlite3.connect(db_path)
+	cursor = connect.cursor()
+	cursor.execute('select count(*) from stars')
+	total = cursor.fetchone()
+	cursor.execute('select cost from rewards where not award_date = ""')
+	rewards = cursor.fetchall()
+	spent = sum(sum(tuple) for tuple in rewards)
+	left = total[0] - spent
+	if connect:
+		connect.close()
+	return str(left) +' / '+ str(total[0])
+
+def get_notes():
+	db_path = current_path()+'/main.db'
+	connect = sqlite3.connect(db_path)
+	cursor = connect.cursor()
+	cursor.execute('select username, title from notes order by id desc limit 10')
+	results = cursor.fetchall()
+	if connect:
+		connect.close()
+	return results
+
 def status(program):
 	if program == 'nginx':
 		path = '/var/run/nginx.pid'
@@ -118,11 +129,65 @@ def system_update():
 def stars_update():
 	star_chart.config(text=get_stars())
 
+def note_update():
+	global note1
+	global note2
+	global note3
+	global note4
+	global note5
+	global note6
+	global note7
+	global note8
+	global note9
+	global note10
+	results = get_notes()
+	try:
+		note1.config(text=results[0][0] +': '+ results[0][1][:16:])
+	except IndexError:
+		pass
+	try:
+		note2.config(text=results[1][0] +': '+ results[1][1][:16:])
+	except IndexError:
+		pass
+	try:
+		note3.config(text=results[2][0] +': '+ results[2][1][:16:])
+	except IndexError:
+		pass
+	try:
+		note4.config(text=results[3][0] +': '+ results[3][1][:16:])
+	except IndexError:
+		pass
+	try:
+		note5.config(text=results[4][0] +': '+ results[4][1][:16:])
+	except IndexError:
+		pass
+	try:
+		note6.config(text=results[5][0] +': '+ results[5][1][:16:])
+	except IndexError:
+		pass
+	try:
+		note7.config(text=results[6][0] +': '+ results[6][1][:16:])
+	except IndexError:
+		pass
+	try:
+		note8.config(text=results[7][0] +': '+ results[7][1][:16:])
+	except IndexError:
+		pass
+	try:
+		note9.config(text=results[8][0] +': '+ results[8][1][:16:])
+	except IndexError:
+		pass
+	try:
+		note10.config(text=results[9][0] +': '+ results[9][1][:16:])
+	except IndexError:
+		pass
+
 def update():	
 	clock_update()
 	processes_update()
 	system_update()
 	stars_update()
+	note_update()
 	
 	root.after(1000, update)
 #test database existence, if not create it..
@@ -174,6 +239,21 @@ silty_star_image = ImageTk.PhotoImage(curly_star)
 silty_star = Label(stars, bg='#BC3522', fg='#F4EDE3', image = silty_star_image)
 star_chart = Label(stars, font=('FreeSans', 22), bg='#BC3522', fg='#F4EDE3')
 
+note = Frame(root, bg='#BC3522')
+
+note1 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
+note2 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
+note3 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
+note4 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
+note5 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
+note6 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
+note7 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
+note8 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
+note9 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
+note10 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
+
+
+
 img = Image.open(image_dir+"/curly.png")
 img = img.resize((165,220), Image.ANTIALIAS)
 
@@ -212,6 +292,19 @@ share_free.grid(sticky=E+W+N+S)
 stars.grid(row=2, column=1, sticky=N+E+W+S, padx=0, pady=0, ipadx=0, ipady=0)
 silty_star.grid(column=0, row=0, sticky=E+W+S, padx=0, pady=0, ipadx=0, ipady=0)
 star_chart.grid(column=0, row=1, sticky=E+W+N, padx=0, pady=0, ipadx=0, ipady=0)
+
+note.grid(column=2, row=1, sticky=N+E+W+S)
+note1.grid(sticky=N+E+W+S)
+note2.grid(sticky=N+E+W+S)
+note3.grid(sticky=N+E+W+S)
+note4.grid(sticky=N+E+W+S)
+note5.grid(sticky=N+E+W+S)
+note6.grid(sticky=N+E+W+S)
+note7.grid(sticky=N+E+W+S)
+note8.grid(sticky=N+E+W+S)
+note9.grid(sticky=N+E+W+S)
+note10.grid(sticky=N+E+W+S)
+
 
 panel.grid(row=2, column=2, sticky=N+E+W+S, ipadx=0, ipady=0, padx=0, pady=0)
 
