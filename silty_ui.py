@@ -254,8 +254,8 @@ note10 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3'
 
 
 
-img = Image.open(image_dir+"/curly.png")
-img = img.resize((165,220), Image.ANTIALIAS)
+img = Image.open(image_dir+"/img.png")
+img = img.resize((220,220), Image.ANTIALIAS)
 
 pic = ImageTk.PhotoImage(img)
 panel = Label(root, image = pic, bg='#88A8A7', highlightthickness=0, anchor=SE)
