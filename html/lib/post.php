@@ -66,7 +66,7 @@ switch($_POST['action']){
 			}
 		}
 		echo $values;
-		$db = new sqlite3('../silty_ui/main.db');
+		$db = new sqlite3('../../main.db');
 		$return = $db->exec("UPDATE $table SET $values WHERE id = $id");
 		if(!$return){
 			echo "<br> error <br>";
@@ -90,7 +90,7 @@ switch($_POST['action']){
 			echo "no id field found";
 			exit();
 		}
-		$db = new sqlite3('../silty_ui/main.db');
+		$db = new sqlite3('../../main.db');
 		$return = $db->exec("DELETE FROM $table WHERE id = $id");
 		if(!$return){
 			echo "<br> error <br>";

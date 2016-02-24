@@ -158,6 +158,29 @@ function get_posts($table, $amount){
 	$db->close();
 }
 
+function notes($table, $amount){
+	global $db_path;
+	$db = new sqlite3($db_path);
+	if(isset($_GET["offset"])){
+		$offset = $_GET["offset"];
+	} else {
+		$offset = 0;
+	}
+	$result = $db->query("SELECT * FROM $table ORDER BY id DESC LIMIT $amount OFFSET $offset");
+	while($row = $result->fetchArray(SQLITE3_ASSOC)){
+		echo "<div class='post' id='post_" . $row["id"] . "'>";
+		echo "<h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>\n";
+		echo "<div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>\n";
+		echo "<p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>\n";
+		if($_SESSION["username"] == $row["username"]){
+			echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>";
+			echo "<a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
+		}
+		echo "<div class='clearer'><span></span></div>";
+		echo "</div>";
+	}
+	$db->close();
+}
 
 
 function rules($table, $amount){
