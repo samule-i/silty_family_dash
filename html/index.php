@@ -9,7 +9,7 @@ authentication();
 if(isset($_POST["current_password"])){
 	$db = new sqlite3('../main.db');
 	$username = "'" . $_SESSION["username"] . "'"; 
-	$Sqlite3Result = $db->query("SELECT password FROM users WHERE name = $username");
+	$Sqlite3Result = $db->query("SELECT password FROM users WHERE username = $username");
 	if(!$Sqlite3Result){
 		echo "error with Sqlite3Result";
 		exit();
