@@ -239,16 +239,18 @@ img.reward {
 .right {float: right;}
 .clearer {clear: both;}
 
-/* login pages */
-div#login {
-	position:relative;
-	top: 10%;
-	font-size:2em;
+/* login */
+.login{
 	background: #F5B43E;
+	margin:auto;
+	width:50%;
+}
+.login > form{
+	padding: 20px;
+	font-size:1.6em;
+}
+.login > h1 {
+	width: 100%;
+	background:#BC3522;
 	color:#F4EDE3;
-	margin-left:auto;
-	margin-right:auto;
-	margin-top: 20%;
-	max-width:40%;
-	padding:20px;
 }

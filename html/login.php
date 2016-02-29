@@ -32,18 +32,16 @@ if(isset($_POST["password"])){
 		<link type="text/css" rel="stylesheet" href="css/style.css" media="screen">
 	</head>
 	<body>
-		<div class="main">
-		<div id="login">
+		<div class="login">
+			<h1>Silty login:</h1>
 			<form name="login" action="login.php" method="post">
-				Login:<br>
-				<label for="username">username:</label>
-				<input type="text" name="username">
-				<br>
-				<label for="password">password:</label>
-				<input type="password" name="password">
-				<input type="submit" value="submit">
-			</form>
-		</div>
+			<label for="username">username:</label>
+			<input type="text" name="username">
+			<br>
+			<label for="password">password:</label>
+			<input type="password" name="password">
+			<input type="submit" value="submit">
+		</form>
 		</div>
 	</body>
 </html>
