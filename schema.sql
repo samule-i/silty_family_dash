@@ -113,3 +113,5 @@ CREATE TRIGGER update_username UPDATE OF username ON users
 		UPDATE calendar_archive SET username = new.username WHERE username = old.username;
                 UPDATE external_links SET username = new.username WHERE username = old.username;
 	END;
+
+INSERT INTO users username, password VALUES('silty', '$2y$10$wYhCB.JBxh62J9qcV4RAv.BMMdQsWcMLS5KK6R3MetKynDUdYxDUa');

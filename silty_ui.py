@@ -16,13 +16,12 @@ def initialise_db():
 	cursor = connect.cursor()
 	sql_script = open(current_path()+'/schema.sql', 'r')
 	cursor.executescript(sql_script.read())
-	
-# toggle between system / processes window
 
 def close_window(event):
 	global root
 	root.destroy()
-
+	
+# toggle between system / processes window
 def left_panel_system(event):
 	global system
 	global processes
@@ -40,7 +39,6 @@ def left_panel_processes(event):
 	processes.grid(row=1, sticky=E+W+N+S)
 
 #get data for updates
-
 def get_stars():
 	db_path = current_path()+'/main.db'
 	connect = sqlite3.connect(db_path)
@@ -155,43 +153,43 @@ def note_update():
 	global note10
 	results = get_notes()
 	try:
-		note1.config(text=results[0][0] +': '+ results[0][1][:16:])
+		note1.config(text=results[0][0] +': '+ results[0][1][:20:])
 	except IndexError:
 		pass
 	try:
-		note2.config(text=results[1][0] +': '+ results[1][1][:16:])
+		note2.config(text=results[1][0] +': '+ results[1][1][:20:])
 	except IndexError:
 		pass
 	try:
-		note3.config(text=results[2][0] +': '+ results[2][1][:16:])
+		note3.config(text=results[2][0] +': '+ results[2][1][:20:])
 	except IndexError:
 		pass
 	try:
-		note4.config(text=results[3][0] +': '+ results[3][1][:16:])
+		note4.config(text=results[3][0] +': '+ results[3][1][:20:])
 	except IndexError:
 		pass
 	try:
-		note5.config(text=results[4][0] +': '+ results[4][1][:16:])
+		note5.config(text=results[4][0] +': '+ results[4][1][:20:])
 	except IndexError:
 		pass
 	try:
-		note6.config(text=results[5][0] +': '+ results[5][1][:16:])
+		note6.config(text=results[5][0] +': '+ results[5][1][:20:])
 	except IndexError:
 		pass
 	try:
-		note7.config(text=results[6][0] +': '+ results[6][1][:16:])
+		note7.config(text=results[6][0] +': '+ results[6][1][:20:])
 	except IndexError:
 		pass
 	try:
-		note8.config(text=results[7][0] +': '+ results[7][1][:16:])
+		note8.config(text=results[7][0] +': '+ results[7][1][:20:])
 	except IndexError:
 		pass
 	try:
-		note9.config(text=results[8][0] +': '+ results[8][1][:16:])
+		note9.config(text=results[8][0] +': '+ results[8][1][:20:])
 	except IndexError:
 		pass
 	try:
-		note10.config(text=results[9][0] +': '+ results[9][1][:16:])
+		note10.config(text=results[9][0] +': '+ results[9][1][:20:])
 	except IndexError:
 		pass
 

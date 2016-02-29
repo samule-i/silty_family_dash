@@ -5,10 +5,16 @@ Display shows if the services Nginx, samba, mumble-server and deluged are runnin
 
 Requires sqlite3 to run.
 
-To use the some functions it is currently required that you manually add a user to the database, use these commands to do so:
+
+It is possible that the database won't automatically add this user on older versions, if there's no silty user on the system, you could add in the user manually.
+
+To use the some functions it may be required that you manually add a user to the database, use these commands to do so:
+
 sqlite3 /path_to_program/main.db
-INSERT INTO users username, password VALUES('admin', '$2y$10$wYhCB.JBxh62J9qcV4RAv.BMMdQsWcMLS5KK6R3MetKynDUdYxDUa');
-This will set the database to include a user "admin" with the password "silty".
+
+INSERT INTO users username, password VALUES('silty', '$2y$10$wYhCB.JBxh62J9qcV4RAv.BMMdQsWcMLS5KK6R3MetKynDUdYxDUa');
+
+This will set the database to include a user "silty" with the password "silty".
 
 DON'T FORGET TO CHANGE THIS PASSWORD
 
