@@ -50,26 +50,26 @@ to change the image that shows in the lowest-right panel, replace the img1.png t
 ***
 ##PLANNED UPDATES:
 
-*Find some use for the remaining panel, currently showing an image.  
-*Set "stars" pane to show users individually, as opposed to totals shown currently.  
-*Add a check for existence of disk directory, if not found default to SD card on pi.  
+* Find some use for the remaining panel, currently showing an image.  
+* Set "stars" pane to show users individually, as opposed to totals shown currently.  
+* Add a check for existence of disk directory, if not found default to SD card on pi.  
 
 ###Update HTML section to allow:
-*Adding new users  
-*Changing usernames  
-*Admin panel to see other users additions  
-*Change "rewards" to use locally hosted images  
-*Update each section to only show non-admin users content relative to themselves  
-*Add some functionality to add links to sidebar (currently only editable direct through Sqlite3)  
-*Remove "icomoon" icons in favour of basic buttons  
-*Move "change password" to some sort of controls page  
-*Move all "main" panels out of root and into a frame, allowing me to remove and replace with other "fullscreen" dialogues.  
-*Figure out a way to set the "rules" to explain which users a particular rules applies to using a single column in the table, and only show rules that apply to the person viewing (unless admin)  
-*Create seperate javascript / php code to handle each HTML page individually, allowing for greater customisation of each.  
-*Recreate CSS for a newer, simpler layout, dropping mostly bloat formatting and cleaning the code up in general.  
+* Adding new users  
+* Changing usernames  
+* Admin panel to see other users additions  
+* Change "rewards" to use locally hosted images  
+* Update each section to only show non-admin users content relative to themselves  
+* Add some functionality to add links to sidebar (currently only editable direct through Sqlite3)  
+* Remove "icomoon" icons in favour of basic buttons  
+* Move "change password" to some sort of controls page  
+* Move all "main" panels out of root and into a frame, allowing me to remove and replace with other "fullscreen" dialogues.  
+* Figure out a way to set the "rules" to explain which users a particular rules applies to using a single column in the table, and only show rules that apply to the person viewing (unless admin)  
+* Create seperate javascript / php code to handle each HTML page individually, allowing for greater customisation of each.  
+* Recreate CSS for a newer, simpler layout, dropping mostly bloat formatting and cleaning the code up in general.  
 
 ## Known bugs
 
-*Adding stars on website may crash "Silty ui" fullscreen display, checks are in place but testing is required  
-*Uptime sometimes shows "garbage" numbers at the end of the string, this is something to do with the admittedly awful method of just cutting up a long string of time  
-*img1 doesn't scale proportionately to source image, probably won't fix this as it's merely placeholder  
+* Adding stars on website may crash "Silty ui" fullscreen display, checks are in place but testing is required  
+* Uptime sometimes shows "garbage" numbers at the end of the string, this is something to do with the admittedly awful method of just cutting up a long string of time  
+* img1 doesn't scale proportionately to source image, probably won't fix this as it's merely placeholder  
