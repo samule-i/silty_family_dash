@@ -1,10 +1,34 @@
 # silty_ui
-Full-screen display.
+Full-screen display for use on a Raspberrypi.
+With nginx installed allows for some childrens rewards system based on rules and rewards.
 
-Display shows if the services Nginx, samba, mumble-server and deluged are running (if installed).
+Displays:
+
+Nginx status
+
+Samba status
+
+Mumble-server status
+
+Deluge status
+
+CPU usage
+
+RAM usage
+
+Uptime
+
+Disk usage (Defualted to /mnt/lib for my use case, may set it to default to root if there's no ext hdd setup)
+
+Date and time
+
+Section for notes (requires nginx)
+
+Section for "stars", reward system for children (requires nginx)
 
 Requires sqlite3 to run.
-
+Requites nginx setup with the html folder set as the root to access the website functionality.
+Runs on Python3
 
 It is possible that the database won't automatically add this user on older versions, if there's no silty user on the system, you could add in the user manually.
 
@@ -19,15 +43,35 @@ This will set the database to include a user "silty" with the password "silty".
 DON'T FORGET TO CHANGE THIS PASSWORD
 
 You can change the password by logging in.
-You can access the website by opening your browser and going to \\path_to_program\html.
 
 Hopefully once you can log in, it shouldn't be too much of an issue to figure out the rest of it.
 
 to change the image that shows in the lowest-right panel, replace the img1.png that's in the same directory as the script.
 
-edit the variable disk_dir to set the location of the disk you want storage data on.
+PLANNED UPDATES:
 
-Shows uptime, cpu usage, ram usage and disk usage.
-Shows service status for Nginx, Samba, Mumble-server and Deluge daemon.
+Find some use for the remaining panel, currently showing an image.
 
-Shows time and date.
+Set "stars" pane to show users individually, as opposed to totals shown currently
+
+Update HTML section to allow:
+
+adding new users
+
+Changing usernames
+
+Admin panel to see other users additions
+
+Change "rewards" to use locally hosted images
+
+update each section to only show non-admin users content relative to themselves
+
+Add some functionality to add links to sidebar (currently only editable direct through Sqlite3)
+
+Remove "icomoon" icons in favour of basic buttons
+
+move "change password" to some sort of controls page
+
+Move all "main" panels out of root and into a frame, allowing me to remove and replace with other "fullscreen" dialogues.
+
+Figure out a way to set the "rules" to explain which users a particular rules applies to using a single column in the table, and only show rules that apply to the person viewing (unless admin)
