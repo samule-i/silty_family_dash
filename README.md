@@ -35,7 +35,7 @@ It is possible that the database won't automatically add this user on older vers
 To use the some functions it may be required that you manually add a user to the database, use these commands to do so:
 
 `sqlite3 /path_to_program/main.db`  
-`INSERT INTO users username, password VALUES('silty', '$2y$10$wYhCB.JBxh62J9qcV4RAv.BMMdQsWcMLS5KK6R3MetKynDUdYxDUa');`  
+`INSERT INTO users username, password VALUES('silty', '$2y$10$dWEB3n9q12CKMr8MzOX/Y.rLIBTLMJUmriOA1Yk.onpIe/uWTU0Fm');`  
 
 This will set the database to include a user "silty" with the password "silty".
 
@@ -73,3 +73,4 @@ to change the image that shows in the lowest-right panel, replace the img1.png t
 * Adding stars on website may crash "Silty ui" fullscreen display, checks are in place but testing is required  
 * Uptime sometimes shows "garbage" numbers at the end of the string, this is something to do with the admittedly awful method of just cutting up a long string of time  
 * img1 doesn't scale proportionately to source image, probably won't fix this as it's merely placeholder  
+* New posts on website use double newlines instead of just one.  

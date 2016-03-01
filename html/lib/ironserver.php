@@ -18,14 +18,25 @@ function authentication(){
 	}
 }
 
+function add_user($username){
+	global $db_path;
+	$db = new sqlite3($db_path);
+	$return = $db->query("SELECT username FROM users");
+	if(in_array($username, $return)){
+		echo "user already exists";
+	} else {
+		$username = "'".$username."'";
+		$statement = $db->prepare('INSERT INTO users (username) VALUES (:username;)');
+		$statement->bindValue(':username', $username);
+		$result = $statement->execute();
+	}
+	$db->close();
+}
+
 function get_total($table){
 	global $db_path;
 	$db = new sqlite3($db_path);
-	if(isset($_GET["archive"])){
 	$ret = $db->query("SELECT count(*) FROM $table");
-	} else {
-	$ret = $db->query("SELECT count(*) FROM $table");
-	}
 	if(!ret){
 		echo $db->lastErrorMsg();
 		echo "count error";
