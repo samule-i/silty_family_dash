@@ -34,8 +34,8 @@ It is possible that the database won't automatically add this user on older vers
 
 To use the some functions it may be required that you manually add a user to the database, use these commands to do so:
 
-`sqlite3 /path_to_program/main.db`  
-`INSERT INTO users username, password VALUES('silty', '$2y$10$dWEB3n9q12CKMr8MzOX/Y.rLIBTLMJUmriOA1Yk.onpIe/uWTU0Fm');`  
+```sqlite3 /path_to_program/main.db  
+INSERT INTO users username, password VALUES('silty', '$2y$10$dWEB3n9q12CKMr8MzOX/Y.rLIBTLMJUmriOA1Yk.onpIe/uWTU0Fm');```  
 
 This will set the database to include a user "silty" with the password "silty".
 
@@ -56,8 +56,9 @@ to change the image that shows in the lowest-right panel, replace the img1.png t
 
 ###Update HTML section to allow:
 * Adding new users  
-* Changing usernames  
+* ~~Changing usernames~~  
 * Admin panel to see other users additions  
+* Update each page to allow applying to certain users (example, stars given to x instead of falling into a general nameless star pool)
 * Change "rewards" to use locally hosted images  
 * Update each section to only show non-admin users content relative to themselves  
 * Add some functionality to add links to sidebar (currently only editable direct through Sqlite3)  
@@ -74,3 +75,4 @@ to change the image that shows in the lowest-right panel, replace the img1.png t
 * Uptime sometimes shows "garbage" numbers at the end of the string, this is something to do with the admittedly awful method of just cutting up a long string of time  
 * img1 doesn't scale proportionately to source image, probably won't fix this as it's merely placeholder  
 * New posts on website use double newlines instead of just one.  
+* Right now, I think it'd be too easy to SQL inject the site... if the website is public facing, back stuff up and be careful until it's fixed :(

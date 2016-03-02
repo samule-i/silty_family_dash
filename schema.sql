@@ -1,7 +1,7 @@
 CREATE TABLE "users"(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 date INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-username TEXT NOT NULL,
+username TEXT NOT NULL UNIQUE,
 password CHAR(76) NOT NULL);
 
 CREATE TABLE "calendar"(
