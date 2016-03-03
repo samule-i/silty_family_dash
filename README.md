@@ -55,7 +55,7 @@ to change the image that shows in the lowest-right panel, replace the img1.png t
 * Add a check for existence of disk directory, if not found default to SD card on pi.  
 
 ###Update HTML section to allow:
-* Adding new users  
+* ~~Adding new users~~  
 * ~~Changing usernames~~  
 * Admin panel to see other users additions  
 * Update each page to allow applying to certain users (example, stars given to x instead of falling into a general nameless star pool)

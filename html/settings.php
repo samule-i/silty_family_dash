@@ -36,26 +36,28 @@ if(isset($_POST["new_username"])){
 }
 
 if(isset($_POST["add_user_username"])){
-	if($_POST["add_user_username"] == $_POST["confirm_add_user_username"]){
+	if($_POST["add_user_username"] == $_POST["confirm_add_user_username"] && !(empty($_POST["add_user_username"]))){
 		$new_user = "'".$_POST["add_user_username"]."'";
 	} else {
+		echo "username error";
 		break;
 	}
-	if($_POST["add_user_password"] == $_POST["confirm_add_user_password"]){
+	if($_POST["add_user_password"] == $_POST["confirm_add_user_password"] && !(empty($_POST["add_user_password"]))){
 		$new_password = "'".password_hash($_POST["add_user_password"], PASSWORD_DEFAULT)."'";
 	} else {
+		echo "password error";
 		break;
 	}
 	$db = new sqlite3('../main.db');
-	$statement = $db->query("SELECT username FROM users");
-	$search  = $statement->fetchArray(SQLITE3_ASSOC);
-	if(!in_array($_POST['add_user_username'], $search)){
-		#$insert = $db->exec("INSERT INTO users('username', 'password') VALUES($new_user, $new_password)");
-		header("location: index.php");
-		exit();
-	}else{
-		echo $_POST["add_user_username"] ." user already exists";
+	$statement = $db->query("SELECT count(*) FROM users WHERE username = $new_user");
+	while($result = $statement->fetchArray(SQLITE3_ASSOC)){
+		if($result["count(*)"] == 0){
+			$insert = $db->exec("INSERT INTO users('username', 'password') VALUES($new_user, $new_password)");
+			echo $_POST["add_user_username"] ." does not exist: ". $result["count(*)"];
+		}else{
+			echo $_POST["add_user_username"] ." user already exists: ". $result["count(*)"];
 		}
+	}
 	$db->close();
 }
 
