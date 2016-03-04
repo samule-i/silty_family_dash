@@ -10,7 +10,7 @@ authentication();
 doctype();
 head();
 ?>
-<body>
+<body> 
 <div class='container'>
 <?php
 html_header($table);

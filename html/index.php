@@ -23,7 +23,7 @@ navigation();
 echo "<h1>Welcome " . $_SESSION["username"] . "</h1>";
 ?>
 
-</div>
+</div> 
 <?php
 sidenav()
 ?>

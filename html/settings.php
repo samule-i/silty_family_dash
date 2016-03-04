@@ -40,13 +40,13 @@ if(isset($_POST["add_user_username"])){
 		$new_user = "'".$_POST["add_user_username"]."'";
 	} else {
 		echo "username error";
-		break;
+		return;
 	}
 	if($_POST["add_user_password"] == $_POST["confirm_add_user_password"] && !(empty($_POST["add_user_password"]))){
 		$new_password = "'".password_hash($_POST["add_user_password"], PASSWORD_DEFAULT)."'";
 	} else {
 		echo "password error";
-		break;
+		return;
 	}
 	$db = new sqlite3('../main.db');
 	$statement = $db->query("SELECT count(*) FROM users WHERE username = $new_user");
@@ -105,7 +105,7 @@ echo "<h1>Welcome " . $_SESSION["username"] . "</h1>";
 <input type="password" name="confirm_password">
 <br>
 <input type="submit" value="submit">
-</form>
+</form> 
 <?php
 if($_SESSION['user_id'] == 1){
 	print '<h1>Admin controls</h1>';

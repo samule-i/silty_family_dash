@@ -130,13 +130,13 @@ function rewards($table, $amount){
 		}
 		echo "<div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>\n";
 		echo "<img class='reward' src=" . $row["image"] . ">";
-		echo "<p id='content_" . $row["id"] . "'>" . $row["note"] . "</p>\n";
-		echo "<p class='hidden' id='image_" . $row["id"] . "'>" . $row["image"] . "</p>";
+		echo "<p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>\n";
+		echo "<p class='hidden' id='image_" . $row["id"] . "'>" . $row["image"] . "</p>"; 
 		if($_SESSION["user_id"] == 1){
 			if(!$row["award_date"]){
-				echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'content'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "', award_date: '" . strftime('%s') . "'}, " . $row["id"] . ")\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0160-gift.svg'</a>";
+				echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "', award_date: '" . strftime('%s') . "'}, " . $row["id"] . ")\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0160-gift.svg'</a>";
 			}
-			echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'content', cost: 'cost', image: 'image'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>";
+			echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'note', cost: 'cost', image: 'image'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>";
 			echo "<a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
 		}
 		echo "<div class='clearer'><span></span></div>";

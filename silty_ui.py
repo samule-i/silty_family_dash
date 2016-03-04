@@ -360,3 +360,7 @@ Grid.rowconfigure(clock, 1, weight=1)
 #finish
 root.after(10, update)
 root.mainloop()
+
+
+
+#testing testin gone two thrww. This keyboard feels like shit man,  how do you cope????????? My left testicke us vufgger than my right one which is pretty stranghe cibsudering I'm a gotl

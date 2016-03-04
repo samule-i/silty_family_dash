@@ -12,6 +12,24 @@ function escapechars($string){
 	
 }
 
+
+function download_file($url, $path){
+	$file = file_get_contents($url);
+	if($file == true){
+		echo "file found at $url<br/>";
+	}else{
+		echo "file not found at $url<br/>";
+	}
+	$result = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/img/rewards/'.basename($url), $file);
+	if($result == false){
+		echo "error saving to $path". basename($url)."<br/>";
+	} else {
+		echo "working APPARANTLY FUCKTHISSHIT <br/>";
+		echo realpath($path);
+	}
+	return $path . basename($url);
+}
+
 switch($_POST['action']){
 	case "create":
 		unset($_POST['action']);
@@ -23,6 +41,9 @@ switch($_POST['action']){
 			exit();
 		}
 		foreach($_POST as $field => $x){
+			if($field == 'image'){
+				$x = download_file($x, 'img/rewards/');
+			}
 			if(!isset($fields)){
 				$fields = $field;
 			} else {
@@ -59,6 +80,9 @@ switch($_POST['action']){
 			echo "no id set";
 		}
 		foreach($_POST as $key => $value){
+			if($key == 'image'){
+				$value = download_file($value, 'img/rewards/');
+			}
 			if(!$values){
 				$values = nl2br($key . " = '" . escapechars($value) . "'");
 			} else {
@@ -66,7 +90,7 @@ switch($_POST['action']){
 			}
 		}
 		echo $values;
-		$db = new sqlite3('../../main.db');
+		$db = new sqlite3('../../main.db'); 
 		$return = $db->exec("UPDATE $table SET $values WHERE id = $id");
 		if(!$return){
 			echo "<br> error <br>";
