@@ -9,7 +9,7 @@ from tkinter import *
 from PIL import ImageTk, Image
 def current_path():
     return os.path.dirname(os.path.realpath(sys.argv[0]))
-	
+
 def initialise_db():
 	db_path = current_path()+'/main.db'
 	connect = sqlite3.connect(db_path)
@@ -20,7 +20,7 @@ def initialise_db():
 def close_window(event):
 	global root
 	root.destroy()
-	
+
 # toggle between system / processes window
 def left_panel_system(event):
 	global system
@@ -29,7 +29,7 @@ def left_panel_system(event):
 	processes_tab.config(state=NORMAL)
 	processes.grid_forget()
 	system.grid(row=1, sticky=E+W+N+S)
-	
+
 def left_panel_processes(event):
 	global system
 	global processes
@@ -92,13 +92,13 @@ def uptime():
 
 def cpu_usage():
 	return psutil.cpu_percent()
-	
+
 # update sections with current data.
 def clock_update():
 	global clock
 	currtime.config(text=time.strftime('%I:%M'))
 	currdate.config(text=time.strftime('%d/%m/%Y'))
-	
+
 def processes_update():
 	global nginx
 	global samba
@@ -127,12 +127,13 @@ def system_update():
 	global pi_uptime
 	global share_used
 	global share_left
-	
+
 	cpu.config(text='cpu usage: '+str(cpu_usage())+'%')
 	pi_uptime.config(text='uptime: '+uptime())
 	vmem=psutil.virtual_memory()
 	ram.config(text='ram usage: '+str(vmem.percent)+'%')
-	share_usage=str(psutil.disk_usage('/mnt/share').used>>30)[::1]+'gb'
+    #make an if loop using isdir function (os.path.isdir($path))
+	share_usage=str(psutil.disk_usage('/mnt/share/').used>>30)[::1]+'gb'
 	share_left=str(psutil.disk_usage('/mnt/share/').free>>30)[::1]+'gb'
 	share_used.config(text='disk usage: '+share_usage)
 	share_free.config(text='disk free: '+share_left)
@@ -193,19 +194,19 @@ def note_update():
 	except IndexError:
 		pass
 
-def update():	
+def update():
 	clock_update()
 	processes_update()
 	system_update()
 	stars_update()
 	note_update()
-	
+
 	root.after(2000, update)
 #test database existence, if not create it..
 if not os.path.isfile(current_path()+'/main.db'):
 	print("no db")
 	initialise_db()
-	
+
 root = Tk()
 root.title("silty_ui")
 # make it cover the entire screen
@@ -217,8 +218,16 @@ root.bind("<Escape>", lambda e: e.widget.quit())
 root.config(cursor="none")
 
 #create widgets w/ various styling attributes
-title = Label(root, text="♥ silty ♥", font=('FreeSans', 14), pady=5, bg='#BC3522', fg='#F4EDE3')
-exit = Label(root, text="quit", font=('FreeSans', 14), pady=5, bg='#88A8A7', fg='#F4EDE3')
+title = Label(root,
+    text="♥ silty ♥",
+    font=('FreeSans', 14),
+    pady=5, bg='#BC3522',
+    fg='#F4EDE3')
+exit = Label(root, text="quit",
+    font=('FreeSans', 14),
+    pady=5,
+    bg='#88A8A7',
+    fg='#F4EDE3')
 clock = Frame(root,pady=20,bg="#F5B43E")
 currtime = Label(clock, font=('FreeSans', 40), bg="#F5B43E", fg='#F4EDE3')
 currdate = Label(clock, font=('FreeSans', 14), bg="#F5B43E", fg='#F4EDE3')
@@ -226,8 +235,20 @@ currdate = Label(clock, font=('FreeSans', 14), bg="#F5B43E", fg='#F4EDE3')
 left_panel = Frame(root, width=250)
 
 left_panel_tabs = Frame(left_panel)
-system_tab = Label(left_panel_tabs, text="system", font=('FreeSans', 14), anchor=W, activebackground="#88A8A7", activeforeground="#F4EDE3")
-processes_tab = Label(left_panel_tabs, text="processes", font=('FreeSans', 14), anchor=W, activebackground="#88A8A7", activeforeground="#F4EDE3", state=ACTIVE)
+system_tab = Label(left_panel_tabs,
+    text="system",
+    font=('FreeSans', 14),
+    anchor=W,
+    activebackground="#88A8A7",
+    activeforeground="#F4EDE3",
+    state=ACTIVE)
+
+processes_tab = Label(left_panel_tabs,
+    text="processes",
+    font=('FreeSans', 14),
+    anchor=W,
+    activebackground="#88A8A7",
+    activeforeground="#F4EDE3")
 
 processes = Frame(left_panel)
 nginx = Label(processes, padx=12, font=('FreeSans', 18),anchor=W)
@@ -236,11 +257,35 @@ mumble = Label(processes, padx=12, font=('FreeSans', 18),anchor=W)
 deluge = Label(processes, padx=12, font=('FreeSans', 18),anchor=W)
 
 system = Frame(left_panel)
-cpu = Label(system, padx=12, font=('FreeSans', 14),anchor=W, bg='#88A8A7', fg="#F4EDE3")
-pi_uptime = Label(system, padx=12, font=('FreeSans', 14),anchor=W, bg='#88A8A7', fg="#F4EDE3")
-ram = Label(system, padx=12, font=('FreeSans', 14),anchor=W, bg='#88A8A7', fg="#F4EDE3")
-share_used= Label(system, padx=12, font=('FreeSans', 14),anchor=W, bg='#88A8A7', fg="#F4EDE3")
-share_free= Label(system, padx=12, font=('FreeSans', 14),anchor=W, bg='#88A8A7', fg="#F4EDE3")
+cpu = Label(system, padx=12,
+    font=('FreeSans', 14),
+    anchor=W,
+    bg='#88A8A7',
+    fg="#F4EDE3")
+pi_uptime = Label(system,
+    padx=12,
+    font=('FreeSans', 14),
+    anchor=W,
+    bg='#88A8A7',
+    fg="#F4EDE3")
+ram = Label(system,
+    padx=12,
+    font=('FreeSans', 14),
+    anchor=W,
+    bg='#88A8A7',
+    fg="#F4EDE3")
+share_used= Label(system,
+    padx=12,
+    font=('FreeSans', 14),
+    anchor=W,
+    bg='#88A8A7',
+    fg="#F4EDE3")
+share_free= Label(system,
+    padx=12,
+    font=('FreeSans', 14),
+    anchor=W,
+    bg='#88A8A7',
+    fg="#F4EDE3")
 
 stars = Frame(root, bg='#BC3522')
 image_dir = current_path()+'/img'
@@ -285,38 +330,24 @@ left_panel_tabs.grid(row=0, column=0, sticky=W+E)
 system_tab.grid(row=0, column=0, sticky=W+E)
 processes_tab.grid(row=0, column=1, sticky=W+E)
 
-processes.grid(row=1, column=0, sticky=W+E+N+S)
-nginx.grid(sticky=E+W+N+S)
-samba.grid(sticky=E+W+N+S)
-mumble.grid(sticky=E+W+N+S)
-deluge.grid(sticky=E+W+N+S)
+system.grid(row=1, column=0, sticky=W+E+N+S)
+for child in processes.winfo_children():
+    child.grid(sticky=N+E+W+S)
 
 clock.grid(row=1, column=1, sticky=E+W+N+S)
 currtime.grid(sticky=W+E+S)
 currdate.grid(sticky=W+E+N)
 
-cpu.grid(sticky=E+W+N+S)
-ram.grid(sticky=E+W+N+S)
-pi_uptime.grid(sticky=E+W+N+S)
-share_used.grid(sticky=E+W+N+S)
-share_free.grid(sticky=E+W+N+S)
+for child in system.winfo_children():
+    child.grid(sticky=N+E+W+S)
 
 stars.grid(row=2, column=1, sticky=N+E+W+S, padx=0, pady=0, ipadx=0, ipady=0)
 silty_star.grid(column=0, row=0, sticky=E+W+S, padx=0, pady=0, ipadx=0, ipady=0)
 star_chart.grid(column=0, row=1, sticky=E+W+N, padx=0, pady=0, ipadx=0, ipady=0)
 
 note.grid(column=2, row=1, sticky=N+E+W+S)
-note1.grid(sticky=N+E+W+S)
-note2.grid(sticky=N+E+W+S)
-note3.grid(sticky=N+E+W+S)
-note4.grid(sticky=N+E+W+S)
-note5.grid(sticky=N+E+W+S)
-note6.grid(sticky=N+E+W+S)
-note7.grid(sticky=N+E+W+S)
-note8.grid(sticky=N+E+W+S)
-note9.grid(sticky=N+E+W+S)
-note10.grid(sticky=N+E+W+S)
-
+for child in note.winfo_children():
+    child.grid(sticky=N+E+W+S)
 
 panel.grid(row=2, column=2, sticky=N+E+W+S, ipadx=0, ipady=0, padx=0, pady=0)
 
