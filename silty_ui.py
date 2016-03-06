@@ -129,13 +129,19 @@ def system_update():
     global share_used
     global share_left
 
+    if os.path.isdir("/mnt/share"):
+        share_usage=str(psutil.disk_usage('/mnt/share/').used>>30)[::1]+'gb'
+        share_left=str(psutil.disk_usage('/mnt/share/').free>>30)[::1]+'gb'
+    else:
+        share_usage=str(psutil.disk_usage('/').used>>30)[::1]+'gb'
+        share_left=str(psutil.disk_usage('/').free>>30)[::1]+'gb'
+
     cpu.config(text='cpu usage: '+str(cpu_usage())+'%')
     pi_uptime.config(text='uptime: '+uptime())
     vmem=psutil.virtual_memory()
     ram.config(text='ram usage: '+str(vmem.percent)+'%')
     #make an if loop using isdir function (os.path.isdir($path))
-    share_usage=str(psutil.disk_usage('/mnt/share/').used>>30)[::1]+'gb'
-    share_left=str(psutil.disk_usage('/mnt/share/').free>>30)[::1]+'gb'
+
     share_used.config(text='disk usage: '+share_usage)
     share_free.config(text='disk free: '+share_left)
 

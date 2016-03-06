@@ -35,7 +35,7 @@ Section for "stars", reward system for children (requires nginx)
 
 * Find some use for the remaining panel, currently showing an image.  
 * Set "stars" pane to show users individually, as opposed to totals shown currently.  
-* Add a check for existence of disk directory, if not found default to SD card on pi.  
+* ~~Add a check for existence of disk directory, if not found default to SD card on pi.~~  
 * Move all "main" panels out of root and into a frame, allowing me to remove and replace with other "fullscreen" dialogues.  
 
 ###Update HTML section to allow:
