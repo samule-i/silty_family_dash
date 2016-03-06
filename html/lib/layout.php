@@ -27,8 +27,8 @@ function navigation(){
 	"diary" => "diary.php",
 	"stars" => "stars.php",
 	"rewards" => "rewards.php",
-	"notes" => "notes.php"
-	#"calendar" => "calendar.php"
+	"notes" => "notes.php",
+	"settings" => "settings.php"
 	);
 	foreach($navigation as $title=>$url){
 		echo "<a href='". $url ."'>".$title."</a>";

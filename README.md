@@ -30,23 +30,6 @@ Section for "stars", reward system for children (requires nginx)
 #Requites nginx setup with the html folder set as the root to access the website functionality.
 ###Runs on Python3
 
-It is possible that the database won't automatically add this user on older versions, if there's no silty user on the system, you could add in the user manually.
-
-To use the some functions it may be required that you manually add a user to the database, use these commands to do so:
-
-```sqlite3 /path_to_program/main.db  
-INSERT INTO users username, password VALUES('silty', '$2y$10$dWEB3n9q12CKMr8MzOX/Y.rLIBTLMJUmriOA1Yk.onpIe/uWTU0Fm');```  
-
-This will set the database to include a user "silty" with the password "silty".
-
-DON'T FORGET TO CHANGE THIS PASSWORD
-
-You can change the password by logging in.
-
-Hopefully once you can log in, it shouldn't be too much of an issue to figure out the rest of it.
-
-to change the image that shows in the lowest-right panel, replace the img1.png that's in the same directory as the script.
-
 ***
 ##PLANNED UPDATES:
 

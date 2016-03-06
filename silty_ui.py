@@ -7,6 +7,7 @@ import psutil
 import sqlite3
 from tkinter import *
 from PIL import ImageTk, Image
+
 def current_path():
     return os.path.dirname(os.path.realpath(sys.argv[0]))
 
@@ -168,10 +169,11 @@ def update():
     stars_update()
     note_update()
     root.after(2000, update)
+
 #test database existence, if not create it..
 if not os.path.isfile(current_path()+'/main.db'):
-	print("no db")
-	initialise_db()
+    print("no db")
+    initialise_db()
 
 root = Tk()
 root.title("silty_ui")
@@ -217,43 +219,21 @@ processes_tab = Label(left_panel_tabs,
     activeforeground="#F4EDE3")
 
 processes = Frame(left_panel)
-nginx = Label(processes, padx=12, font=('FreeSans', 18),anchor=W)
-samba = Label(processes, padx=12, font=('FreeSans', 18),anchor=W)
-mumble = Label(processes, padx=12, font=('FreeSans', 18),anchor=W)
-deluge = Label(processes, padx=12, font=('FreeSans', 18),anchor=W)
-
 system = Frame(left_panel)
-cpu = Label(system, padx=12,
-    font=('FreeSans', 14),
-    anchor=W,
-    bg='#88A8A7',
-    fg="#F4EDE3")
-pi_uptime = Label(system,
-    padx=12,
-    font=('FreeSans', 14),
-    anchor=W,
-    bg='#88A8A7',
-    fg="#F4EDE3")
-ram = Label(system,
-    padx=12,
-    font=('FreeSans', 14),
-    anchor=W,
-    bg='#88A8A7',
-    fg="#F4EDE3")
-share_used= Label(system,
-    padx=12,
-    font=('FreeSans', 14),
-    anchor=W,
-    bg='#88A8A7',
-    fg="#F4EDE3")
-share_free= Label(system,
-    padx=12,
-    font=('FreeSans', 14),
-    anchor=W,
-    bg='#88A8A7',
-    fg="#F4EDE3")
-
+note = Frame(root, bg='#BC3522')
 stars = Frame(root, bg='#BC3522')
+
+nginx = Label(processes)
+samba = Label(processes)
+mumble = Label(processes)
+deluge = Label(processes)
+
+cpu = Label(system)
+pi_uptime = Label(system)
+ram = Label(system)
+share_used= Label(system)
+share_free= Label(system)
+
 image_dir = current_path()+'/img'
 curly_star=Image.open(image_dir+"/curlystar.png")
 curly_star=curly_star.resize((150,150), Image.ANTIALIAS)
@@ -262,31 +242,37 @@ silty_star_image = ImageTk.PhotoImage(curly_star)
 silty_star = Label(stars, bg='#BC3522', fg='#F4EDE3', image = silty_star_image)
 star_chart = Label(stars, font=('FreeSans', 22), bg='#BC3522', fg='#F4EDE3')
 
-note = Frame(root, bg='#BC3522')
+note1 = Label(note)
+note2 = Label(note)
+note3 = Label(note)
+note4 = Label(note)
+note5 = Label(note)
+note6 = Label(note)
+note7 = Label(note)
+note8 = Label(note)
+note9 = Label(note)
+note10 = Label(note)
 
-note1 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
-note2 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
-note3 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
-note4 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
-note5 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
-note6 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
-note7 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
-note8 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
-note9 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
-note10 = Label(note, anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
-
+for child in system.winfo_children():
+    child.config(padx=12, font=('FreeSans', 14),
+    anchor=W, bg='#88A8A7', fg='#F4EDE3')
+for child in processes.winfo_children():
+    child.config(padx=12, font=('FreeSans', 18), anchor=W)
+for child in note.winfo_children():
+    child.config(anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
 
 
 img = Image.open(image_dir+"/img.png")
 img = img.resize((220,220), Image.ANTIALIAS)
-
 pic = ImageTk.PhotoImage(img)
-panel = Label(root, image = pic, bg='#88A8A7', highlightthickness=0, anchor=SE)
+
+panel = Label(root, image = pic, bg='#88A8A7', anchor=SE)
 
 #binding
 system_tab.bind("<Button-1>", left_panel_system)
 processes_tab.bind("<Button-1>", left_panel_processes)
 exit.bind("<Button-1>", close_window)
+
 #Gridding
 title.grid(row=0, column=0, columnspan=2, sticky=W+E)
 exit.grid(row=0, column=2, sticky=W+E)
@@ -307,15 +293,15 @@ currdate.grid(sticky=W+E+N)
 for child in system.winfo_children():
     child.grid(sticky=N+E+W+S)
 
-stars.grid(row=2, column=1, sticky=N+E+W+S, padx=0, pady=0, ipadx=0, ipady=0)
-silty_star.grid(column=0, row=0, sticky=E+W+S, padx=0, pady=0, ipadx=0, ipady=0)
-star_chart.grid(column=0, row=1, sticky=E+W+N, padx=0, pady=0, ipadx=0, ipady=0)
+stars.grid(row=2, column=1, sticky=N+E+W+S)
+silty_star.grid(sticky=E+W+S)
+star_chart.grid(sticky=E+W+N)
 
 note.grid(column=2, row=1, sticky=N+E+W+S)
 for child in note.winfo_children():
     child.grid(sticky=N+E+W+S)
 
-panel.grid(row=2, column=2, sticky=N+E+W+S, ipadx=0, ipady=0, padx=0, pady=0)
+panel.grid(row=2, column=2, sticky=N+E+W+S)
 
 #Weighting
 
