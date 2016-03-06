@@ -3,7 +3,7 @@ id INTEGER PRIMARY KEY AUTOINCREMENT,
 date INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
 username TEXT NOT NULL UNIQUE,
 password CHAR(76) NOT NULL);
- 
+
 CREATE TABLE "calendar"(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 date INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
@@ -35,7 +35,7 @@ content TEXT);
 CREATE TABLE "rules"(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 date INTEGER NOT NULL DEFAULT (strftime('%s','now')),
-username TEXT NOT NULL, 
+username TEXT NOT NULL,
 title TEXT NOT NULL,
 note TEXT,
 applies_to INTEGER NOT NULL);
@@ -43,7 +43,7 @@ applies_to INTEGER NOT NULL);
 CREATE TABLE "rules_archive"(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 date INTEGER NOT NULL,
-username TEXT NOT NULL, 
+username TEXT NOT NULL,
 title TEXT NOT NULL,
 note TEXT,
 applies_to INTEGER NOT NULL);
@@ -78,14 +78,14 @@ owner TEXT,
 award_date INTEGER);
 
 CREATE TABLE "notes"(
-id INTEGER PRIMARY KEY AUTOINCREMENT, 
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 date INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
 username TEXT NOT NULL,
 title TEXT NOT NULL,
 note TEXT NOT NULL);
 
 CREATE TABLE "notes_archive"(
-id INTEGER PRIMARY KEY AUTOINCREMENT, 
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 date INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
 username TEXT NOT NULL,
 title TEXT NOT NULL,
@@ -114,5 +114,4 @@ CREATE TRIGGER update_username UPDATE OF username ON users
                 UPDATE external_links SET username = new.username WHERE username = old.username;
 	END;
 
-INSERT INTO users username, password VALUES('silty', '$2y$10$dWEB3n9q12CKMr8MzOX/Y.rLIBTLMJUmriOA1Yk.onpIe/uWTU0Fm
-');
+INSERT INTO users username, password VALUES('silty', '$2y$10$dWEB3n9q12CKMr8MzOX/Y.rLIBTLMJUmriOA1Yk.onpIe/uWTU0Fm');
