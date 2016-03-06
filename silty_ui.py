@@ -122,86 +122,52 @@ def processes_update():
 		mumble.config(text='voip', bg='#e6005b')
 
 def system_update():
-	global cpu
-	global ram
-	global pi_uptime
-	global share_used
-	global share_left
+    global cpu
+    global ram
+    global pi_uptime
+    global share_used
+    global share_left
 
-	cpu.config(text='cpu usage: '+str(cpu_usage())+'%')
-	pi_uptime.config(text='uptime: '+uptime())
-	vmem=psutil.virtual_memory()
-	ram.config(text='ram usage: '+str(vmem.percent)+'%')
+    cpu.config(text='cpu usage: '+str(cpu_usage())+'%')
+    pi_uptime.config(text='uptime: '+uptime())
+    vmem=psutil.virtual_memory()
+    ram.config(text='ram usage: '+str(vmem.percent)+'%')
     #make an if loop using isdir function (os.path.isdir($path))
-	share_usage=str(psutil.disk_usage('/mnt/share/').used>>30)[::1]+'gb'
-	share_left=str(psutil.disk_usage('/mnt/share/').free>>30)[::1]+'gb'
-	share_used.config(text='disk usage: '+share_usage)
-	share_free.config(text='disk free: '+share_left)
+    share_usage=str(psutil.disk_usage('/mnt/share/').used>>30)[::1]+'gb'
+    share_left=str(psutil.disk_usage('/mnt/share/').free>>30)[::1]+'gb'
+    share_used.config(text='disk usage: '+share_usage)
+    share_free.config(text='disk free: '+share_left)
 
 def stars_update():
-	star_chart.config(text=get_stars())
+    star_chart.config(text=get_stars())
 
 def note_update():
-	global note1
-	global note2
-	global note3
-	global note4
-	global note5
-	global note6
-	global note7
-	global note8
-	global note9
-	global note10
-	results = get_notes()
-	try:
-		note1.config(text=results[0][0] +': '+ results[0][1][:20:])
-	except IndexError:
-		pass
-	try:
-		note2.config(text=results[1][0] +': '+ results[1][1][:20:])
-	except IndexError:
-		pass
-	try:
-		note3.config(text=results[2][0] +': '+ results[2][1][:20:])
-	except IndexError:
-		pass
-	try:
-		note4.config(text=results[3][0] +': '+ results[3][1][:20:])
-	except IndexError:
-		pass
-	try:
-		note5.config(text=results[4][0] +': '+ results[4][1][:20:])
-	except IndexError:
-		pass
-	try:
-		note6.config(text=results[5][0] +': '+ results[5][1][:20:])
-	except IndexError:
-		pass
-	try:
-		note7.config(text=results[6][0] +': '+ results[6][1][:20:])
-	except IndexError:
-		pass
-	try:
-		note8.config(text=results[7][0] +': '+ results[7][1][:20:])
-	except IndexError:
-		pass
-	try:
-		note9.config(text=results[8][0] +': '+ results[8][1][:20:])
-	except IndexError:
-		pass
-	try:
-		note10.config(text=results[9][0] +': '+ results[9][1][:20:])
-	except IndexError:
-		pass
+    global note1
+    global note2
+    global note3
+    global note4
+    global note5
+    global note6
+    global note7
+    global note8
+    global note9
+    global note10
+    results = get_notes()
+    i = 0
+    for child in note.winfo_children():
+        try:
+            child.config(text=results[i][0] +': '+ results[i][1][:20:])
+        except IndexError:
+            pass
+        i+=1
 
 def update():
-	clock_update()
-	processes_update()
-	system_update()
-	stars_update()
-	note_update()
-
-	root.after(2000, update)
+    clock_update()
+    processes_update()
+    system_update()
+    stars_update()
+    note_update()
+    root.after(2000, update)
 #test database existence, if not create it..
 if not os.path.isfile(current_path()+'/main.db'):
 	print("no db")
