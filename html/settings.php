@@ -1,4 +1,4 @@
-<?php 
+<?php
 $table = "home";
 require "lib/password.php";
 include("lib/layout.php");
@@ -8,7 +8,7 @@ authentication();
 <?php
 if(isset($_POST["current_password"])){
 	$db = new sqlite3('../main.db');
-	$username = "'" . $_SESSION["username"] . "'"; 
+	$username = "'" . $_SESSION["username"] . "'";
 	$Sqlite3Result = $db->query("SELECT password FROM users WHERE username = $username");
 	if(!$Sqlite3Result){
 		echo "error with Sqlite3Result";
@@ -63,9 +63,9 @@ if(isset($_POST["add_user_username"])){
 
 ?>
 <html>
-<?php 
+<?php
 doctype();
-head(); 
+head();
 ?>
 <body>
 <div class='container'>
@@ -105,21 +105,21 @@ echo "<h1>Welcome " . $_SESSION["username"] . "</h1>";
 <input type="password" name="confirm_password">
 <br>
 <input type="submit" value="submit">
-</form> 
+</form>
 <?php
 if($_SESSION['user_id'] == 1){
-	print '<h1>Admin controls</h1>';
-	print '<h2>Add user</h2>';
-	print '<form name="add_user" action="settings.php" method="post">';
-	print '<label for="add_user_username">username:</label>';
-	print '<input type="text" name="add_user_username"><br />';
-	print '<label for="confirm_add_user_username">confirm username:</label>';
-	print '<input type="text" name="confirm_add_user_username"><br />';
-	print '<label for="add_user_password">password:</label>';
-	print '<input type="password" name="add_user_password"><br />';
-	print '<label for="confirm_add_user_password">confirm password:</label>';
-	print '<input type="password" name="confirm_add_user_password"><br />';
-	print '<input type="submit" value="submit">';
+	echo '<h1>Admin controls</h1>
+    <h2>Add user</h2>
+    <form name="add_user" action="settings.php" method="post">
+    <label for="add_user_username">username:</label>
+    <input type="text" name="add_user_username"><br />
+    <label for="confirm_add_user_username">confirm username:</label>
+    <input type="text" name="confirm_add_user_username"><br />
+    <label for="add_user_password">password:</label>
+    <input type="password" name="add_user_password"><br />
+    <label for="confirm_add_user_password">confirm password:</label>
+    <input type="password" name="confirm_add_user_password"><br />
+    <input type="submit" value="submit">';
 }
 ?>
 </div>

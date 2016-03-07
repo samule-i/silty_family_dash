@@ -48,7 +48,7 @@ function get_total($table){
 	$db->close();
 }
 
-function spent_stars(){	
+function spent_stars(){
 	global $db_path;
 	$db = new sqlite3($db_path);
 	$ret = $db->query("SELECT cost FROM rewards where not award_date = ''");
@@ -120,27 +120,30 @@ function rewards($table, $amount){
 	}
 	$result = $db->query("SELECT * FROM $table ORDER BY id DESC LIMIT $amount OFFSET $offset");
 	while($row = $result->fetchArray(SQLITE3_ASSOC)){
-		echo "<div class='post' id='post_" . $row["id"] . "'>";
-		echo "<h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>\n";
-		echo "<h1 id='cost_" . $row["id"] . "'>" . $row["cost"]  . "</h1>\n";
+		echo "<div class='post' id='post_" . $row["id"] . "'>
+        <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
+        <h1 id='cost_" . $row["id"] . "'>" . $row["cost"]  . "</h1>\n";
 		if($row["award_date"]){
 			echo "<img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0218-star-full.svg' title='awarded'>";
 		} else {
 			echo "<img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0216-star-empty.svg' title='not awarded'>";
 		}
-		echo "<div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>\n";
-		echo "<img class='reward' src=" . $row["image"] . ">";
-		echo "<p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>\n";
-		echo "<p class='hidden' id='image_" . $row["id"] . "'>" . $row["image"] . "</p>"; 
+		echo "<div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
+        <img class='reward' src=" . $row["image"] . ">
+        <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>
+        <p class='hidden' id='image_" . $row["id"] . "'>" . $row["image"] . "</p>";
 		if($_SESSION["user_id"] == 1){
 			if(!$row["award_date"]){
-				echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "', award_date: '" . strftime('%s') . "'}, " . $row["id"] . ")\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0160-gift.svg'</a>";
+				echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "', award_date: '" . strftime('%s') . "'}, " . $row["id"] . ")\">
+                <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0160-gift.svg'</a>";
 			}
-			echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'note', cost: 'cost', image: 'image'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>";
-			echo "<a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
+			echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'note', cost: 'cost', image: 'image'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
+            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>
+			<a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
+            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
 		}
-		echo "<div class='clearer'><span></span></div>";
-		echo "</div>";
+		echo "<div class='clearer'><span></span></div>
+        </div>";
 	}
 	$db->close();
 }
@@ -155,16 +158,18 @@ function get_posts($table, $amount){
 	}
 	$result = $db->query("SELECT * FROM $table ORDER BY id DESC LIMIT $amount OFFSET $offset");
 	while($row = $result->fetchArray(SQLITE3_ASSOC)){
-		echo "<div class='post' id='post_" . $row["id"] . "'>";
-		echo "<h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>\n";
-		echo "<div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>\n";
-		echo "<p id='content_" . $row["id"] . "'>" . $row["content"] . "</p>\n";
+		echo "<div class='post' id='post_" . $row["id"] . "'>
+        <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
+        <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
+        <p id='content_" . $row["id"] . "'>" . $row["content"] . "</p>\n";
 		if($_SESSION["username"] == $row["username"]){
-			echo "<a class=right href=\"javascript:editpost({title: 'title', content: 'content'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>";
-			echo "<a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
+			echo "<a class=right href=\"javascript:editpost({title: 'title', content: 'content'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
+            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>
+            <a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
+            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
 		}
-		echo "<div class='clearer'><span></span></div>";
-		echo "</div>";
+		echo "<div class='clearer'><span></span></div>
+        </div>";
 	}
 	$db->close();
 }
@@ -179,16 +184,21 @@ function notes($table, $amount){
 	}
 	$result = $db->query("SELECT * FROM $table ORDER BY id DESC LIMIT $amount OFFSET $offset");
 	while($row = $result->fetchArray(SQLITE3_ASSOC)){
-		echo "<div class='post' id='post_" . $row["id"] . "'>";
-		echo "<h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>\n";
-		echo "<div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>\n";
-		echo "<p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>\n";
+		echo "<div class='post' id='post_" . $row["id"] . "'>
+        <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
+        <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
+        <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>";
 		if($_SESSION["username"] == $row["username"]){
-			echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>";
-			echo "<a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
+			echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
+            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>
+            <a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
+            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
 		}
-		echo "<div class='clearer'><span></span></div>";
-		echo "</div>";
+		echo "<div class='clearer'>
+        <span>
+        </span>
+        </div>
+        </div>";
 	}
 	$db->close();
 }
@@ -209,16 +219,21 @@ function rules($table, $amount){
 	}
 	$result = $db->query("SELECT * FROM $table ORDER BY id DESC LIMIT $amount OFFSET $offset");
 	while($row = $result->fetchArray(SQLITE3_ASSOC)){
-		echo "<div class='post' id='post_" . $row["id"] . "'>";
-		echo "<h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>\n";
-		echo "<div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>\n";
-		echo "<p id='content_" . $row["id"] . "'>" . $row["note"] . "</p>\n";
+		echo "<div class='post' id='post_" . $row["id"] . "'>
+        <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
+        <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
+        <p id='content_" . $row["id"] . "'>" . $row["note"] . "</p>";
 		if($_SESSION["username"] == $row["username"]){
-			echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'content'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>";
-			echo "<a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
+			echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'content'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
+            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>
+            <a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
+            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
 		}
-		echo "<div class='clearer'><span></span></div>";
-		echo "</div>";
+		echo "<div class='clearer'>
+        <span>
+        </span>
+        </div>
+        </div>";
 	}
 	$db->close();
 }
