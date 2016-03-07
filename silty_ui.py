@@ -92,13 +92,13 @@ def uptime():
 	return uptime_string
 
 def cpu_usage():
-	return psutil.cpu_percent()
+    return psutil.cpu_percent()
 
 # update sections with current data.
 def clock_update():
-	global clock
-	currtime.config(text=time.strftime('%I:%M'))
-	currdate.config(text=time.strftime('%d/%m/%Y'))
+    global clock
+    currtime.config(text=time.strftime('%I:%M'))
+    currdate.config(text=time.strftime('%d/%m/%Y'))
 
 def processes_update():
 	global nginx
