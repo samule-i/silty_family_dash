@@ -203,16 +203,16 @@ root.config(cursor="none")
 title = Label(root,
     text="♥ silty ♥",
     font=('FreeSans', 14),
-    pady=5, bg='#BC3522',
-    fg='#F4EDE3')
+    pady=5, bg=orange,
+    fg=slate)
 exit = Label(root, text="quit",
     font=('FreeSans', 14),
     pady=5,
-    bg='#88A8A7',
-    fg='#F4EDE3')
-clock = Frame(root,pady=20,bg="#F5B43E")
-currtime = Label(clock, font=('FreeSans', 40), bg="#F5B43E", fg='#F4EDE3')
-currdate = Label(clock, font=('FreeSans', 14), bg="#F5B43E", fg='#F4EDE3')
+    bg=orange,
+    fg=slate)
+clock = Frame(root,pady=20,bg=lilac)
+currtime = Label(clock, font=('FreeSans', 40), bg=lilac, fg=slate)
+currdate = Label(clock, font=('FreeSans', 14), bg=lilac, fg=slate)
 
 left_panel = Frame(root, width=250)
 
@@ -221,21 +221,21 @@ system_tab = Label(left_panel_tabs,
     text="system",
     font=('FreeSans', 14),
     anchor=W,
-    activebackground="#88A8A7",
-    activeforeground="#F4EDE3",
+    activebackground=orange,
+    activeforeground=slate,
     state=ACTIVE)
 
 processes_tab = Label(left_panel_tabs,
     text="processes",
     font=('FreeSans', 14),
     anchor=W,
-    activebackground="#88A8A7",
-    activeforeground="#F4EDE3")
+    activebackground=orange,
+    activeforeground=slate)
 
 processes = Frame(left_panel)
 system = Frame(left_panel)
-note = Frame(root, bg='#BC3522')
-stars = Frame(root, bg='#BC3522')
+note = Frame(root, bg=green)
+stars = Frame(root, bg=green)
 
 nginx = Label(processes)
 samba = Label(processes)
@@ -253,8 +253,8 @@ curly_star=Image.open(image_dir+"/curlystar.png")
 curly_star=curly_star.resize((150,150), Image.ANTIALIAS)
 silty_star_image = ImageTk.PhotoImage(curly_star)
 
-silty_star = Label(stars, bg='#BC3522', fg='#F4EDE3', image = silty_star_image)
-star_chart = Label(stars, font=('FreeSans', 22), bg='#BC3522', fg='#F4EDE3')
+silty_star = Label(stars, bg=green, fg=forest, image = silty_star_image)
+star_chart = Label(stars, font=('FreeSans', 22), bg=green, fg=forest)
 
 note1 = Label(note)
 note2 = Label(note)
