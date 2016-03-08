@@ -94,6 +94,14 @@ def uptime():
 def cpu_usage():
     return psutil.cpu_percent()
 
+#colour refs
+orange = "#F7C2A4"
+lilac = "#CCCCE0"
+green = "#B9DBB1"
+slate = "#797794"
+forest = "#6A7867"
+
+
 # update sections with current data.
 def clock_update():
     global clock
