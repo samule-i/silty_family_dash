@@ -114,19 +114,19 @@ def processes_update():
 	global deluge
 	global mumble
 	if status('nginx') == True:
-		nginx.config(text='webserver', bg='#88A8A7', fg='#F4EDE3')
+		nginx.config(text='webserver', bg=orange, fg=slate)
 	else:
 		nginx.config(text='webserver', bg='#e6005b')
 	if status('samba') == True:
-		samba.config(text='file share', bg='#88A8A7', fg='#F4EDE3')
+		samba.config(text='file share', bg=orange, fg=slate)
 	else:
 		samba.config(text='file share', bg='#e6005b')
 	if status('deluge') == True:
-		deluge.config(text='torrent client', bg='#88A8A7', fg='#F4EDE3')
+		deluge.config(text='torrent client', bg=orange, fg=slate)
 	else:
 		deluge.config(text='torrent client', bg='#e6005b')
 	if status('mumble') == True:
-		mumble.config(text='voip', bg='#88A8A7', fg='#F4EDE3')
+		mumble.config(text='voip', bg=orange, fg=slate)
 	else:
 		mumble.config(text='voip', bg='#e6005b')
 
