@@ -269,18 +269,18 @@ note10 = Label(note)
 
 for child in system.winfo_children():
     child.config(padx=12, font=('FreeSans', 14),
-    anchor=W, bg='#88A8A7', fg='#F4EDE3')
+    anchor=W, bg=orange, fg=slate)
 for child in processes.winfo_children():
     child.config(padx=12, font=('FreeSans', 18), anchor=W)
 for child in note.winfo_children():
-    child.config(anchor=W, font=('FreeSans', 12), bg='#BC3522', fg='#F4EDE3')
+    child.config(anchor=W, font=('FreeSans', 12), bg=green, fg=forest)
 
 
 img = Image.open(image_dir+"/img.png")
 img = img.resize((220,220), Image.ANTIALIAS)
 pic = ImageTk.PhotoImage(img)
 
-panel = Label(root, image = pic, bg='#88A8A7', anchor=SE)
+panel = Label(root, image = pic, bg=orange, anchor=SE)
 
 #binding
 system_tab.bind("<Button-1>", left_panel_system)
