@@ -18,17 +18,19 @@ RAM usage
 
 Uptime
 
-Disk usage (Defualted to /mnt/lib for my use case, may set it to default to root if there's no ext hdd setup)
+Disk usage
 
 Date and time
 
-Section for notes (requires nginx)
+Section for notes
 
-Section for "stars", reward system for children (requires nginx)
+Section for "stars", reward system for children
 
 #setup
 ```
-sudo apt-get install git samba samba-common-bin deluged deluge-console mumble-server nginx php5 php5-fpm sqlite3 php5-sqlite python3-psutil python3-tk python3-pil.imaging
+sudo apt-get install git sqlite3 php5-sqlite python3-psutil python3-tk python3-pil.imaging
+git clone http://github.com/formcore/silty_ui
+./silty_ui/silty_ui.py
 ```
 
 ***
