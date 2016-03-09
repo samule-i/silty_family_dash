@@ -26,9 +26,10 @@ Section for notes (requires nginx)
 
 Section for "stars", reward system for children (requires nginx)
 
-#Requires sqlite3 to run.
-#Requites nginx setup with the html folder set as the root to access the website functionality.
-###Runs on Python3
+#setup
+```
+sudo apt-get install git samba samba-common-bin deluged deluge-console mumble-server nginx php5 php5-fpm sqlite3 php5-sqlite python3-psutil python3-tk python3-pil.imaging
+```
 
 ***
 ##PLANNED UPDATES:

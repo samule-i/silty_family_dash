@@ -114,4 +114,4 @@ CREATE TRIGGER update_username UPDATE OF username ON users
                 UPDATE external_links SET username = new.username WHERE username = old.username;
 	END;
 
-INSERT INTO users username, password VALUES('silty', '$2y$10$dWEB3n9q12CKMr8MzOX/Y.rLIBTLMJUmriOA1Yk.onpIe/uWTU0Fm');
+INSERT INTO users(username, password) VALUES('silty', '$2y$10$dWEB3n9q12CKMr8MzOX/Y.rLIBTLMJUmriOA1Yk.onpIe/uWTU0Fm');
