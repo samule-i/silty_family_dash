@@ -1,4 +1,4 @@
-<?php 
+<?php
 $table = "stars";
 $post_count = 100;
 include("lib/layout.php");
@@ -6,9 +6,9 @@ include("lib/ironserver.php");
 authentication();
 ?>
 <html>
-<?php 
+<?php
 doctype();
-head(); 
+head();
 ?>
 <body>
 <div class='container'>
@@ -23,7 +23,7 @@ navigation();
 <div class="content">
 <?php
 if($_SESSION["user_id"] == '1'){
-	echo "<a class='right' href=\"javascript:newform({note: 'note'}, {table: '" . $table . "'})\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0037-file-empty.svg'></a>\n<p  id='createPost'></p>";
+	echo "<a class='right' href=\"javascript:newform({note: 'note', owner: 'owner'}, {username: '".$_SESSION['username'].", 'table: '" . $table . "'})\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0037-file-empty.svg'></a>\n<p  id='createPost'></p>";
 }
 stars($table, $post_count);
 ?>
