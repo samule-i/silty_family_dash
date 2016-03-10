@@ -135,7 +135,7 @@ function rewards($table, $amount){
 		if($_SESSION["user_id"] == 1){
 			if(!$row["award_date"]){
 				echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "', award_date: '" . strftime('%s') . "'}, " . $row["id"] . ")\">
-                edit
+                award
                 </button>";
 			}
 			echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note', cost: 'cost', image: 'image'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
