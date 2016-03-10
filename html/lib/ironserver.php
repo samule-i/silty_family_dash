@@ -230,7 +230,7 @@ function rules($table, $amount){
         <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
         <p id='content_" . $row["id"] . "'>" . $row["note"] . "</p>";
 		if($_SESSION["username"] == $row["username"]){
-			echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'content'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
+			echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
             edit</button>
             <button class='database' onclick=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
             delete
