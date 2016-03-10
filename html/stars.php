@@ -23,7 +23,10 @@ navigation();
 <div class="content">
 <?php
 if($_SESSION["user_id"] == '1'){
-	echo "<a class='right' href=\"javascript:newform({note: 'note', owner: 'owner'}, {username: '".$_SESSION['username'].", 'table: '" . $table . "'})\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0037-file-empty.svg'></a>\n<p  id='createPost'></p>";
+	echo "<button class='database' href=\"javascript:newform({note: 'note', owner: 'owner'}, {username: '".$_SESSION['username'].", 'table: '" . $table . "'})\">
+    new
+    </button>\n
+    <p  id='createPost'></p>";
 }
 stars($table, $post_count);
 ?>

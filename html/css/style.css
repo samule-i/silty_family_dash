@@ -212,6 +212,12 @@ img.reward {
 	margin-right:auto;
 }
 
+button.database {
+    background-color:#F5B43E;
+    color:#F4EDE3;
+    padding: 10px 15px;
+    float:right;
+}
 /* footer */
 .footer {
 	background: #BC3522;

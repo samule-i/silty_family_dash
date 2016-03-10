@@ -1,4 +1,4 @@
-<?php 
+<?php
 $table = "rules";
 if(isset($_GET["archive"])){
 	$table = "rules_archive";
@@ -11,9 +11,9 @@ include("lib/ironserver.php");
 authentication();
 ?>
 <html>
-<?php 
+<?php
 doctype();
-head(); 
+head();
 ?>
 <body>
 <div class='container'>
@@ -27,8 +27,11 @@ navigation();
 <div class="main">
 <div class="content">
 <?php
-echo "<a class='right' href=\"javascript:newform({title: 'title', content: 'content'}, {table: '" . $table . "', username: '" . $_SESSION["username"] . "'})\"><img class='icon'src='img/icons/IcoMoon-Free-master/SVG/0037-file-empty.svg'></a>\n<p  id='createPost'></p>";
-rules($table, $post_count); 
+echo "<button class='database' href=\"javascript:newform({title: 'title', content: 'content'}, {table: '" . $table . "', username: '" . $_SESSION["username"] . "'})\">
+new
+</button>\n
+<p  id='createPost'></p>";
+rules($table, $post_count);
 ?>
 </div>
 <?php

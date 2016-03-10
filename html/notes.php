@@ -1,4 +1,4 @@
-<?php 
+<?php
 $table = "notes";
 $post_count = 5;
 include("lib/layout.php");
@@ -6,7 +6,7 @@ include("lib/ironserver.php");
 authentication();
 ?>
 <html>
-<?php 
+<?php
 doctype();
 head();
 ?>
@@ -22,7 +22,10 @@ navigation();
 <div class="main">
 <div class="content">
 <?php
-echo "<a class='right' href=\"javascript:newform({title: 'title', note: 'content'}, {table: '" . $table . "', username: '" . $_SESSION["username"] . "'})\"><img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0037-file-empty.svg'></a>\n<p  id='createPost'></p>";
+echo "<button class='database' href=\"javascript:newform({title: 'title', note: 'content'}, {table: '" . $table . "', username: '" . $_SESSION["username"] . "'})\">
+new
+</button>\n
+<p  id='createPost'></p>";
 notes($table, $post_count);
 ?>
 </div>
