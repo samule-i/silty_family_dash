@@ -215,10 +215,12 @@ img.reward {
 button.database {
     background-color:#88A8A7;
     color:#F4EDE3;
-    padding: 10px 15px;
+    padding: 5px;
     float:right;
-    width:20%;
-    margin:3px;
+    width:10%;
+    border-style:none;
+    margin:1px;
+    font-size:1em;
 }
 /* footer */
 .footer {
