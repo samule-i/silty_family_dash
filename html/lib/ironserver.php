@@ -105,7 +105,7 @@ function stars($table, $amount){
 		if(($row["id"] % 10) == "0" ){
 			echo "<br>";
 		}
-		echo "<img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0218-star-full.svg' title='" . $row["note"] ."'> ";
+		echo "★";
 	}
 	$db->close();
 }
@@ -124,9 +124,9 @@ function rewards($table, $amount){
         <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
         <h1 id='cost_" . $row["id"] . "'>" . $row["cost"]  . "</h1>\n";
 		if($row["award_date"]){
-			echo "<img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0218-star-full.svg' title='awarded'>";
+			echo "awarded";
 		} else {
-			echo "<img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0216-star-empty.svg' title='not awarded'>";
+			echo "not_awarded";
 		}
 		echo "<div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
         <img class='reward' src=" . $row["image"] . ">
@@ -134,13 +134,16 @@ function rewards($table, $amount){
         <p class='hidden' id='image_" . $row["id"] . "'>" . $row["image"] . "</p>";
 		if($_SESSION["user_id"] == 1){
 			if(!$row["award_date"]){
-				echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "', award_date: '" . strftime('%s') . "'}, " . $row["id"] . ")\">
-                <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0160-gift.svg'</a>";
+				echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "', award_date: '" . strftime('%s') . "'}, " . $row["id"] . ")\">
+                award
+                </button>";
 			}
-			echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'note', cost: 'cost', image: 'image'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
-            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>
-			<a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
-            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
+			echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note', cost: 'cost', image: 'image'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
+            edit
+            </button>
+			<button class='database' onclick=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
+            delete
+            </button>";
 		}
 		echo "<div class='clearer'><span></span></div>
         </div>";
@@ -163,10 +166,11 @@ function get_posts($table, $amount){
         <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
         <p id='content_" . $row["id"] . "'>" . $row["content"] . "</p>\n";
 		if($_SESSION["username"] == $row["username"]){
-			echo "<a class=right href=\"javascript:editpost({title: 'title', content: 'content'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
-            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>
-            <a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
-            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
+			echo "<button class='database' onclick=\"javascript:editpost({title: 'title', content: 'content'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
+            edit
+            <button class='database' onclick=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
+            delete
+            </button>";
 		}
 		echo "<div class='clearer'><span></span></div>
         </div>";
@@ -189,10 +193,12 @@ function notes($table, $amount){
         <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
         <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>";
 		if($_SESSION["username"] == $row["username"]){
-			echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
-            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>
-            <a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
-            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
+			echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
+            edit
+            </button>
+            <button class='database' onclick=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
+            delete
+            </button>";
 		}
 		echo "<div class='clearer'>
         <span>
@@ -222,12 +228,13 @@ function rules($table, $amount){
 		echo "<div class='post' id='post_" . $row["id"] . "'>
         <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
         <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
-        <p id='content_" . $row["id"] . "'>" . $row["note"] . "</p>";
+        <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>";
 		if($_SESSION["username"] == $row["username"]){
-			echo "<a class=right href=\"javascript:editpost({title: 'title', note: 'content'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
-            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0008-quill.svg'</a>
-            <a class=right href=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
-            <img class='icon' src='img/icons/IcoMoon-Free-master/SVG/0270-cancel-circle.svg'></a>";
+			echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
+            edit</button>
+            <button class='database' onclick=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
+            delete
+            </button>";
 		}
 		echo "<div class='clearer'>
         <span>
