@@ -22,7 +22,7 @@ navigation();
 <div class="main">
 <div class="content">
 <?php
-echo "<button class='database' href=\"javascript:newform({title: 'title', note: 'note', cost: 'cost', image:'image', owner:'owner'}, {table: '" . $table . "', username: '" . $_SESSION["username"] . "'})\">
+echo "<button class='database' onlick=\"javascript:newform({title: 'title', note: 'note', cost: 'cost', image:'image', owner:'owner'}, {table: '" . $table . "', username: '" . $_SESSION["username"] . "'})\">
 new
 </button>\n
 <p  id='createPost'></p>";

@@ -23,7 +23,7 @@ navigation();
 <div class="content">
 <?php
 if($_SESSION["user_id"] == '1'){
-	echo "<button class='database' href=\"javascript:newform({note: 'note', owner: 'owner'}, {username: '".$_SESSION['username']."'', 'table: '" . $table . "'})\">
+	echo "<button class='database' onclick=\"javascript:newform({note: 'note', owner: 'owner'}, {username: '".$_SESSION['username']."'', 'table: '" . $table . "'})\">
     new
     </button>\n
     <p  id='createPost'></p>";
