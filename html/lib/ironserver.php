@@ -228,7 +228,7 @@ function rules($table, $amount){
 		echo "<div class='post' id='post_" . $row["id"] . "'>
         <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
         <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
-        <p id='content_" . $row["id"] . "'>" . $row["note"] . "</p>";
+        <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>";
 		if($_SESSION["username"] == $row["username"]){
 			echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
             edit</button>
