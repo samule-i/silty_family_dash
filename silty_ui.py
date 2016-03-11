@@ -210,11 +210,13 @@ exit = Label(root, text="quit",
     pady=5,
     bg=orange,
     fg=slate)
-clock = Frame(root,pady=20,bg=lilac)
+
+front = Frame(root)
+clock = Frame(front, pady=20, bg=lilac)
 currtime = Label(clock, font=('FreeSans', 40), bg=lilac, fg=slate)
 currdate = Label(clock, font=('FreeSans', 14), bg=lilac, fg=slate)
 
-left_panel = Frame(root, width=250)
+left_panel = Frame(front, width=250)
 
 left_panel_tabs = Frame(left_panel)
 system_tab = Label(left_panel_tabs,
@@ -234,8 +236,8 @@ processes_tab = Label(left_panel_tabs,
 
 processes = Frame(left_panel)
 system = Frame(left_panel)
-note = Frame(root, bg=green)
-stars = Frame(root, bg=green)
+note = Frame(front, bg=green)
+stars = Frame(front, bg=green)
 
 nginx = Label(processes)
 samba = Label(processes)
@@ -288,8 +290,9 @@ processes_tab.bind("<Button-1>", left_panel_processes)
 exit.bind("<Button-1>", close_window)
 
 #Gridding
-title.grid(row=0, column=0, columnspan=2, sticky=W+E)
-exit.grid(row=0, column=2, sticky=W+E)
+title.grid(columnspan=2, sticky=W+E)
+exit.grid(column=2, sticky=W+E)
+front.grid(columnspan=3)
 left_panel.grid(row=1, column=0, rowspan=2, sticky=E+N+S+W)
 
 left_panel_tabs.grid(row=0, column=0, sticky=W+E)
@@ -321,11 +324,15 @@ panel.grid(row=2, column=2, sticky=N+E+W+S)
 
 
 Grid.rowconfigure(root, 1, weight=1)
-Grid.rowconfigure(root, 2, weight=1)
 
 Grid.columnconfigure(root, 0, weight=1)
 Grid.columnconfigure(root, 1, weight=2)
-Grid.columnconfigure(root, 2, weight=1)
+
+Grid.columconfigure(front, 0, weight=1)
+Grid.columconfigure(front, 1, weight=1)
+Grid.columconfigure(front, 2, weight=1)
+Grid.rowconfigure(front, 0, weight=1)
+Grid.rowconfigure(front, 1, weight=1)
 
 Grid.columnconfigure(left_panel, 0, weight=1)
 Grid.rowconfigure(left_panel, 1, weight=1)
