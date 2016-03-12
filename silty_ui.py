@@ -290,9 +290,9 @@ processes_tab.bind("<Button-1>", left_panel_processes)
 exit.bind("<Button-1>", close_window)
 
 #Gridding
-title.grid(columnspan=2, sticky=W+E)
-exit.grid(column=2, sticky=W+E)
-front.grid(columnspan=3)
+title.grid(row=0, column=0,columnspan=2, sticky=W+E)
+exit.grid(row=0, column=2, sticky=W+E)
+front.grid(columnspan=3, sticky=N+E+W+S)
 left_panel.grid(row=1, column=0, rowspan=2, sticky=E+N+S+W)
 
 left_panel_tabs.grid(row=0, column=0, sticky=W+E)
