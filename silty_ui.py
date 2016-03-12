@@ -203,18 +203,19 @@ root.config(cursor="none")
 title = Label(root,
     text="♥ silty ♥",
     font=('FreeSans', 14),
-    pady=5, bg=orange,
+    bg=orange,
     fg=slate)
 exit = Label(root, text="quit",
     font=('FreeSans', 14),
-    pady=5,
     bg=orange,
     fg=slate)
-clock = Frame(root,pady=20,bg=lilac)
+
+front = Frame(root)
+clock = Frame(front, pady=20, bg=lilac)
 currtime = Label(clock, font=('FreeSans', 40), bg=lilac, fg=slate)
 currdate = Label(clock, font=('FreeSans', 14), bg=lilac, fg=slate)
 
-left_panel = Frame(root, width=250)
+left_panel = Frame(front, width=250)
 
 left_panel_tabs = Frame(left_panel)
 system_tab = Label(left_panel_tabs,
@@ -234,8 +235,8 @@ processes_tab = Label(left_panel_tabs,
 
 processes = Frame(left_panel)
 system = Frame(left_panel)
-note = Frame(root, bg=green)
-stars = Frame(root, bg=green)
+note = Frame(front, bg=green)
+stars = Frame(front, bg=green)
 
 nginx = Label(processes)
 samba = Label(processes)
@@ -280,7 +281,7 @@ img = Image.open(image_dir+"/img.png")
 img = img.resize((220,220), Image.ANTIALIAS)
 pic = ImageTk.PhotoImage(img)
 
-panel = Label(root, image = pic, bg=orange, anchor=SE)
+panel = Label(front, image = pic, bg=orange, anchor=SE)
 
 #binding
 system_tab.bind("<Button-1>", left_panel_system)
@@ -288,9 +289,11 @@ processes_tab.bind("<Button-1>", left_panel_processes)
 exit.bind("<Button-1>", close_window)
 
 #Gridding
-title.grid(row=0, column=0, columnspan=2, sticky=W+E)
-exit.grid(row=0, column=2, sticky=W+E)
-left_panel.grid(row=1, column=0, rowspan=2, sticky=E+N+S+W)
+title.grid(row=0, column=0, sticky=W+E)
+exit.grid(row=0, column=1, sticky=W+E)
+front.grid(row=1, columnspan=2, sticky=N+E+W+S)
+
+left_panel.grid(row=0, column=0, rowspan=2, sticky=E+N+S+W)
 
 left_panel_tabs.grid(row=0, column=0, sticky=W+E)
 system_tab.grid(row=0, column=0, sticky=W+E)
@@ -300,32 +303,37 @@ system.grid(row=1, column=0, sticky=W+E+N+S)
 for child in processes.winfo_children():
     child.grid(sticky=N+E+W+S)
 
-clock.grid(row=1, column=1, sticky=E+W+N+S)
+clock.grid(row=0, column=1, sticky=E+W+N+S)
 currtime.grid(sticky=W+E+S)
 currdate.grid(sticky=W+E+N)
 
 for child in system.winfo_children():
     child.grid(sticky=N+E+W+S)
 
-stars.grid(row=2, column=1, sticky=N+E+W+S)
+stars.grid(row=1, column=1, sticky=N+E+W+S)
 silty_star.grid(sticky=E+W+S)
 star_chart.grid(sticky=E+W+N)
 
-note.grid(column=2, row=1, sticky=N+E+W+S)
+note.grid(column=2, row=0, sticky=N+E+W+S)
 for child in note.winfo_children():
     child.grid(sticky=N+E+W+S)
 
-panel.grid(row=2, column=2, sticky=N+E+W+S)
+panel.grid(row=1, column=2, sticky=N+E+W+S)
 
 #Weighting
 
 
+Grid.rowconfigure(root, 0, weight=0)
 Grid.rowconfigure(root, 1, weight=1)
-Grid.rowconfigure(root, 2, weight=1)
 
-Grid.columnconfigure(root, 0, weight=1)
+Grid.columnconfigure(root, 0, weight=3)
 Grid.columnconfigure(root, 1, weight=2)
-Grid.columnconfigure(root, 2, weight=1)
+
+Grid.columnconfigure(front, 0, weight=1)
+Grid.columnconfigure(front, 1, weight=1)
+Grid.columnconfigure(front, 2, weight=1)
+Grid.rowconfigure(front, 0, weight=1)
+Grid.rowconfigure(front, 1, weight=1)
 
 Grid.columnconfigure(left_panel, 0, weight=1)
 Grid.rowconfigure(left_panel, 1, weight=1)
