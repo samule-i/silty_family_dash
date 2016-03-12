@@ -322,10 +322,10 @@ panel.grid(row=2, column=2, sticky=N+E+W+S)
 #Weighting
 
 
-Grid.rowconfigure(root, 0, weight=2)
+Grid.rowconfigure(root, 0, weight=0)
 Grid.rowconfigure(root, 1, weight=1)
 
-Grid.columnconfigure(root, 0, weight=1)
+Grid.columnconfigure(root, 0, weight=3)
 Grid.columnconfigure(root, 1, weight=2)
 
 Grid.columnconfigure(front, 0, weight=1)
