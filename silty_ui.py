@@ -203,11 +203,10 @@ root.config(cursor="none")
 title = Label(root,
     text="♥ silty ♥",
     font=('FreeSans', 14),
-    pady=5, bg=orange,
+    bg=orange,
     fg=slate)
 exit = Label(root, text="quit",
     font=('FreeSans', 14),
-    pady=5,
     bg=orange,
     fg=slate)
 
