@@ -95,7 +95,7 @@ def cpu_usage():
     return psutil.cpu_percent()
 
 #theming
-theme = "durarara"
+theme = "celty"
 
 if theme == "celty":
     colour_1 = "#333233"
