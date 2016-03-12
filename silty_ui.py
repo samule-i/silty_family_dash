@@ -282,7 +282,7 @@ img = Image.open(image_dir+"/img.png")
 img = img.resize((220,220), Image.ANTIALIAS)
 pic = ImageTk.PhotoImage(img)
 
-panel = Label(root, image = pic, bg=orange, anchor=SE)
+panel = Label(front, image = pic, bg=orange, anchor=SE)
 
 #binding
 system_tab.bind("<Button-1>", left_panel_system)
