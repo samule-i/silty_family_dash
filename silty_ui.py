@@ -328,9 +328,9 @@ Grid.rowconfigure(root, 1, weight=1)
 Grid.columnconfigure(root, 0, weight=1)
 Grid.columnconfigure(root, 1, weight=2)
 
-Grid.columconfigure(front, 0, weight=1)
-Grid.columconfigure(front, 1, weight=1)
-Grid.columconfigure(front, 2, weight=1)
+Grid.columnconfigure(front, 0, weight=1)
+Grid.columnconfigure(front, 1, weight=1)
+Grid.columnconfigure(front, 2, weight=1)
 Grid.rowconfigure(front, 0, weight=1)
 Grid.rowconfigure(front, 1, weight=1)
 
