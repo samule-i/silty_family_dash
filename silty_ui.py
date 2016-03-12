@@ -94,12 +94,52 @@ def uptime():
 def cpu_usage():
     return psutil.cpu_percent()
 
-#colour refs
-orange = "#F7A975"
-lilac = "#AAA3E0"
-green = "#80DB77"
-slate = "#16132B"
-forest = "#0A1909"
+#theming
+theme = "durarara"
+
+if theme == "celty":
+    colour_1 = "#333233"
+    colour_2 = "#202021"
+    colour_3 = "#424042"
+    colour_4 = "#BFFF65"
+    colour_5 = "#71FFFD"
+
+if theme == "asuka":
+    colour_1 = "#711B25"
+    colour_2 = "#220E1C"
+    colour_3 = "#A72532"
+    colour_4 = "#FF8A8F"
+    colour_5 = "#FFCB95"
+
+if theme == "senketsu":
+    colour_1 = "#240706"
+    colour_2 = "#141408"
+    colour_3 = "#011017"
+    colour_4 = "#FF4F54"
+    colour_5 = "#0897FF"
+
+if theme == "super hacker daru":
+    colour_1 = "#00131C"
+    colour_2 = "#031B33"
+    colour_3 = "#032C33"
+    colour_4 = "#86A3E3"
+    colour_5 = "#0BDBD1"
+
+if theme == "kyubey":
+    colour_1 = "#DEBDED"
+    colour_2 = "#BA8BB2"
+    colour_3 = "#A798CC"
+    colour_4 = "#120D0E"
+    colour_5 = "#131419"
+
+if theme == "starburst":
+    colour_1 = "#F7A975"
+    colour_2 = "#AAA3E0"
+    colour_3 = "#80DB77"
+    colour_4 = "#16132B"
+    colour_5 = "#0A1909"
+
+
 
 
 # update sections with current data.
@@ -114,19 +154,19 @@ def processes_update():
 	global deluge
 	global mumble
 	if status('nginx') == True:
-		nginx.config(text='webserver', bg=orange, fg=slate)
+		nginx.config(text='webserver', bg=colour_1, fg=colour_4)
 	else:
 		nginx.config(text='webserver', bg='#e6005b')
 	if status('samba') == True:
-		samba.config(text='file share', bg=orange, fg=slate)
+		samba.config(text='file share', bg=colour_1, fg=colour_4)
 	else:
 		samba.config(text='file share', bg='#e6005b')
 	if status('deluge') == True:
-		deluge.config(text='torrent client', bg=orange, fg=slate)
+		deluge.config(text='torrent client', bg=colour_1, fg=colour_4)
 	else:
 		deluge.config(text='torrent client', bg='#e6005b')
 	if status('mumble') == True:
-		mumble.config(text='voip', bg=orange, fg=slate)
+		mumble.config(text='voip', bg=colour_1, fg=colour_4)
 	else:
 		mumble.config(text='voip', bg='#e6005b')
 
@@ -203,12 +243,12 @@ root.config(cursor="none")
 title = Label(root,
     text="♥ silty ♥",
     font=('FreeSans', 14),
-    bg=orange,
-    fg=slate)
+    bg=colour_1,
+    fg=colour_4)
 exit = Label(root, text="quit",
     font=('FreeSans', 14),
-    bg=orange,
-    fg=slate)
+    bg=colour_1,
+    fg=colour_4)
 
 front = Frame(root)
 clock = Frame(front)
@@ -217,8 +257,8 @@ left_panel = Frame(front, width=250)
 note = Frame(front)
 stars = Frame(front)
 
-currtime = Label(clock, font=('FreeSans', 40), bg=lilac, fg=slate)
-currdate = Label(clock, font=('FreeSans', 14), bg=lilac, fg=slate)
+currtime = Label(clock, font=('FreeSans', 40), bg=colour_2, fg=colour_4)
+currdate = Label(clock, font=('FreeSans', 14), bg=colour_2, fg=colour_4)
 
 
 
@@ -227,16 +267,20 @@ system_tab = Label(left_panel_tabs,
     text="system",
     font=('FreeSans', 14),
     anchor=W,
-    activebackground=orange,
-    activeforeground=slate,
+    activebackground=colour_1,
+    activeforeground=colour_4,
+    background=colour_3,
+    foreground=colour_4,
     state=ACTIVE)
 
 processes_tab = Label(left_panel_tabs,
     text="processes",
     font=('FreeSans', 14),
     anchor=W,
-    activebackground=orange,
-    activeforeground=slate)
+    activebackground=colour_1,
+    activeforeground=colour_4,
+    background=colour_3,
+    foreground=colour_4)
 
 processes = Frame(left_panel)
 system = Frame(left_panel)
@@ -257,8 +301,8 @@ curly_star=Image.open(image_dir+"/curlystar.png")
 curly_star=curly_star.resize((150,150), Image.ANTIALIAS)
 silty_star_image = ImageTk.PhotoImage(curly_star)
 
-silty_star = Label(stars, bg=green, fg=forest, image = silty_star_image, anchor=S)
-star_chart = Label(stars, font=('FreeSans', 22), bg=green, fg=forest, anchor=N)
+silty_star = Label(stars, bg=colour_3, fg=colour_5, image = silty_star_image, anchor=S)
+star_chart = Label(stars, font=('FreeSans', 22), bg=colour_3, fg=colour_5, anchor=N)
 
 note1 = Label(note)
 note2 = Label(note)
@@ -273,18 +317,18 @@ note10 = Label(note)
 
 for child in system.winfo_children():
     child.config(padx=12, font=('FreeSans', 14),
-    anchor=W, bg=orange, fg=slate)
+    anchor=W, bg=colour_1, fg=colour_4)
 for child in processes.winfo_children():
     child.config(padx=12, font=('FreeSans', 18), anchor=W)
 for child in note.winfo_children():
-    child.config(anchor=W, font=('FreeSans', 12), bg=green, fg=forest)
+    child.config(anchor=W, font=('FreeSans', 12), bg=colour_3, fg=colour_5)
 
 
 img = Image.open(image_dir+"/img.png")
 img = img.resize((220,220), Image.ANTIALIAS)
 pic = ImageTk.PhotoImage(img)
 
-panel = Label(gallery, image = pic, bg=orange, anchor=SE)
+panel = Label(gallery, image = pic, bg=colour_1, anchor=SE)
 
 #binding
 system_tab.bind("<Button-1>", left_panel_system)
