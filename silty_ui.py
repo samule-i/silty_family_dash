@@ -211,11 +211,16 @@ exit = Label(root, text="quit",
     fg=slate)
 
 front = Frame(root)
-clock = Frame(front, pady=20, bg=lilac)
+clock = Frame(front)
+gallery = Frame(front)
+left_panel = Frame(front, width=250)
+note = Frame(front)
+stars = Frame(front)
+
 currtime = Label(clock, font=('FreeSans', 40), bg=lilac, fg=slate)
 currdate = Label(clock, font=('FreeSans', 14), bg=lilac, fg=slate)
 
-left_panel = Frame(front, width=250)
+
 
 left_panel_tabs = Frame(left_panel)
 system_tab = Label(left_panel_tabs,
@@ -235,8 +240,6 @@ processes_tab = Label(left_panel_tabs,
 
 processes = Frame(left_panel)
 system = Frame(left_panel)
-note = Frame(front, bg=green)
-stars = Frame(front, bg=green)
 
 nginx = Label(processes)
 samba = Label(processes)
@@ -254,8 +257,8 @@ curly_star=Image.open(image_dir+"/curlystar.png")
 curly_star=curly_star.resize((150,150), Image.ANTIALIAS)
 silty_star_image = ImageTk.PhotoImage(curly_star)
 
-silty_star = Label(stars, bg=green, fg=forest, image = silty_star_image)
-star_chart = Label(stars, font=('FreeSans', 22), bg=green, fg=forest)
+silty_star = Label(stars, bg=green, fg=forest, image = silty_star_image, anchor=S)
+star_chart = Label(stars, font=('FreeSans', 22), bg=green, fg=forest, anchor=N)
 
 note1 = Label(note)
 note2 = Label(note)
@@ -281,7 +284,7 @@ img = Image.open(image_dir+"/img.png")
 img = img.resize((220,220), Image.ANTIALIAS)
 pic = ImageTk.PhotoImage(img)
 
-panel = Label(front, image = pic, bg=orange, anchor=SE)
+panel = Label(gallery, image = pic, bg=orange, anchor=SE)
 
 #binding
 system_tab.bind("<Button-1>", left_panel_system)
@@ -292,6 +295,8 @@ exit.bind("<Button-1>", close_window)
 title.grid(row=0, column=0, sticky=W+E)
 exit.grid(row=0, column=1, sticky=W+E)
 front.grid(row=1, columnspan=2, sticky=N+E+W+S)
+for child in front.winfo_children():
+    child.config(bd=2, bg='black')
 
 left_panel.grid(row=0, column=0, rowspan=2, sticky=E+N+S+W)
 
@@ -304,21 +309,23 @@ for child in processes.winfo_children():
     child.grid(sticky=N+E+W+S)
 
 clock.grid(row=0, column=1, sticky=E+W+N+S)
-currtime.grid(sticky=W+E+S)
-currdate.grid(sticky=W+E+N)
+currtime.grid(sticky=N+E+W+S)
+currdate.grid(sticky=N+E+W+S)
 
 for child in system.winfo_children():
     child.grid(sticky=N+E+W+S)
 
 stars.grid(row=1, column=1, sticky=N+E+W+S)
-silty_star.grid(sticky=E+W+S)
-star_chart.grid(sticky=E+W+N)
+silty_star.grid(sticky=N+E+W+S)
+star_chart.grid(sticky=N+E+W+S)
 
 note.grid(column=2, row=0, sticky=N+E+W+S)
 for child in note.winfo_children():
     child.grid(sticky=N+E+W+S)
 
-panel.grid(row=1, column=2, sticky=N+E+W+S)
+gallery.grid(row=1, column=2, sticky=N+E+W+S)
+panel.grid(sticky=N+E+W+S)
+
 
 #Weighting
 
@@ -362,6 +369,20 @@ Grid.columnconfigure(clock, 0, weight=3)
 Grid.rowconfigure(clock, 0, weight=1)
 Grid.rowconfigure(clock, 1, weight=1)
 
+Grid.columnconfigure(note, 0, weight=1)
+Grid.rowconfigure(note, 0, weight=1)
+Grid.rowconfigure(note, 1, weight=1)
+Grid.rowconfigure(note, 2, weight=1)
+Grid.rowconfigure(note, 3, weight=1)
+Grid.rowconfigure(note, 4, weight=1)
+Grid.rowconfigure(note, 5, weight=1)
+Grid.rowconfigure(note, 6, weight=1)
+Grid.rowconfigure(note, 7, weight=1)
+Grid.rowconfigure(note, 8, weight=1)
+Grid.rowconfigure(note, 9, weight=1)
+
+Grid.rowconfigure(gallery, 0, weight=1)
+Grid.columnconfigure(gallery, 0, weight=1)
 #finish
 root.after(10, update)
 root.mainloop()
