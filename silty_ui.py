@@ -203,11 +203,11 @@ root.config(cursor="none")
 title = Label(root,
     text="♥ silty ♥",
     font=('FreeSans', 14),
-    pady=5, bg=orange,
+    ipady=5, bg=orange,
     fg=slate)
 exit = Label(root, text="quit",
     font=('FreeSans', 14),
-    pady=5,
+    ipady=5,
     bg=orange,
     fg=slate)
 
@@ -290,8 +290,8 @@ processes_tab.bind("<Button-1>", left_panel_processes)
 exit.bind("<Button-1>", close_window)
 
 #Gridding
-title.grid(row=0, column=0,columnspan=2, sticky=W+E)
-exit.grid(row=0, column=2, sticky=W+E)
+title.grid(row=0, column=0, sticky=W+E)
+exit.grid(row=0, column=1, sticky=W+E)
 front.grid(columnspan=3, sticky=N+E+W+S)
 left_panel.grid(row=1, column=0, rowspan=2, sticky=E+N+S+W)
 
@@ -323,6 +323,7 @@ panel.grid(row=2, column=2, sticky=N+E+W+S)
 #Weighting
 
 
+Grid.rowconfigure(root, 0, weight=2)
 Grid.rowconfigure(root, 1, weight=1)
 
 Grid.columnconfigure(root, 0, weight=1)
