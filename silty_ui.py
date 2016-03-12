@@ -291,8 +291,9 @@ exit.bind("<Button-1>", close_window)
 #Gridding
 title.grid(row=0, column=0, sticky=W+E)
 exit.grid(row=0, column=1, sticky=W+E)
-front.grid(columnspan=2, sticky=N+E+W+S)
-left_panel.grid(row=1, column=0, rowspan=2, sticky=E+N+S+W)
+front.grid(row=1, columnspan=2, sticky=N+E+W+S)
+
+left_panel.grid(row=0, column=0, rowspan=2, sticky=E+N+S+W)
 
 left_panel_tabs.grid(row=0, column=0, sticky=W+E)
 system_tab.grid(row=0, column=0, sticky=W+E)
@@ -302,22 +303,22 @@ system.grid(row=1, column=0, sticky=W+E+N+S)
 for child in processes.winfo_children():
     child.grid(sticky=N+E+W+S)
 
-clock.grid(row=1, column=1, sticky=E+W+N+S)
+clock.grid(row=0, column=1, sticky=E+W+N+S)
 currtime.grid(sticky=W+E+S)
 currdate.grid(sticky=W+E+N)
 
 for child in system.winfo_children():
     child.grid(sticky=N+E+W+S)
 
-stars.grid(row=2, column=1, sticky=N+E+W+S)
+stars.grid(row=1, column=1, sticky=N+E+W+S)
 silty_star.grid(sticky=E+W+S)
 star_chart.grid(sticky=E+W+N)
 
-note.grid(column=2, row=1, sticky=N+E+W+S)
+note.grid(column=2, row=0, sticky=N+E+W+S)
 for child in note.winfo_children():
     child.grid(sticky=N+E+W+S)
 
-panel.grid(row=2, column=2, sticky=N+E+W+S)
+panel.grid(row=1, column=2, sticky=N+E+W+S)
 
 #Weighting
 
