@@ -75,7 +75,6 @@ function sidenav(){
 function footer(){
 	echo "<div class='footer'>
     <span class='left'>&copy; 2015 <a href='http://ironserver.co.uk'>ironserver</a>. Valid <a href='http://jigsaw.w3.org/css-validator/check/referer'>CSS</a> &amp; <a href='http://validator.w3.org/check?uri=referer'>XHTML</a></span>
-    <span class='right'><a href='http://templates.arcsin.se/'>Website template</a> by <a href='http://arcsin.se/'>Arcsin</a></span>
     <span class='right'><a href='copyright.php'>copyright information</a></span>
     <div class='clearer'><span></span></div>
     </div>";

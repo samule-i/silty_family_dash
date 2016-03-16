@@ -49,13 +49,7 @@ code {
 	padding: 8px 10px;
 	white-space: pre;
 }
-blockquote {
-	background: url(img/quote.gif) no-repeat;
-	color: #666;
-	display: block;
-	font: normal 1.3em "Lucida Sans Unicode",serif;
-	padding-left: 28px;
-}
+
 h1,h2,h3 {
 	color: #654;
 	padding-top: 6px;
@@ -77,8 +71,7 @@ h1,h2,h3 {
 .header {
 	background: #BC3522;
 	height: 50px;
-	margin: 0 auto;
-	width: 760px;
+	width: auto;
 }
 
 /* title */
@@ -96,9 +89,9 @@ h1,h2,h3 {
 	background: #88A8A7;
 	font: bold 1.2em Verdana,sans-serif;
 	height: 44px;
-	margin: 0 auto;
 	padding: 0 18px;
-	width: 725px;
+	width: auto;
+    text-align: center;
 }
 .navigation a {
 	color: #F4EDE3;
@@ -115,7 +108,7 @@ h1,h2,h3 {
 /* main */
 .main {
 	clear: both;
-	padding: 0 10px 12px 28px;
+	padding-bottom: 10px;
 }
 
 /* sub navigation */
@@ -192,7 +185,9 @@ h1,h2,h3 {
 }
 
 .post {
-border-bottom:5px #958463 solid;}
+border-bottom:2px #F5B43E solid;
+padding-left: 30px;
+margin-bottom:30px;}
 
 .hidden {
 	display:none;
@@ -230,7 +225,7 @@ button.database {
 	line-height: 40px;
 	margin: 0 auto;
 	text-align: center;
-	width: 760px;
+	width: auto;
 }
 .footer a {
 	color: #FFD;
