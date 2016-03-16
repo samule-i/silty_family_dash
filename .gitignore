@@ -1,2 +1,4 @@
 *.db
 html/img/rewards/*
+*.pyc
+*.pyo
