@@ -5,15 +5,16 @@ if(isset($_POST["username"])){
 	$username = "'" . $_POST["username"] . "'";
 }
 if(isset($_POST["password"])){
-	$password = $_POST["password"];
 	$db = new sqlite3('../main.db');
-	$result = $db->query("SELECT * FROM users WHERE username = $username");
+	$prepare = $db->prepare("SELECT * FROM users WHERE username = :username");
+    $prepare->bindparam(':username', htmlspecialchars($_POST["username"]));
+    $result = $prepare->execute();
 	if(!result){
 		header("location:login.php");
-		exit();	
+		exit();
 	}
 	while($row = $result->fetchArray(SQLITE3_ASSOC)){
-		if(password_verify($password, $row['password'])){
+		if(password_verify(htmlspecialchars($_POST["password"]), $row['password'])){
 			$_SESSION["username"] = $row["username"];
 			$_SESSION["user_id"] = $row["id"];
 			header("location: index.php");
