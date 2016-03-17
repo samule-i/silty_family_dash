@@ -1,4 +1,4 @@
-<?php 
+<?php
 $table = "copyright";
 include("lib/layout.php");
 include("lib/ironserver.php");
@@ -6,9 +6,9 @@ authentication();
 ?>
 
 <html>
-<?php 
+<?php
 doctype();
-head(); 
+head();
 ?>
 <body>
 <div class='container'>
@@ -23,8 +23,7 @@ navigation();
 <h1>NGINX</h1>
 <h1>PHP</h1>
 <h1>CSS3</h1>
-<h1><a href='http://arcsin.se'>arcsin</a></h1>
-<h1><a href='https://icomoon.io/icons.html'>IcoMoon</a></h1>
+
 </div>
 <?php
 sidenav()
