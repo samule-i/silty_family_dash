@@ -147,28 +147,30 @@ def clock_update():
     global clock
     currtime.config(text=time.strftime('%I:%M'))
     currdate.config(text=time.strftime('%d/%m/%Y'))
+    root.after(5000, clock_update)
 
 def processes_update():
-	global nginx
-	global samba
-	global deluge
-	global mumble
-	if status('nginx') == True:
-		nginx.config(text='webserver', bg=colour_1, fg=colour_4)
-	else:
-		nginx.config(text='webserver', bg='#e6005b')
-	if status('samba') == True:
-		samba.config(text='file share', bg=colour_1, fg=colour_4)
-	else:
-		samba.config(text='file share', bg='#e6005b')
-	if status('deluge') == True:
-		deluge.config(text='torrent client', bg=colour_1, fg=colour_4)
-	else:
-		deluge.config(text='torrent client', bg='#e6005b')
-	if status('mumble') == True:
-		mumble.config(text='voip', bg=colour_1, fg=colour_4)
-	else:
-		mumble.config(text='voip', bg='#e6005b')
+    global nginx
+    global samba
+    global deluge
+    global mumble
+    if status('nginx') == True:
+        nginx.config(text='webserver', bg=colour_1, fg=colour_4)
+    else:
+        nginx.config(text='webserver', bg='#e6005b')
+    if status('samba') == True:
+        samba.config(text='file share', bg=colour_1, fg=colour_4)
+    else:
+        samba.config(text='file share', bg='#e6005b')
+    if status('deluge') == True:
+        deluge.config(text='torrent client', bg=colour_1, fg=colour_4)
+    else:
+        deluge.config(text='torrent client', bg='#e6005b')
+    if status('mumble') == True:
+        mumble.config(text='voip', bg=colour_1, fg=colour_4)
+    else:
+        mumble.config(text='voip', bg='#e6005b')
+    root.after(10000, processes_update)
 
 def system_update():
     global cpu
@@ -193,8 +195,11 @@ def system_update():
     share_used.config(text='disk usage: '+share_usage)
     share_free.config(text='disk free: '+share_left)
 
+    root.after(1000, system_update)
+
 def stars_update():
     star_chart.config(text=get_stars())
+    root.after(30000, stars_update)
 
 def note_update():
     global note1
@@ -215,14 +220,38 @@ def note_update():
         except IndexError:
             pass
         i+=1
+    root.after(5000, note_update)
 
-def update():
-    clock_update()
-    processes_update()
-    system_update()
-    stars_update()
-    note_update()
-    root.after(2000, update)
+def img_to_frame(frame, image):
+    frame_height, frame_width = frame.winfo_height(), frame.winfo_width()
+    img = Image.open(image)
+    img = img.resize((frame_height, frame_width), Image.ANTIALIAS)
+    gallery_image = ImageTk.PhotoImage(img)
+    return frame_height
+
+def gallery_widget():
+    global gallery
+    global panel
+    frame_height= gallery.winfo_height()
+    frame_width= gallery.winfo_width()
+    img= Image.open(current_path()+'/img/img.png')
+    #Get the highest of width or height and make that the size of the frame
+    if img.size[0] > img.size[1]:
+        wpercent= (frame_width / float(img.size[0]))
+        relative_height= int(float(img.size[1]) * float(wpercent))
+        img.resize((frame_width, relative_height), Image.ANTIALIAS)
+    else:
+        hpercent= (frame_height / float(img.size[1]))
+        relative_width= int(float(img.size[0]) * float(hpercent))
+        img.resize((relative_width, frame_height))
+
+    rel_height= (frame_height / float(img.size[1]))
+    rel_width= int(float(img.size[0]) * float(rel_height))
+    img= img.resize((rel_width, frame_height), Image.ANTIALIAS)
+    gallery_image= ImageTk.PhotoImage(img)
+    panel.config(image= gallery_image)
+    panel.image = gallery_image
+    root.after(10000, gallery_widget)
 
 #test database existence, if not create it..
 if not os.path.isfile(current_path()+'/main.db'):
@@ -328,7 +357,7 @@ img = Image.open(image_dir+"/img.png")
 img = img.resize((220,220), Image.ANTIALIAS)
 pic = ImageTk.PhotoImage(img)
 
-panel = Label(gallery, image = pic, bg=colour_1, anchor=SE)
+panel = Label(gallery,image=pic, bg=colour_1)
 
 #binding
 system_tab.bind("<Button-1>", left_panel_system)
@@ -428,7 +457,12 @@ Grid.rowconfigure(note, 9, weight=1)
 Grid.rowconfigure(gallery, 0, weight=1)
 Grid.columnconfigure(gallery, 0, weight=1)
 #finish
-root.after(10, update)
+root.after(10, system_update)
+root.after(10, processes_update)
+root.after(10, note_update)
+root.after(10, clock_update)
+root.after(10, stars_update)
+root.after(500, gallery_widget)
 root.mainloop()
 
 
