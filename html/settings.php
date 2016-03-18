@@ -61,15 +61,14 @@ if(isset($_POST["add_user_username"])){
 	$db->close();
 }
 
-if(isset($_POST["new_link"]) && isset($_POST["link_url"])){
+if(isset($_POST["link_title"]) && isset($_POST["link_url"])){
     $dbh = new sqlite3('../main.db');
-    $table = 'external_links'
-    $statement = $db->prepare('INSERT INTO :table(username, title, link) VALUES(:username, :title, :url)');
-    $statement->bindparam(':table', $table);
-    $statement->bindparam(':username', $_SESSION['username']);
-    $statement->bindparam(':title', $_POST['link_title']);
-    $statement->bindparam(':url', $_POST['link_url']);
-    $result->$statement->execute();
+    $statement = $dbh->prepare('INSERT INTO external_links(username, title, link) VALUES(:username, :title, :url)');
+    $statement->bindvalue(':username', $_SESSION['username']);
+    $statement->bindvalue(':title', htmlspecialchars($_POST['link_title']));
+    $statement->bindvalue(':url', htmlspecialchars($_POST['link_url']));
+    $result = $statement->execute();
+    $dbh->close();
 }
 
 ?>
