@@ -98,6 +98,14 @@ username TEXT NOT NULL,
 title TEXT NOT NULL,
 link TEXT NOT NULL);
 
+
+CREATE TABLE "gallery"(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    username TEXT NOT NULL,
+    image TEXT NOT NULL
+);
+
 CREATE TRIGGER update_username UPDATE OF username ON users
     BEGIN
         UPDATE rules SET username = new.username WHERE username = old.username;
@@ -111,7 +119,8 @@ CREATE TRIGGER update_username UPDATE OF username ON users
 		UPDATE rewards_archive SET username = new.username WHERE username = old.username;
 		UPDATE calendar SET username = new.username WHERE username = old.username;
 		UPDATE calendar_archive SET username = new.username WHERE username = old.username;
-                UPDATE external_links SET username = new.username WHERE username = old.username;
+        UPDATE external_links SET username = new.username WHERE username = old.username;
+        UPDATE gallery SET username = new.username WHERE username = old.username;
 	END;
 
 INSERT INTO users(username, password) VALUES('silty', '$2y$10$dWEB3n9q12CKMr8MzOX/Y.rLIBTLMJUmriOA1Yk.onpIe/uWTU0Fm');

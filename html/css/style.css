@@ -1,15 +1,3 @@
-/*
-Template name: Coffee N Cream
-Template URI: http://templates.arcsin.se/coffee-n-cream-website-template/
-Release date: 2006-08-24
-Description: A smooth coffee style template.
-Author: Viktor Persson
-Author URI: http://arcsin.se/
-
-This template is licensed under a Creative Commons Attribution 2.5 License:
-http://templates.arcsin.se/license/
-*/
-
 /* standard elements */
 * {
 	margin: 0;
@@ -154,6 +142,7 @@ h1,h2,h3 {
 	padding-top: 12px;
 	float: left;
 	width: 68%;
+    padding-left:20px;
 }
 .content .descr {
 	color: #987E57;
@@ -186,7 +175,6 @@ h1,h2,h3 {
 
 .post {
 border-bottom:2px #F5B43E solid;
-padding-left: 30px;
 margin-bottom:30px;}
 
 .hidden {
@@ -205,6 +193,13 @@ img.reward {
 	display:block;
 	margin-left:auto;
 	margin-right:auto;
+}
+img.gallery {
+    max-width:256px;
+    max-height:256px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 button.database {
