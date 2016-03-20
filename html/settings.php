@@ -61,6 +61,16 @@ if(isset($_POST["add_user_username"])){
 	$db->close();
 }
 
+if(isset($_POST["link_title"]) && isset($_POST["link_url"])){
+    $dbh = new sqlite3('../main.db');
+    $statement = $dbh->prepare('INSERT INTO external_links(username, title, link) VALUES(:username, :title, :url)');
+    $statement->bindvalue(':username', $_SESSION['username']);
+    $statement->bindvalue(':title', htmlspecialchars($_POST['link_title']));
+    $statement->bindvalue(':url', htmlspecialchars($_POST['link_url']));
+    $result = $statement->execute();
+    $dbh->close();
+}
+
 ?>
 <html>
 <?php
@@ -108,8 +118,8 @@ echo "<h1>Welcome " . $_SESSION["username"] . "</h1>";
 </form>
 <?php
 if($_SESSION['user_id'] == 1){
-	echo '<h1>Admin controls</h1>
-    <h2>Add user</h2>
+	echo '<h1>Admin controls</h1>';
+    echo '<h2>Add user</h2>
     <form name="add_user" action="settings.php" method="post">
     <label for="add_user_username">username:</label>
     <input type="text" name="add_user_username"><br />
@@ -119,7 +129,16 @@ if($_SESSION['user_id'] == 1){
     <input type="password" name="add_user_password"><br />
     <label for="confirm_add_user_password">confirm password:</label>
     <input type="password" name="confirm_add_user_password"><br />
-    <input type="submit" value="submit">';
+    <input type="submit" value="submit">
+    </form>';
+    echo '<h2>Add link</h2>
+    <form name="new_link" action="settings.php" method="post">
+    <label for="link_title">link title:</label>
+    <input type="text" name="link_title"><br />
+    <label for="link_url">link url:</label>
+    <input type="text" name="link_url"><br />
+    <input type="submit" value="submit">
+    </form>';
 }
 ?>
 </div>
