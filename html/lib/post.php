@@ -9,7 +9,7 @@ function escapechars($string){
 	$string = str_replace("<br>", "", $string);
 	$string = str_replace("<br><br>", "<br>", $string);
 	return($string);
-	
+
 }
 
 
@@ -90,7 +90,7 @@ switch($_POST['action']){
 			}
 		}
 		echo $values;
-		$db = new sqlite3('../../main.db'); 
+		$db = new sqlite3('../../main.db');
 		$return = $db->exec("UPDATE $table SET $values WHERE id = $id");
 		if(!$return){
 			echo "<br> error <br>";

@@ -28,6 +28,7 @@ function navigation(){
 	"stars" => "stars.php",
 	"rewards" => "rewards.php",
 	"notes" => "notes.php",
+    "gallery" => "gallery.php",
 	"settings" => "settings.php"
 	);
 	foreach($navigation as $title=>$url){
