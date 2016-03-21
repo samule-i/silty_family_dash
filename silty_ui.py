@@ -46,14 +46,12 @@ def get_stars():
 	cursor = connect.cursor()
 	try:
 	    cursor.execute('select count(*) from stars')
-	except OperationalError:
-		time.sleep(4000)
+	except sqlite3.OperationalError:
 		pass
 	total = cursor.fetchone()
 	try:
 		cursor.execute('select cost from rewards where not award_date = ""')
-	except OperationalError:
-		time.sleep(4000)
+	except sqlite3.OperationalError:
 		pass
 	rewards = cursor.fetchall()
 	spent = sum(sum(tuple) for tuple in rewards)
@@ -66,7 +64,10 @@ def get_notes():
 	db_path = current_path()+'/main.db'
 	connect = sqlite3.connect(db_path)
 	cursor = connect.cursor()
-	cursor.execute('select username, title from notes order by id desc limit 10')
+    try:
+	       cursor.execute('select username, title from notes order by id desc limit 10')
+    except sqlite3.OperationalError:
+        pass
 	results = cursor.fetchall()
 	if connect:
 		connect.close()
