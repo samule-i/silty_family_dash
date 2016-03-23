@@ -7,6 +7,7 @@ import psutil
 import sqlite3
 from tkinter import *
 from PIL import ImageTk, Image
+import random
 
 def current_path():
     return os.path.dirname(os.path.realpath(sys.argv[0]))
@@ -61,17 +62,17 @@ def get_stars():
 	return str(left) +' / '+ str(total[0])
 
 def get_notes():
-	db_path = current_path()+'/main.db'
-	connect = sqlite3.connect(db_path)
-	cursor = connect.cursor()
+    db_path = current_path()+'/main.db'
+    connect = sqlite3.connect(db_path)
+    cursor = connect.cursor()
     try:
-	       cursor.execute('select username, title from notes order by id desc limit 10')
+        cursor.execute('select username, title from notes order by id desc limit 10')
     except sqlite3.OperationalError:
         pass
-	results = cursor.fetchall()
-	if connect:
-		connect.close()
-	return results
+    results = cursor.fetchall()
+    if connect:
+        connect.close()
+    return results
 
 def status(program):
 	if program == 'nginx':
@@ -223,19 +224,29 @@ def note_update():
         i+=1
     root.after(5000, note_update)
 
-def img_to_frame(frame, image):
-    frame_height, frame_width = frame.winfo_height(), frame.winfo_width()
-    img = Image.open(image)
-    img = img.resize((frame_height, frame_width), Image.ANTIALIAS)
-    gallery_image = ImageTk.PhotoImage(img)
-    return frame_height
-
 def gallery_widget():
     global gallery
     global panel
     frame_height= gallery.winfo_height()
     frame_width= gallery.winfo_width()
-    img= Image.open(current_path()+'/img/img.png')
+    db_path = current_path()+'/main.db'
+    connect = sqlite3.connect(db_path)
+    cursor = connect.cursor()
+    try:
+        cursor.execute('select count(*) from gallery')
+    except sqlite3.OperationalError:
+        pass
+    amount = sum(cursor.fetchone())
+    rand_row = random.randint(1, amount)
+    try:
+        cursor.execute('SELECT image FROM gallery WHERE id = '+str(rand_row))
+        result = cursor.fetchone()
+        image_path = result[0]
+        img= Image.open(current_path()+'/html'+image_path)
+    except sqlite3.OperationalError:
+        pass
+    if 'img' not in locals():
+        img= Image.open(current_path()+'/img/img.png')
     #Get the highest of width or height and make that the size of the frame
     if img.size[0] > img.size[1]:
         wpercent= (frame_width / float(img.size[0]))
@@ -252,7 +263,7 @@ def gallery_widget():
     gallery_image= ImageTk.PhotoImage(img)
     panel.config(image= gallery_image)
     panel.image = gallery_image
-    root.after(10000, gallery_widget)
+    root.after(600000, gallery_widget)
 
 #test database existence, if not create it..
 if not os.path.isfile(current_path()+'/main.db'):

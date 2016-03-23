@@ -20,7 +20,7 @@ navigation();
 <div class="main">
 <div class="content">
 <?php
-echo'<div id="hidden_form">
+echo'<div class="silty_create">
 <form action="lib/image_upload.php" method="post" enctype="multipart/form-data">
     <h2>Image upload</h2>
     <input type="file" name="image_upload" id="image_upload">
