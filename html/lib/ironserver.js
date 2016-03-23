@@ -44,7 +44,7 @@ function newform(params, hiddenfields){
 		var form = document.createElement("form");
 		form.setAttribute("method", "post");
 		form.setAttribute("action", "lib/post.php");
-		
+
 		for(var key in params){
 			var newLabel = document.createElement("label")
 			newLabel.setAttribute("for", key);
@@ -55,7 +55,7 @@ function newform(params, hiddenfields){
 			textfield.setAttribute("name", key);
 			form.appendChild(textfield);
 		}
-		
+
 	    for(var key in hiddenfields) {
             if(hiddenfields.hasOwnProperty(key)) {
 				var hiddenField = document.createElement("input");
@@ -65,19 +65,20 @@ function newform(params, hiddenfields){
 				form.appendChild(hiddenField);
 			}
 		}
-		
+
 		var hiddenField = document.createElement("input");
 		hiddenField.setAttribute("type", "hidden");
 		hiddenField.setAttribute("name", "action");
 		hiddenField.setAttribute("value", "create");
 		form.appendChild(hiddenField);
-		
+
 		var submit = document.createElement("input");
 		submit.setAttribute("type", "submit");
 		submit.setAttribute("value", "submit");
 		form.appendChild(submit);
-		
+
 		var attatch = document.getElementById("createPost")
+        attatch.innerHTML = '';
 		attatch.appendChild(form);
 }
 
@@ -85,7 +86,7 @@ function editpost(fields, hiddenfields, id){
 		var form = document.createElement("form");
 		form.setAttribute("method", "post");
 		form.setAttribute("action", "lib/post.php");
-		
+
 		for(var key in fields){
 			var newLabel = document.createElement("label")
 			newLabel.setAttribute("for", key);
@@ -98,7 +99,7 @@ function editpost(fields, hiddenfields, id){
 			textfield.innerHTML = edit;
 			form.appendChild(textfield);
 		}
-		
+
 	    for(var key in hiddenfields) {
             if(hiddenfields.hasOwnProperty(key)) {
             var hiddenField = document.createElement("input");
@@ -112,20 +113,20 @@ function editpost(fields, hiddenfields, id){
 		 hiddenField.setAttribute("name", "id");
 		 hiddenField.setAttribute("value", id);
 		 form.appendChild(hiddenField);
-		 
+
 		 var hiddenField = document.createElement("input");
 		 hiddenField.setAttribute("type", "hidden");
 		 hiddenField.setAttribute("name", "action");
 		 hiddenField.setAttribute("value", "edit");
 		 form.appendChild(hiddenField);
-		 
+
 		}
-		
+
 		var submit = document.createElement("input");
 		submit.setAttribute("type", "submit");
 		submit.setAttribute("value", "submit");
 		form.appendChild(submit);
-		
+
 		var post = document.getElementById("post_"+id)
 		post.innerHTML = ' ';
 		post.appendChild(form);

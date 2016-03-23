@@ -4,20 +4,6 @@ date INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
 username TEXT NOT NULL UNIQUE,
 password CHAR(76) NOT NULL);
 
-CREATE TABLE "calendar"(
-id INTEGER PRIMARY KEY AUTOINCREMENT,
-date INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-username TEXT NOT NULL,
-note TEXT NOT NULL,
-event_date INTEGER NOT NULL);
-
-CREATE TABLE "calendar_archive"(
-id INTEGER PRIMARY KEY AUTOINCREMENT,
-date INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-username TEXT NOT NULL,
-note TEXT NOT NULL,
-event_date INTEGER NOT NULL);
-
 CREATE TABLE "diary"(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 date INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
@@ -117,8 +103,6 @@ CREATE TRIGGER update_username UPDATE OF username ON users
 		UPDATE notes_archive SET username = new.username WHERE username = old.username;
 		UPDATE rewards SET username = new.username WHERE username = old.username;
 		UPDATE rewards_archive SET username = new.username WHERE username = old.username;
-		UPDATE calendar SET username = new.username WHERE username = old.username;
-		UPDATE calendar_archive SET username = new.username WHERE username = old.username;
         UPDATE external_links SET username = new.username WHERE username = old.username;
         UPDATE gallery SET username = new.username WHERE username = old.username;
 	END;

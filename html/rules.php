@@ -1,10 +1,5 @@
 <?php
 $table = "rules";
-if(isset($_GET["archive"])){
-	$table = "rules_archive";
-} else {
-	$table = "rules";
-}
 $post_count = 5;
 include("lib/layout.php");
 include("lib/ironserver.php");
@@ -27,10 +22,11 @@ navigation();
 <div class="main">
 <div class="content">
 <?php
-echo "<button class='database' onclick=\"javascript:newform({title: 'title', note: 'note'}, {table: '" . $table . "', username: '" . $_SESSION["username"] . "'})\">
+echo "<p  id='createPost'>
+<button class='database' onclick=\"javascript:newform({title: 'title', note: 'note'}, {table: '" . $table . "', username: '" . $_SESSION["username"] . "'})\">
 new
 </button>\n
-<p  id='createPost'></p>";
+</p>";
 $db = new sqlite3('../main.db');
 if(isset($_GET["offset"])){
     $offset = $_GET["offset"];
