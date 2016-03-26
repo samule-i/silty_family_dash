@@ -7,12 +7,12 @@ authentication();
 ?>
 
 <?php
-if(isset($_POST["submit"])){
+if(isset($_POST["owner"])){
     $dbh = new sqlite3('../main.db');
-    $prepare = $dbh->prepare("INSERT INTO stars(username, note, owner) VALUES(:username, :note. :owner)");
+    $prepare = $dbh->prepare("INSERT INTO stars(username, note, owner) VALUES(:username, :note, :owner)");
     $prepare->bindParam(':username', htmlspecialchars($_SESSION["username"]));
     $prepare->bindParam(':note', htmlspecialchars($_POST["note"]));
-    $prepare->bindParam(':note', htmlspecialchars($_POST["owner"]));
+    $prepare->bindParam(':owner', htmlspecialchars($_POST["owner"]));
     $result = $prepare->execute();
     if(!$result){
         echo $dbh->lastErrorMsg();
