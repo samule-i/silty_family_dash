@@ -30,7 +30,7 @@ echo'<div class="silty_create">
 </div>';
 $dbh = new sqlite3('../main.db');
 if(isset($_GET["offset"])){
-    $offset = $GET["offset"];
+    $offset = $_GET["offset"];
 } else {
     $offset = 0;
 }
