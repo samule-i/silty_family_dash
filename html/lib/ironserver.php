@@ -17,6 +17,20 @@ function authentication(){
 		exit();
 	}
 }
+function list_users(){
+    $dbh = new sqlite3('../main.db');
+    $prepare = $dbh->prepare("SELECT username FROM users");
+    $result = $prepare->execute();
+    if(!result){
+        echo $dbh->lastErrorMsg();
+        exit();
+    }
+    while($row = $result->fetchArray(SQLITE3_ASSOC)){
+        $userlist[] = $row["username"];
+    }
+    return $userlist;
+}
+
 
 function add_user($username){
 	global $db_path;

@@ -131,3 +131,49 @@ function editpost(fields, hiddenfields, id){
 		post.innerHTML = ' ';
 		post.appendChild(form);
 }
+
+function newStar(){
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "stars.php");
+
+    var notelabel = document.createElement("label");
+    notelabel.setAttribute("for", "note");
+    notelabel.innerHTML = "note";
+    form.appendChild(notelabel);
+
+    var textarea = document.createElement("textarea");
+    textarea.setAttribute("type", "textarea");
+    textarea.setAttribute("name", "note");
+    form.appendChild(textarea);
+
+    var ownerLabel = document.createElement("label");
+    ownerLabel.setAttribute("for", "owner");
+    ownerLabel.innerHTML = "owner";
+    form.appendChild(ownerLabel);
+
+    var list = document.createElement("input");
+    list.setAttribute("list", "users");
+    list.setAttribute("name", "users");
+    form.appendChild(list);
+
+    var userList= document.createElement("datalist");
+    userList.setAttribute("id", "users");
+    form.appendChild(userList);
+
+    var i;
+    for (i = 0; i < arguments.length; i++){
+        var user= document.createElement("option");
+        user.setAttribute("value", arguments[i]);
+        userList.appendChild(user);
+    }
+
+    var submit = document.createElement("input");
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("value", "submit");
+    form.appendChild(submit)
+
+    var parent = document.getElementById("newstar");
+    parent.innerHTML = '';
+    parent.appendChild(form);
+}
