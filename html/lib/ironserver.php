@@ -19,7 +19,7 @@ function authentication(){
 }
 function list_users(){
     $dbh = new sqlite3('../main.db');
-    $prepare = $dbh->prepare("SELECT username FROM users");
+    $prepare = $dbh->prepare("SELECT username FROM users WHERE NOT id = '1'");
     $result = $prepare->execute();
     if(!result){
         echo $dbh->lastErrorMsg();
@@ -103,25 +103,6 @@ function page_navigation($table, $page){
 		}
 		echo "'>" . $x . "</a>";
 	}
-}
-
-function stars($table, $amount){
-	global $db_path;
-	$db = new sqlite3($db_path);
-	if(isset($_GET["offset"])){
-		$offset = $_GET["offset"];
-	} else {
-		$offset = 0;
-	}
-	$result = $db->query("SELECT * FROM $table ORDER BY id DESC LIMIT $amount OFFSET $offset");
-	while($row = $result->fetchArray(SQLITE3_ASSOC)){
-		# create post
-		if(($row["id"] % 10) == "0" ){
-			echo "<br>";
-		}
-		echo "★";
-	}
-	$db->close();
 }
 
 function rewards($table, $amount){
