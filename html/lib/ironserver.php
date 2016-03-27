@@ -94,13 +94,24 @@ function total_stars(){
 	$db->close();
 }
 
+function user_stars(){
+    $dbh = new sqlite3('../main.db');
+    foreach(list_users() as $sltyusr){
+        $prepare = $dbh->prepare('SELECT count(*) FROM stars WHERE owner = :owner');
+        $prepare->bindParam(':owner', $sltyusr);
+        $result = $prepare->execute();
+        while($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $starlist[$sltyusr] = $row["count(*)"];
+        }
+    }
+    $dbh->close();
+    return $starlist;
+}
+
 function page_navigation($table, $page){
 	$PAGES = ceil(get_total($table) / $page);
 	for($x = 1; $x<=$PAGES ;$x++) {
 		echo "<a href='?offset=" . ((($x -1) * $page));
-		if(isset($_GET["archive"])){
-			echo "&archive=1";
-		}
 		echo "'>" . $x . "</a>";
 	}
 }

@@ -28,7 +28,8 @@ function navigation(){
 	"stars" => "stars.php",
 	"rewards" => "rewards.php",
 	"notes" => "notes.php",
-    "gallery" => "gallery.php"
+    "gallery" => "gallery.php",
+	"settings" => "settings.php"
 	);
 	foreach($navigation as $title=>$url){
 		echo "<a href='". $url ."'>".$title."</a>";
@@ -55,16 +56,17 @@ function external_links(){
 function sidenav(){
 	echo "<div class='sidenav'>
     <h1>Logged in as " . $_SESSION['username'] . "</h1>
-    <ul><li><a href='settings.php'>settings</a></li></ul>
     <ul><li><a href=?logout=TRUE>logout</a></li></ul>
     <h1>" . (total_stars()-spent_stars()) . "/" . total_stars() . " stars</h1>
+    <ul>";
+    foreach(user_stars() as $usr=>$stars){
+        echo "<li>".$usr.": ".$stars."</li>";
+    }
+    echo "</ul>
     <h1>Archives</h1>
     <ul>";
 	$archives = array(
-		"Rules" => "rules_archive.php",
-        "Diary" => "diary_archive.php",
-        "Rewards" => "rewards_achive.php",
-        "notes" => "note_archive.php"
+		"Rules" => "rules.php?archive=1",
 	);
 	foreach($archives as $title=>$url){
 		echo "<li><a href='". $url ."'>".$title."</a></li>";
@@ -72,13 +74,14 @@ function sidenav(){
 	echo "</ul>
     <h1>Links</h1>";
 	external_links();
+	echo "<h1>Services</h1>
     </div>";
 }
 
 function footer(){
 	echo "<div class='footer'>
     <span class='left'>&copy; 2015 <a href='http://ironserver.co.uk'>ironserver</a>. Valid <a href='http://jigsaw.w3.org/css-validator/check/referer'>CSS</a> &amp; <a href='http://validator.w3.org/check?uri=referer'>XHTML</a></span>
-    <span class='right'><a href='copyright.php'>copyright & about</a></span>
+    <span class='right'><a href='copyright.php'>copyright information</a></span>
     <div class='clearer'><span></span></div>
     </div>";
 }

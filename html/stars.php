@@ -1,6 +1,6 @@
 <?php
 $table = "stars";
-$amount = 100;
+$amount = 20;
 include("lib/layout.php");
 include("lib/ironserver.php");
 authentication();
@@ -74,7 +74,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)){
 	if(($row["id"] % 10) == "0" ){
 		echo "<br>";
 	}
-	echo "★";
+	echo gmdate('Y-m-d', $row["date"])."★: ".$row["note"].'<br>';
 }
 $dbh->close();
 ?>

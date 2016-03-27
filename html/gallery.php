@@ -11,7 +11,7 @@ head();
 <body>
 <div class='container'>
 <?php
-html_header('notes');
+html_header('gallery');
 navigation();
 ?>
 <div class="navigation">
@@ -20,7 +20,7 @@ navigation();
 <div class="main">
 <div class="content">
 <?php
-echo'<div class="silty_create">
+echo'<div id="hidden_form">
 <form action="lib/image_upload.php" method="post" enctype="multipart/form-data">
     <h2>Image upload</h2>
     <input type="file" name="image_upload" id="image_upload">
