@@ -108,6 +108,25 @@ function user_stars(){
     return $starlist;
 }
 
+
+function user_spent(){
+    $dbh = new sqlite3('../main.db');
+    foreach(list_users() as $sltyusr){
+        $prepare = $dbh->prepare('SELECT cost FROM rewards WHERE owner = :owner AND NOT award_date = ""');
+        $prepare->bindParam(':owner', $sltyusr);
+        $result = $prepare->execute();
+        if(!$result){
+            echo $dbh->lastErrorMsg();
+        }
+        while($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $t_cost += $row["cost"];
+            $return[$sltyusr] = $t_cost;
+        }
+    }
+    return $return;
+}
+
+
 function page_navigation($table, $page){
 	$PAGES = ceil(get_total($table) / $page);
 	for($x = 1; $x<=$PAGES ;$x++) {

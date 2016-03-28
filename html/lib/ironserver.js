@@ -132,48 +132,98 @@ function editpost(fields, hiddenfields, id){
 		post.appendChild(form);
 }
 
-function newStar(){
-    var form = document.createElement("form");
-    form.setAttribute("method", "post");
-    form.setAttribute("action", "stars.php");
 
-    var notelabel = document.createElement("label");
-    notelabel.setAttribute("for", "note");
-    notelabel.innerHTML = "note";
-    form.appendChild(notelabel);
+function label(name){
+    var label = document.createElement("label");
+    label.setAttribute("for", name);
+    label.innerHTML = name+':';
+    return label;
+}
 
+function textarea(name){
     var textarea = document.createElement("textarea");
     textarea.setAttribute("type", "textarea");
-    textarea.setAttribute("name", "note");
-    form.appendChild(textarea);
+    textarea.setAttribute("name", name);
+    return textarea;
+}
 
-    var ownerLabel = document.createElement("label");
-    ownerLabel.setAttribute("for", "owner");
-    ownerLabel.innerHTML = "owner";
-    form.appendChild(ownerLabel);
-
+function list(){
     var list = document.createElement("input");
     list.setAttribute("list", "users");
-    list.setAttribute("name", "users");
-    form.appendChild(list);
+    list.setAttribute("name", "owner");
+    return list
+}
 
-    var userList= document.createElement("datalist");
-    userList.setAttribute("id", "users");
-    form.appendChild(userList);
+function datalist(){
+    var datalist= document.createElement("datalist");
+    datalist.setAttribute("id", "users");
 
     var i;
     for (i = 0; i < arguments.length; i++){
         var user= document.createElement("option");
         user.setAttribute("value", arguments[i]);
-        userList.appendChild(user);
+        datalist.appendChild(user);
     }
+    return datalist;
+}
+
+function action(action){
+    var hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", "action");
+    hiddenField.setAttribute("value", action);
+    return hiddenField
+}
+
+function submit(){
+    var submit = document.createElement("input");
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("value", "submit");
+    return submit;
+}
+function newStar(){
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "stars.php");
+
+    form.appendChild(label("note"));
+    form.appendChild(textarea("note"));
+    form.appendChild(label("owner"));
+    form.appendChild(list());
+    form.appendChild(datalist.apply(this, arguments));
 
     var submit = document.createElement("input");
     submit.setAttribute("type", "submit");
     submit.setAttribute("value", "submit");
-    form.appendChild(submit)
+    form.appendChild(submit);
 
     var parent = document.getElementById("newstar");
+    parent.innerHTML = '';
+    parent.appendChild(form);
+}
+
+function newReward(){
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "rewards.php");
+
+    form.appendChild(label("title"));
+    form.appendChild(textarea("title"));
+    form.appendChild(label("note"));
+    form.appendChild(textarea("note"));
+    form.appendChild(label("cost"));
+    form.appendChild(textarea("cost"));
+    form.appendChild(label("image"));
+    form.appendChild(textarea("image"));
+    form.appendChild(label("link"));
+    form.appendChild(textarea("link"));
+    form.appendChild(label("owner"));
+    form.appendChild(list());
+    form.appendChild(datalist.apply(this, arguments));
+    form.appendChild(action("new"));
+    form.appendChild(submit());
+
+    var parent = document.getElementById("newform");
     parent.innerHTML = '';
     parent.appendChild(form);
 }

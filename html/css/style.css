@@ -43,6 +43,12 @@ h1,h2,h3 {
 	padding-top: 6px;
 }
 
+label{
+    display:block;
+}
+input{
+    display:block;
+}
 /* misc */
 .clearer {
 	clear: both;

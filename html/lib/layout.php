@@ -59,8 +59,9 @@ function sidenav(){
     <ul><li><a href=?logout=TRUE>logout</a></li></ul>
     <h1>" . (total_stars()-spent_stars()) . "/" . total_stars() . " stars</h1>
     <ul>";
+    $spent = user_spent();
     foreach(user_stars() as $usr=>$stars){
-        echo "<li>".$usr.": ".$stars."</li>";
+        echo "<li>".$usr.": ".($stars - $spent[$usr])."/".$stars."★</li>";
     }
     echo "</ul>
     <h1>Archives</h1>

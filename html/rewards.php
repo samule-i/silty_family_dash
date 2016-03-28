@@ -5,6 +5,39 @@ include("lib/layout.php");
 include("lib/ironserver.php");
 authentication();
 ?>
+
+<?php
+if(isset($_POST["submit"])){
+    $dbh = new sqlite3('../main.db');
+    if($_POST["action"] == "new"){
+        $prepare = $dbh->prepare('INSERT INTO rewards(username, title, note, cost, image, link, owner) VALUES(:username, :title, :note, :cost, :image, :link, :owner)');
+        $prepare->bindParam(':username', $_SESSION["username"]);
+        $prepare->bindParam(':owner', $_POST["owner"]);
+    }
+    if($_POST["action"] == "edit"){
+        $prepare = $dbh->prepare('UPDATE rewards SET title= :title, note= :note, cost= :cost, image= :image, link= :link WHERE id = :id');
+        $prepare->bindParam(':id', $_POST["id"]);
+    }
+    if($_POST["action"] == "new" || $_POST["action"] == "edit"){
+        $prepare->bindParam(':title', $_POST["title"]);
+        $prepare->bindParam(':note', $_POST["note"]);
+        $prepare->bindParam(':cost', $_POST["cost"]);
+        $prepare->bindParam(':image', $_POST["image"]);
+        $prepare->bindParam(':link', $_POST["link"]);
+    }
+    if($_POST["action"] == "archive"){
+        $prepare = $dbh->prepare('INSERT INTO rewards_archive SELECT * FROM rewards WHERE id = :id');
+        $prepare = $dbh->bindParam(':id', $_POST["id"]);
+    }
+    $result = $prepare->execute();
+    if(!$result){
+        echo $dbh->lastErrorMsg();
+        exit();
+    }
+    $dbh->close();
+}
+?>
+
 <html>
 <?php
 doctype();
@@ -22,10 +55,17 @@ navigation();
 <div class="main">
 <div class="content">
 <?php
-echo "<button class='database' onclick=\"javascript:newform({title: 'title', note: 'note', cost: 'cost', image: 'image', owner: 'owner'}, {table: '" . $table . "', username: '" . $_SESSION["username"] . "'})\">
+#get userlist string
+foreach(list_users() as $s){
+    if(!isset($users_str)){
+        $users_str = '\''.$s.'\'';
+    } else {
+        $users_str = $users_str.','.'\''.$s.'\'';
+    }
+}
+echo "<p  id='newform'><button class='database' onclick=\"javascript:newReward($users_str)\">
 new
-</button>\n
-<p  id='createPost'></p>";
+</button>\n</p>";
 rewards($table, $post_count);
 ?>
 </div>
