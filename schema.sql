@@ -61,8 +61,9 @@ cost INTEGER NOT NULL,
 title TEXT NOT NULL,
 note TEXT,
 image TEXT,
+link TEXT,
 owner TEXT,
-award_date INTEGER);
+award_date INTEGER DEFAULT NULL);
 
 CREATE TABLE "notes"(
 id INTEGER PRIMARY KEY AUTOINCREMENT,

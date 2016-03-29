@@ -7,7 +7,7 @@ authentication();
 ?>
 
 <?php
-if(isset($_POST["submit"])){
+if(isset($_POST["action"])){
     $dbh = new sqlite3('../main.db');
     if($_POST["action"] == "new"){
         $prepare = $dbh->prepare('INSERT INTO rewards(username, title, note, cost, image, link, owner) VALUES(:username, :title, :note, :cost, :image, :link, :owner)');
@@ -24,15 +24,16 @@ if(isset($_POST["submit"])){
         $prepare->bindParam(':cost', $_POST["cost"]);
         $prepare->bindParam(':image', $_POST["image"]);
         $prepare->bindParam(':link', $_POST["link"]);
+        $result = $prepare->execute();
+        if(!$result){
+            echo $dbh->lastErrorMsg();
+            exit();
+        }
     }
-    if($_POST["action"] == "archive"){
-        $prepare = $dbh->prepare('INSERT INTO rewards_archive SELECT * FROM rewards WHERE id = :id');
-        $prepare = $dbh->bindParam(':id', $_POST["id"]);
-    }
-    $result = $prepare->execute();
-    if(!$result){
-        echo $dbh->lastErrorMsg();
-        exit();
+    if($_POST["action"] == "award"){
+        $prepare = $dbh->prepare('UPDATE rewards SET award_date = :date_now WHERE id = :id');
+        $prepare->bindParam(':date_now', strftime('%s'));
+        $prepare->bindParam(':id', $_POST["id"]);
     }
     $dbh->close();
 }
@@ -66,7 +67,46 @@ foreach(list_users() as $s){
 echo "<p  id='newform'><button class='database' onclick=\"javascript:newReward($users_str)\">
 new
 </button>\n</p>";
-rewards($table, $post_count);
+$dbh = new sqlite3('../main.db');
+if(isset($_GET["offset"])){
+	$offset = $_GET["offset"];
+} else {
+	$offset = 0;
+}
+$prepare = $dbh->prepare("SELECT * FROM rewards ORDER BY id DESC LIMIT :limit OFFSET :offset");
+$prepare->bindParam(':limit', $post_count);
+$prepare->bindParam(':offset', $offset);
+$result = $prepare->execute();
+while($row = $result->fetchArray(SQLITE3_ASSOC)){
+	echo "<div class='post' id='post_" . $row["id"] . "'>
+    <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
+    <h1 id='cost_" . $row["id"] . "'>" . $row["cost"]  . "</h1>\n";
+	if($row["award_date"]){
+		echo "awarded";
+	} else {
+		echo "not_awarded";
+	}
+	echo "<div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
+    <img id='image_". $row["id"] ."' class='reward' src=" . $row["image"] . ">
+    <p id='link_" . $row["id"] . "'>" . $row["link"] . "</p>
+    <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>";
+	if($_SESSION["user_id"] == 1){
+		if(!$row["award_date"]){
+			echo "<button class='database' onclick=\"javascript:awardReward('".$row["id"]."')\">
+            award
+            </button>";
+		}
+		echo "<button class='database' onclick=\"javascript:editReward(".$row["id"].")\">
+        edit
+        </button>
+		<button class='database' onclick=\"javascript:archive('rewards', '".$row["id"]."')\">
+        archive
+        </button>";
+	}
+	echo "<div class='clearer'><span></span></div>
+    </div>";
+}
+$dbh->close();
 ?>
 </div>
 <?php

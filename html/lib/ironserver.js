@@ -167,6 +167,14 @@ function datalist(){
     return datalist;
 }
 
+function postid(id){
+    var hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", "id");
+    hiddenField.setAttribute("value", id);
+    return hiddenField
+}
+
 function action(action){
     var hiddenField = document.createElement("input");
     hiddenField.setAttribute("type", "hidden");
@@ -181,6 +189,26 @@ function submit(){
     submit.setAttribute("value", "submit");
     return submit;
 }
+
+function archive(table, id){
+    if(confirm("Are you sure you want to archive this post?")==true){
+    var form=document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "lib/post.php");
+
+    form.appendChild(postid(id));
+    form.appendChild(action("archive"));
+
+    var hTable = document.createElement("input");
+    hTable.setAttribute("type", "hidden");
+    hTable.setAttribute("name", "table");
+    hTable.setAttribute("value", table);
+    form.appendChild(hTable);
+
+    document.body.appendChild(form);
+    form.submit();}
+}
+
 function newStar(){
     var form = document.createElement("form");
     form.setAttribute("method", "post");
@@ -226,4 +254,54 @@ function newReward(){
     var parent = document.getElementById("newform");
     parent.innerHTML = '';
     parent.appendChild(form);
+}
+
+function editReward(id){
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "rewards.php");
+
+    var title=textarea("title");
+    var note=textarea("note");
+    var cost=textarea("cost");
+    var image=textarea("image");
+    var link=textarea("link");
+
+    form.appendChild(label("title"));
+    form.appendChild(title);
+    form.appendChild(label("note"));
+    form.appendChild(note);
+    form.appendChild(label("cost"));
+    form.appendChild(cost);
+    form.appendChild(label("image"));
+    form.appendChild(image);
+    form.appendChild(label("link"));
+    form.appendChild(link);
+    form.appendChild(postid(id));
+    form.appendChild(action("edit"));
+    form.appendChild(submit());
+
+    title.innerHTML = document.getElementById("title_"+id).innerHTML;
+    note.innerHTML = document.getElementById("note_"+id).innerHTML;
+    cost.innerHTML = document.getElementById("cost_"+id).innerHTML;
+    image.innerHTML = document.getElementById("image_"+id).src;
+    link.innerHTML = document.getElementById("link_"+id).innerHTML;
+
+    var parent = document.getElementById("post_"+id);
+    parent.innerHTML = '';
+    parent.appendChild(form);
+}
+
+function awardReward(id){
+    if(confirm("Are you sure you want to award this post?")==true){
+    var form=document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "rewards.php");
+
+    form.appendChild(postid(id));
+    form.appendChild(action("award"));
+
+    document.body.appendChild(form);
+    form.submit();
+    }
 }

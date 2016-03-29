@@ -119,8 +119,16 @@ function user_spent(){
             echo $dbh->lastErrorMsg();
         }
         while($row = $result->fetchArray(SQLITE3_ASSOC)){
-            $t_cost += $row["cost"];
-            $return[$sltyusr] = $t_cost;
+            $return[$sltyusr] += $row["cost"];
+        }
+        $prepare = $dbh->prepare('SELECT cost FROM rewards_archive WHERE owner = :owner AND NOT award_date = ""');
+        $prepare->bindParam(':owner', $sltyusr);
+        $result = $prepare->execute();
+        if(!$result){
+            echo $dbh->lastErrorMsg();
+        }
+        while($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $return[$sltyusr] += $row["cost"];
         }
     }
     return $return;
@@ -135,46 +143,7 @@ function page_navigation($table, $page){
 	}
 }
 
-function rewards($table, $amount){
-	global $db_path;
-	$db = new sqlite3($db_path);
-	if(isset($_GET["offset"])){
-		$offset = $_GET["offset"];
-	} else {
-		$offset = 0;
-	}
-	$result = $db->query("SELECT * FROM $table ORDER BY id DESC LIMIT $amount OFFSET $offset");
-	while($row = $result->fetchArray(SQLITE3_ASSOC)){
-		echo "<div class='post' id='post_" . $row["id"] . "'>
-        <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
-        <h1 id='cost_" . $row["id"] . "'>" . $row["cost"]  . "</h1>\n";
-		if($row["award_date"]){
-			echo "awarded";
-		} else {
-			echo "not_awarded";
-		}
-		echo "<div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
-        <img class='reward' src=" . $row["image"] . ">
-        <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>
-        <p class='hidden' id='image_" . $row["id"] . "'>" . $row["image"] . "</p>";
-		if($_SESSION["user_id"] == 1){
-			if(!$row["award_date"]){
-				echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "', award_date: '" . strftime('%s') . "'}, " . $row["id"] . ")\">
-                award
-                </button>";
-			}
-			echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note', cost: 'cost', image: 'image'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
-            edit
-            </button>
-			<button class='database' onclick=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
-            delete
-            </button>";
-		}
-		echo "<div class='clearer'><span></span></div>
-        </div>";
-	}
-	$db->close();
-}
+
 
 function get_posts($table, $amount){
 	global $db_path;
