@@ -209,6 +209,45 @@ function archive(table, id){
     form.submit();}
 }
 
+function newDiary(){
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "diary.php");
+
+    form.appendChild(label("title"));
+    form.appendChild(textarea("title"));
+    form.appendChild(label("content"));
+    form.appendChild(textarea("content"));
+    form.appendChild(action("new"));
+    form.appendChild(submit());
+
+    var parent = document.getElementById("newform");
+    parent.innerHTML = '';
+    parent.appendChild(form);
+}
+function editDiary(id){
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "diary.php");
+
+    var title=textarea("title");
+    var content=textarea("content");
+
+    form.appendChild(label("title"));
+    form.appendChild(title);
+    form.appendChild(label("content"));
+    form.appendChild(content);
+    form.appendChild(postid(id));
+    form.appendChild(action("edit"));
+    form.appendChild(submit());
+
+    title.innerHTML = document.getElementById("title_"+id).innerHTML;
+    content.innerHTML = document.getElementById("content_"+id).innerHTML;
+
+    var parent = document.getElementById("post_"+id);
+    parent.innerHTML = '';
+    parent.appendChild(form);
+}
 function newStar(){
     var form = document.createElement("form");
     form.setAttribute("method", "post");
@@ -229,7 +268,6 @@ function newStar(){
     parent.innerHTML = '';
     parent.appendChild(form);
 }
-
 function newReward(){
     var form = document.createElement("form");
     form.setAttribute("method", "post");
@@ -285,7 +323,7 @@ function editReward(id){
     note.innerHTML = document.getElementById("note_"+id).innerHTML;
     cost.innerHTML = document.getElementById("cost_"+id).innerHTML;
     image.innerHTML = document.getElementById("image_"+id).src;
-    link.innerHTML = document.getElementById("link_"+id).innerHTML;
+    link.innerHTML = document.getElementById("link_"+id).href;
 
     var parent = document.getElementById("post_"+id);
     parent.innerHTML = '';
@@ -304,4 +342,44 @@ function awardReward(id){
     document.body.appendChild(form);
     form.submit();
     }
+}
+
+function newNote(){
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "note.php");
+
+    form.appendChild(label("title"));
+    form.appendChild(textarea("title"));
+    form.appendChild(label("note"));
+    form.appendChild(textarea("note"));
+    form.appendChild(action("new"));
+    form.appendChild(submit());
+
+    var parent = document.getElementById("newform");
+    parent.innerHTML = '';
+    parent.appendChild(form);
+}
+function editNote(id){
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "note.php");
+
+    var title=textarea("title");
+    var note=textarea("note");
+
+    form.appendChild(label("title"));
+    form.appendChild(title);
+    form.appendChild(label("note"));
+    form.appendChild(note);
+    form.appendChild(postid(id));
+    form.appendChild(action("edit"));
+    form.appendChild(submit());
+
+    title.innerHTML = document.getElementById("title_"+id).innerHTML;
+    note.innerHTML = document.getElementById("note_"+id).innerHTML;
+
+    var parent = document.getElementById("post_"+id);
+    parent.innerHTML = '';
+    parent.appendChild(form);
 }

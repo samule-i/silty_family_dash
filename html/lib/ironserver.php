@@ -172,38 +172,6 @@ function get_posts($table, $amount){
 	$db->close();
 }
 
-function notes($table, $amount){
-	global $db_path;
-	$db = new sqlite3($db_path);
-	if(isset($_GET["offset"])){
-		$offset = $_GET["offset"];
-	} else {
-		$offset = 0;
-	}
-	$result = $db->query("SELECT * FROM $table ORDER BY id DESC LIMIT $amount OFFSET $offset");
-	while($row = $result->fetchArray(SQLITE3_ASSOC)){
-		echo "<div class='post' id='post_" . $row["id"] . "'>
-        <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
-        <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
-        <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>";
-		if($_SESSION["username"] == $row["username"]){
-			echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
-            edit
-            </button>
-            <button class='database' onclick=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
-            delete
-            </button>";
-		}
-		echo "<div class='clearer'>
-        <span>
-        </span>
-        </div>
-        </div>";
-	}
-	$db->close();
-}
-
-
 function rules($table, $amount){
 	global $db_path;
 	$db = new sqlite3($db_path);

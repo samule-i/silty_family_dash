@@ -80,7 +80,7 @@ $result = $prepare->execute();
 while($row = $result->fetchArray(SQLITE3_ASSOC)){
 	echo "<div class='post' id='post_" . $row["id"] . "'>
     <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
-    <h1 id='cost_" . $row["id"] . "'>" . $row["cost"]  . "</h1>\n";
+    <h1 id='cost_" . $row["id"] . "'>" . $row["cost"]  . "</h1>";
 	if($row["award_date"]){
 		echo "awarded";
 	} else {
@@ -88,7 +88,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)){
 	}
 	echo "<div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
     <img id='image_". $row["id"] ."' class='reward' src=" . $row["image"] . ">
-    <p id='link_" . $row["id"] . "'>" . $row["link"] . "</p>
+    <p><a id='link_".$row["id"]."' class='database' href ='" . $row["link"] . "'>buy</a></p>
     <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>";
 	if($_SESSION["user_id"] == 1){
 		if(!$row["award_date"]){

@@ -34,13 +34,13 @@ if(isset($_POST["password"])){
 	</head>
 	<body>
 		<div class="login">
-			<h1>Silty login:</h1>
+			<div class="header"><div class="title"><h1>Silty login:</h1></div></div>
 			<form name="login" action="login.php" method="post">
 			<label for="username">username:</label>
-			<input type="text" name="username">
+			<input type="text" name="username" id="username">
 			<br>
 			<label for="password">password:</label>
-			<input type="password" name="password">
+			<input type="password" name="password" id="password">
 			<input type="submit" value="submit">
 		</form>
 		</div>

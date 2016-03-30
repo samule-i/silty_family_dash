@@ -14,9 +14,17 @@ body {
 	color: #543;
 	font: normal 62.5% "Lucida Sans Unicode",sans-serif;
 }
+form {
+    background-color: #A8C8C7;
+    width: 75%;
+    padding:20px;
+    margin-left: auto;
+    margin-right: auto;
+}
 input {
 	color: #555;
 	font: normal 1.1em "Lucida Sans Unicode",sans-serif;
+    display: block;
 }
 p,cite,code,ul {
 	font-size: 1.2em;
@@ -26,6 +34,7 @@ h1 {
 	font-size: 1.4em;
 	margin-bottom: 4px;
 }
+
 code {
 	background: #FFE;
 	border: 1px solid #EED;
@@ -44,9 +53,6 @@ h1,h2,h3 {
 }
 
 label{
-    display:block;
-}
-input{
     display:block;
 }
 /* misc */
@@ -208,6 +214,14 @@ img.gallery {
     margin-right:auto;
 }
 
+a.database{
+    background-color:#88A8A7;
+    color:#F4EDE3;
+    padding: 5px;
+    width:10%;
+    margin:1px;
+    font-size:1em;
+}
 button.database {
     background-color:#88A8A7;
     color:#F4EDE3;
