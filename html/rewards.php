@@ -51,7 +51,13 @@ html_header($table);
 navigation();
 ?>
 <div class="navigation">
-<?php page_navigation($table, $post_count); ?>
+<?php
+if($_SESSION["user_id"]==1){
+    page_navigation($table, $post_count , 'all');
+} else {
+    page_navigation($table, $post_count , $_SESSION["username"]);
+}
+?>
 </div>
 <div class="main">
 <div class="content">
@@ -115,7 +121,13 @@ sidenav()
 <div class="clearer"><span></span></div>
 </div>
 <div class="navigation">
-<?php page_navigation($table, $post_count); ?>
+<?php
+if($_SESSION["user_id"]==1){
+    page_navigation($table, $post_count , 'all');
+} else {
+    page_navigation($table, $post_count , $_SESSION["username"]);
+}
+?>
 </div>
 <?php footer(); ?>
 </div>

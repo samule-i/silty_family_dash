@@ -227,8 +227,6 @@ def note_update():
 def gallery_widget():
     global gallery
     global panel
-    frame_height= gallery.winfo_height()
-    frame_width= gallery.winfo_width()
     db_path = current_path()+'/main.db'
     connect = sqlite3.connect(db_path)
     cursor = connect.cursor()
@@ -248,22 +246,20 @@ def gallery_widget():
     if 'img' not in locals():
         img= Image.open(current_path()+'/img/img.png')
     #Get the highest of width or height and make that the size of the frame
+    f_height, f_width= gallery.winfo_height(), gallery.winfo_width()
     if img.size[0] > img.size[1]:
-        wpercent= (frame_width / float(img.size[0]))
-        relative_height= int(float(img.size[1]) * float(wpercent))
-        img.resize((frame_width, relative_height), Image.ANTIALIAS)
+        wpercent= (f_width / float(img.size[0]))
+        g_height= int(float(img.size[1]) * float(wpercent))
+        g_width=f_width
     else:
-        hpercent= (frame_height / float(img.size[1]))
-        relative_width= int(float(img.size[0]) * float(hpercent))
-        img.resize((relative_width, frame_height))
-
-    rel_height= (frame_height / float(img.size[1]))
-    rel_width= int(float(img.size[0]) * float(rel_height))
-    img= img.resize((rel_width, frame_height), Image.ANTIALIAS)
+        hpercent= (f_height / float(img.size[1]))
+        g_width= int(float(img.size[0]) * float(hpercent))
+        g_height=f_height
+    img=img.resize((g_width, g_height), Image.ANTIALIAS)
     gallery_image= ImageTk.PhotoImage(img)
     panel.config(image= gallery_image)
     panel.image = gallery_image
-    root.after(600000, gallery_widget)
+    root.after(10000, gallery_widget)
 
 #test database existence, if not create it..
 if not os.path.isfile(current_path()+'/main.db'):
@@ -293,7 +289,9 @@ exit = Label(root, text="quit",
 
 front = Frame(root)
 clock = Frame(front)
-gallery = Frame(front)
+g_width, g_height = (w/3), (h/2)
+gallery = Frame(front, width=g_width, height=g_height)
+gallery.grid_propagate(False)
 left_panel = Frame(front, width=250)
 note = Frame(front)
 stars = Frame(front)
@@ -400,7 +398,7 @@ currdate.grid(sticky=N+E+W+S)
 for child in system.winfo_children():
     child.grid(sticky=N+E+W+S)
 
-stars.grid(row=1, column=1, sticky=N+E+W+S)
+stars.grid(row=1, column=2, sticky=N+E+W+S)
 silty_star.grid(sticky=N+E+W+S)
 star_chart.grid(sticky=N+E+W+S)
 
@@ -408,7 +406,7 @@ note.grid(column=2, row=0, sticky=N+E+W+S)
 for child in note.winfo_children():
     child.grid(sticky=N+E+W+S)
 
-gallery.grid(row=1, column=2, sticky=N+E+W+S)
+gallery.grid(row=1, column=1, sticky=N+E+W+S)
 panel.grid(sticky=N+E+W+S)
 
 
@@ -422,7 +420,7 @@ Grid.columnconfigure(root, 0, weight=3)
 Grid.columnconfigure(root, 1, weight=2)
 
 Grid.columnconfigure(front, 0, weight=1)
-Grid.columnconfigure(front, 1, weight=1)
+Grid.columnconfigure(front, 1, weight=0)
 Grid.columnconfigure(front, 2, weight=1)
 Grid.rowconfigure(front, 0, weight=1)
 Grid.rowconfigure(front, 1, weight=1)

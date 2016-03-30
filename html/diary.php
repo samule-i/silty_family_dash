@@ -40,7 +40,7 @@ html_header($table);
 navigation();
 ?>
 <div class="navigation">
-<?php page_navigation($table, $post_count); ?>
+<?php page_navigation($table, $post_count, 'all'); ?>
 </div>
 <div class="main">
 <div class="content">
@@ -80,7 +80,7 @@ sidenav()
 <div class="clearer"><span></span></div>
 </div>
 <div class="navigation">
-<?php page_navigation($table, $post_count); ?>
+<?php page_navigation($table, $post_count, 'all'); ?>
 </div>
 <?php footer(); ?>
 </div>

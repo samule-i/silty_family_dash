@@ -33,7 +33,13 @@ html_header($table);
 navigation();
 ?>
 <div class="navigation">
-<?php page_navigation($table, $amount); ?>
+<?php
+if($_SESSION["user_id"]==1){
+    page_navigation($table, $amount , 'all');
+} else {
+    page_navigation($table, $amount , $_SESSION["username"]);
+}
+?>
 </div>
 <div class="main">
 <div class="content">
@@ -60,8 +66,12 @@ if(isset($_GET["offset"])){
 } else {
 	$offset = 0;
 }
-$prepare = $dbh->prepare("SELECT * FROM stars  WHERE owner = :username ORDER BY id DESC LIMIT :amount OFFSET :offset");
-$prepare->bindParam(':username', $_SESSION["username"]);
+if($_SESSION["user_id"] == 1){
+    $prepare = $dbh->prepare("SELECT * FROM stars ORDER BY id DESC LIMIT :amount OFFSET :offset");
+} else {
+    $prepare = $dbh->prepare("SELECT * FROM stars  WHERE owner = :username ORDER BY id DESC LIMIT :amount OFFSET :offset");
+    $prepare->bindParam(':username', $_SESSION["username"]);
+}
 $prepare->bindParam(':amount', $amount);
 $prepare->bindParam(':offset', $offset);
 $result = $prepare->execute();
@@ -71,10 +81,7 @@ if(!$result){
 }
 while($row = $result->fetchArray(SQLITE3_ASSOC)){
 	# create post
-	if(($row["id"] % 10) == "0" ){
-		echo "<br>";
-	}
-	echo gmdate('Y-m-d', $row["date"])."★: ".$row["note"].'<br>';
+	echo $row["owner"]." :".gmdate('Y-m-d', $row["date"])."★: ".$row["note"].'<br>';
 }
 $dbh->close();
 ?>
@@ -85,7 +92,13 @@ sidenav()
 <div class="clearer"><span></span></div>
 </div>
 <div class="navigation">
-<?php page_navigation($table, $amount); ?>
+<?php
+if($_SESSION["user_id"]==1){
+    page_navigation($table, $amount , 'all');
+} else {
+    page_navigation($table, $amount , $_SESSION["username"]);
+}
+?>
 </div>
 <?php footer(); ?>
 </div>

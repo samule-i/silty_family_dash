@@ -15,7 +15,7 @@ html_header('gallery');
 navigation();
 ?>
 <div class="navigation">
-<?php page_navigation('gallery', 5); ?>
+<?php page_navigation('gallery', 5, 'all'); ?>
 </div>
 <div class="main">
 <div class="content">
@@ -56,7 +56,7 @@ sidenav()
 <div class="clearer"><span></span></div>
 </div>
 <div class="navigation">
-<?php page_navigation('gallery', 5); ?>
+<?php page_navigation('gallery', 5, 'all'); ?>
 </div>
 <?php footer(); ?>
 </div>
