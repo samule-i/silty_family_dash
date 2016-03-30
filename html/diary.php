@@ -61,7 +61,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)){
     <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
     <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
     <p id='content_" . $row["id"] . "'>" . $row["content"] . "</p>\n";
-	if($_SESSION["username"] == $row["username"]){
+	if($_SESSION["username"] == $row["username"]  || $_SESSION["user_id"] == 1){
 		echo "<button class='database' onclick=\"javascript:editDiary('".$row["id"]."')\">
         edit
         <button class='database' onclick=\"javascript:archive('diary', '".$row["id"]."')\">

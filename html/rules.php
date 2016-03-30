@@ -43,7 +43,7 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)){
     <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
     <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
     <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>";
-	if($_SESSION["username"] == $row["username"]){
+	if($_SESSION["username"] == $row["username"] || $_SESSION["user_id"]== 1){
 		echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
         edit</button>
         <button class='database' onclick=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">

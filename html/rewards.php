@@ -96,8 +96,8 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)){
     <img id='image_". $row["id"] ."' class='reward' src=" . $row["image"] . ">
     <p><a id='link_".$row["id"]."' class='database' href ='" . $row["link"] . "'>buy</a></p>
     <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>";
-	if($_SESSION["user_id"] == 1){
-		if(!$row["award_date"]){
+	if($_SESSION["username"] == $row["owner"] || $_SESSION["user_id"] == 1){
+		if(!$row["award_date"] && $_SESSION["user_id"] == 1){
 			echo "<button class='database' onclick=\"javascript:awardReward('".$row["id"]."')\">
             award
             </button>";

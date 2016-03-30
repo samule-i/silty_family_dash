@@ -67,7 +67,10 @@ function sidenav(){
     <h1>Archives</h1>
     <ul>";
 	$archives = array(
-		"Rules" => "rules.php?archive=1",
+		"Rules" => "rules_archive.php",
+        "Diary" => "diary_archive.php",
+        "Rewards" => "rewards_archive.php",
+        "Notes" => "notes_archive.php"
 	);
 	foreach($archives as $title=>$url){
 		echo "<li><a href='". $url ."'>".$title."</a></li>";
