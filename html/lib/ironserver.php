@@ -130,19 +130,29 @@ function get_total($table, $user){
 
 function spent_stars(){
 	global $db_path;
-	$db = new sqlite3($db_path);
-	$ret = $db->query("SELECT cost FROM rewards where not award_date = ''");
-	if(!ret){
-		echo $db->lastErrorMsg();
+	$dbh = new sqlite3('../main.db');
+    $prepare = $dbh->prepare("SELECT cost FROM rewards where not award_date = ''");
+    $result= $prepare->execute();
+	if(!$result){
+		echo $dbh->lastErrorMsg();
 		echo "count error";
 		exit();
 	}
-	$spent = 0;
-	while($row = $ret->fetchArray(SQLITE3_ASSOC) ){
-		$spent = $spent + $row["cost"];
+	while($row = $result->fetchArray(SQLITE3_ASSOC) ){
+		$spent += $row["cost"];
 	}
+    $prepare = $dbh->prepare("SELECT cost FROM rewards_archive where not award_date = ''");
+    $result= $prepare->execute();
+    if(!$result){
+        echo $dbh->lastErrorMsg();
+        echo "count error";
+        exit();
+    }
+    while($row = $result->fetchArray(SQLITE3_ASSOC) ){
+        $spent += $row["cost"];
+    }
 	return $spent;
-	$db->close();
+	$dbh->close();
 }
 
 function total_stars(){
