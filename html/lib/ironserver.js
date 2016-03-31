@@ -383,3 +383,20 @@ function editNote(id){
     parent.innerHTML = '';
     parent.appendChild(form);
 }
+
+function newGallery(){
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "gallery.php");
+    form.setAttribute("enctype", "multipart/form-data");
+    var file = document.createElement("input");
+    file.setAttribute("type", "file");
+    file.setAttribute("name", "image_upload");
+    file.setAttribute("id", "image_upload")
+    form.appendChild(file);
+    form.appendChild(action("new"));
+    form.appendChild(submit());
+    var parent = document.getElementById("newform");
+    parent.innerHTML = '';
+    parent.appendChild(form);
+}
