@@ -347,7 +347,7 @@ function awardReward(id){
 function newNote(){
     var form = document.createElement("form");
     form.setAttribute("method", "post");
-    form.setAttribute("action", "note.php");
+    form.setAttribute("action", "notes.php");
 
     form.appendChild(label("title"));
     form.appendChild(textarea("title"));
@@ -363,7 +363,7 @@ function newNote(){
 function editNote(id){
     var form = document.createElement("form");
     form.setAttribute("method", "post");
-    form.setAttribute("action", "note.php");
+    form.setAttribute("action", "notes.php");
 
     var title=textarea("title");
     var note=textarea("note");
