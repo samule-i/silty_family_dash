@@ -84,32 +84,34 @@ $prepare->bindParam(':limit', $post_count);
 $prepare->bindParam(':offset', $offset);
 $result = $prepare->execute();
 while($row = $result->fetchArray(SQLITE3_ASSOC)){
-	echo "<div class='post' id='post_" . $row["id"] . "'>
-    <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
-    <h1 id='cost_" . $row["id"] . "'>" . $row["cost"]  . "</h1>";
+	echo "<div class='post' id='post_" . $row["id"] . "'>";
+    if($_SESSION["username"] == $row["owner"] || $_SESSION["user_id"] == 1){
+        echo "<div class='controls'>";
+        if(!$row["award_date"] && $_SESSION["user_id"] == 1){
+            echo "<button class='database' onclick=\"javascript:awardReward('".$row["id"]."')\">
+            award
+            </button>";
+        }
+        echo "<button class='database' onclick=\"javascript:editReward(".$row["id"].")\">
+        edit
+        </button>
+        <button class='database' onclick=\"javascript:archive('rewards', '".$row["id"]."')\">
+        archive
+        </button></div>";
+    }
+    echo "<h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
+    <h5 id='cost_" . $row["id"] . "'>" . $row["cost"]  . "★</h5>";
 	if($row["award_date"]){
 		echo "awarded";
 	} else {
 		echo "not_awarded";
 	}
 	echo "<div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
+    <div class='clearer'><span></span></div>
     <img id='image_". $row["id"] ."' class='reward' src=" . $row["image"] . ">
     <p><a id='link_".$row["id"]."' class='database' href ='" . $row["link"] . "'>buy</a></p>
-    <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>";
-	if($_SESSION["username"] == $row["owner"] || $_SESSION["user_id"] == 1){
-		if(!$row["award_date"] && $_SESSION["user_id"] == 1){
-			echo "<button class='database' onclick=\"javascript:awardReward('".$row["id"]."')\">
-            award
-            </button>";
-		}
-		echo "<button class='database' onclick=\"javascript:editReward(".$row["id"].")\">
-        edit
-        </button>
-		<button class='database' onclick=\"javascript:archive('rewards', '".$row["id"]."')\">
-        archive
-        </button>";
-	}
-	echo "<div class='clearer'><span></span></div>
+    <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>
+    <div class='clearer'><span></span></div>
     </div>";
 }
 $dbh->close();

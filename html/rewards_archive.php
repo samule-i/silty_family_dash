@@ -41,7 +41,7 @@ $result = $prepare->execute();
 while($row = $result->fetchArray(SQLITE3_ASSOC)){
 	echo "<div class='post' id='post_" . $row["id"] . "'>
     <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
-    <h1 id='cost_" . $row["id"] . "'>" . $row["cost"]  . "</h1>";
+    <h5 id='cost_" . $row["id"] . "'>" . $row["cost"]  . "★</h5>";
 	if($row["award_date"]){
 		echo "awarded";
 	} else {

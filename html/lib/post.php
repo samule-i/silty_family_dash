@@ -49,6 +49,10 @@ if($_POST["action"] == "archive"){
     }
     $prepare->bindParam(':id', $_POST["id"]);
     $result = $prepare->execute();
+    if(!$result){
+        echo $dbh->lastErrorMsg();
+        exit();
+    }
     switch($_POST["table"]){
         case "rules":
             $prepare = $dbh->prepare('DELETE FROM rules WHERE id = :id');
@@ -65,6 +69,10 @@ if($_POST["action"] == "archive"){
     }
     $prepare->bindParam(':id', $_POST["id"]);
     $result = $prepare->execute();
+    if(!$result){
+        echo $dbh->lastErrorMsg();
+        exit();
+    }
     $dbh->close();
     header("location: ../" . $_POST["table"] . ".php");
     exit();

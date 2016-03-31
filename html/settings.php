@@ -1,5 +1,4 @@
 <?php
-$table = "home";
 require "lib/password.php";
 include("lib/layout.php");
 include("lib/ironserver.php");
