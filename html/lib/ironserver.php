@@ -8,7 +8,6 @@ if(isset($_GET["logout"])){
 $db_path = '../main.db';
 
 function authentication(){
-	global $db_path;
 	session_start();
 	if(isset($_SESSION["username"])){ //If no username, go to login page.
 		$username = "'" . $_SESSION["username"] . "'";
@@ -21,7 +20,7 @@ function list_users(){
     $dbh = new sqlite3('../main.db');
     $prepare = $dbh->prepare("SELECT username FROM users WHERE NOT id = '1'");
     $result = $prepare->execute();
-    if(!result){
+    if(!$result){
         echo $dbh->lastErrorMsg();
         exit();
     }

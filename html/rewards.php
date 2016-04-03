@@ -100,16 +100,16 @@ while($row = $result->fetchArray(SQLITE3_ASSOC)){
         </button></div>";
     }
     echo "<h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
-    <h5 id='cost_" . $row["id"] . "'>" . $row["cost"]  . "★</h5>";
+    <h5 id='cost_" . $row["id"] . "'>" . $row["cost"]  . "</h5>";
 	if($row["award_date"]){
 		echo "awarded";
 	} else {
 		echo "not_awarded";
 	}
-	echo "<div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
+	echo "<div class='descr'>" . $row["owner"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
     <div class='clearer'><span></span></div>
     <img id='image_". $row["id"] ."' class='reward' src=" . $row["image"] . ">
-    <p><a id='link_".$row["id"]."' class='database' href ='" . $row["link"] . "'>buy</a></p>
+    <p><a id='link_".$row["id"]."' class='database' target= '_blank' href ='" . $row["link"] . "'>buy</a></p>
     <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>
     <div class='clearer'><span></span></div>
     </div>";

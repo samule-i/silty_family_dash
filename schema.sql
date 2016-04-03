@@ -24,7 +24,7 @@ date INTEGER NOT NULL DEFAULT (strftime('%s','now')),
 username TEXT NOT NULL,
 title TEXT NOT NULL,
 note TEXT,
-applies_to INTEGER NOT NULL);
+applies_to TEXT NOT NULL);
 
 CREATE TABLE "rules_archive"(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,7 +32,7 @@ date INTEGER NOT NULL,
 username TEXT NOT NULL,
 title TEXT NOT NULL,
 note TEXT,
-applies_to INTEGER NOT NULL);
+applies_to TEXT NOT NULL);
 
 CREATE TABLE "stars"(
 id INTEGER PRIMARY KEY AUTOINCREMENT,

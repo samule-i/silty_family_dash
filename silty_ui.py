@@ -97,7 +97,7 @@ def cpu_usage():
     return psutil.cpu_percent()
 
 #theming
-theme = "celty"
+theme = "super hacker daru"
 
 if theme == "celty":
     colour_1 = "#333233"
@@ -218,7 +218,7 @@ def note_update():
     i = 0
     for child in note.winfo_children():
         try:
-            child.config(text=results[i][0] +': '+ results[i][1][:20:])
+            child.config(text=results[i][0] +':\n'+ results[i][1][:20:])
         except IndexError:
             pass
         i+=1
@@ -267,7 +267,7 @@ if not os.path.isfile(current_path()+'/main.db'):
     initialise_db()
 
 root = Tk()
-root.title("silty_ui")
+root.title("Silty family dashboard")
 # make it cover the entire screen
 w, h = root.winfo_screenwidth(), root.winfo_screenheight()
 root.overrideredirect(1)
@@ -278,33 +278,33 @@ root.config(cursor="none")
 
 #create widgets w/ various styling attributes
 title = Label(root,
-    text="♥ silty ♥",
-    font=('FreeSans', 14),
+    text="♥ Silty-Dash ♥",
+    font=('Nimbus Sans L', 14),
     bg=colour_1,
     fg=colour_4)
 exit = Label(root, text="quit",
-    font=('FreeSans', 14),
+    font=('Nimbus Sans L', 14),
     bg=colour_1,
     fg=colour_4)
 
 front = Frame(root)
 clock = Frame(front)
-g_width, g_height = (w/3), (h/2)
+g_width, g_height = (w/2.5), (h/2)
 gallery = Frame(front, width=g_width, height=g_height)
 gallery.grid_propagate(False)
 left_panel = Frame(front, width=250)
 note = Frame(front)
 stars = Frame(front)
 
-currtime = Label(clock, font=('FreeSans', 40), bg=colour_2, fg=colour_4)
-currdate = Label(clock, font=('FreeSans', 14), bg=colour_2, fg=colour_4)
+currtime = Label(clock, font=('Nimbus Sans L', 40), bg=colour_2, fg=colour_4)
+currdate = Label(clock, font=('Nimbus Sans L', 14), bg=colour_2, fg=colour_4)
 
 
 
 left_panel_tabs = Frame(left_panel)
 system_tab = Label(left_panel_tabs,
     text="system",
-    font=('FreeSans', 14),
+    font=(' Nimbus Mono L', 11),
     anchor=W,
     activebackground=colour_1,
     activeforeground=colour_4,
@@ -314,7 +314,7 @@ system_tab = Label(left_panel_tabs,
 
 processes_tab = Label(left_panel_tabs,
     text="processes",
-    font=('FreeSans', 14),
+    font=(' Nimbus Mono L', 11),
     anchor=W,
     activebackground=colour_1,
     activeforeground=colour_4,
@@ -330,10 +330,10 @@ mumble = Label(processes)
 deluge = Label(processes)
 
 cpu = Label(system)
-pi_uptime = Label(system)
 ram = Label(system)
 share_used= Label(system)
 share_free= Label(system)
+pi_uptime = Label(system)
 
 image_dir = current_path()+'/img'
 curly_star=Image.open(image_dir+"/curlystar.png")
@@ -341,7 +341,7 @@ curly_star=curly_star.resize((150,150), Image.ANTIALIAS)
 silty_star_image = ImageTk.PhotoImage(curly_star)
 
 silty_star = Label(stars, bg=colour_3, fg=colour_5, image = silty_star_image, anchor=S)
-star_chart = Label(stars, font=('FreeSans', 22), bg=colour_3, fg=colour_5, anchor=N)
+star_chart = Label(stars, font=('Nimbus Sans L', 22), bg=colour_3, fg=colour_5, anchor=N)
 
 note1 = Label(note)
 note2 = Label(note)
@@ -355,12 +355,12 @@ note9 = Label(note)
 note10 = Label(note)
 
 for child in system.winfo_children():
-    child.config(padx=12, font=('FreeSans', 14),
+    child.config(padx=10, font=('Nimbus Mono L', 11),
     anchor=W, bg=colour_1, fg=colour_4)
 for child in processes.winfo_children():
-    child.config(padx=12, font=('FreeSans', 18), anchor=W)
+    child.config(padx=10, font=('Nimbus Mono L', 11), anchor=W)
 for child in note.winfo_children():
-    child.config(anchor=W, font=('FreeSans', 12), bg=colour_3, fg=colour_5)
+    child.config(anchor=W, font=('Nimbus Mono L', 11), bg=colour_3, fg=colour_5)
 
 
 img = Image.open(image_dir+"/img.png")

@@ -1,14 +1,33 @@
 <?php
 $table = "rules";
-if(isset($_GET["archive"])){
-	$table = "rules_archive";
-} else {
-	$table = "rules";
-}
 $post_count = 5;
 include("lib/layout.php");
 include("lib/ironserver.php");
 authentication();
+?>
+<?php
+if(isset($_POST["action"])){
+    $dbh = new sqlite3('../main.db');
+    if($_POST["action"] == "new"){
+        $prepare = $dbh->prepare('INSERT INTO rules(username, title, note, applies_to) VALUES(:username, :title, :note, :applies_to)');
+        $prepare->bindParam(':username', $_SESSION["username"]);
+    }
+    if($_POST["action"] == "edit"){
+        $prepare = $dbh->prepare('UPDATE rules SET title= :title, note= :note WHERE id = :id');
+        $prepare->bindParam(':id', $_POST["id"]);
+    }
+    if($_POST["action"] == "new" || $_POST["action"] == "edit"){
+        $prepare->bindParam(':title', $_POST["title"]);
+        $prepare->bindParam(':note', $_POST["note"]);
+        $prepare->bindParam(':applies_to', implode(',', $_POST['users']));
+        $result = $prepare->execute();
+        if(!$result){
+            echo $dbh->lastErrorMsg();
+            exit();
+        }
+    }
+    $dbh->close();
+}
 ?>
 <html>
 <?php
@@ -27,10 +46,18 @@ navigation();
 <div class="main">
 <div class="content">
 <?php
-echo "
-<p  id='createPost'><button class='database' onclick=\"javascript:newform({title: 'title', note: 'note'}, {table: '" . $table . "', username: '" . $_SESSION["username"] . "'})\">
-new
-</button>\n</p>";
+foreach(list_users() as $s){
+    if(!isset($users_str)){
+        $users_str = '\''.$s.'\'';
+    } else {
+        $users_str = $users_str.','.'\''.$s.'\'';
+    }
+}
+if($_SESSION["user_id"]==1){
+    echo "<p  id='newform'><button class='database' onclick=\"javascript:newRule($users_str)\">
+    new
+    </button>\n</p>";
+}
 $db = new sqlite3('../main.db');
 if(isset($_GET["offset"])){
     $offset = $_GET["offset"];
@@ -39,22 +66,25 @@ if(isset($_GET["offset"])){
 }
 $result = $db->query("SELECT * FROM rules ORDER BY id DESC LIMIT 5 OFFSET $offset");
 while($row = $result->fetchArray(SQLITE3_ASSOC)){
-	echo "<div class='post' id='post_" . $row["id"] . "'>
-    <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
-    <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
-    <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>";
-	if($_SESSION["username"] == $row["username"] || $_SESSION["user_id"]== 1){
-		echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
-        edit</button>
-        <button class='database' onclick=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
-        delete
-        </button>";
-	}
-	echo "<div class='clearer'>
-    <span>
-    </span>
-    </div>
-    </div>";
+    if($_SESSION["user_id"]==1 || in_array($_SESSION["username"], explode(',',$row['applies_to']))){
+        echo "<div class='post' id='post_" . $row["id"] . "'>";
+        if($_SESSION["user_id"] == 1){
+            echo "<div class='controls'><button class='database' onclick=\"javascript:editReward('".$row["id"]."')\">
+            edit
+            </button>
+            <button class='database' onclick=\"javascript:archive('notes', '".$row["id"]."')\">
+            archive
+            </button></div>";
+        }
+        echo "<h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
+        <h1 id='applies_to_'".$row["id"]."'>".$row["applies_to"]."</h1>
+        <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
+        <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p><div class='clearer'>
+        <span>
+        </span>
+        </div>
+        </div>";
+    }
 }
 $db->close();
 ?>

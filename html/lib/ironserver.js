@@ -166,6 +166,15 @@ function datalist(){
     }
     return datalist;
 }
+function checklist(){
+    var i;
+    for (i = 0; i < arguments.length; i++){
+        var user=document.createElement("checkbox");
+        user.setAttribute("name", "users")
+        user.setAttribute("value", arguments[i]);
+        form.appendChild(user);
+    }
+}
 
 function postid(id){
     var hiddenField = document.createElement("input");
@@ -208,7 +217,35 @@ function archive(table, id){
     document.body.appendChild(form);
     form.submit();}
 }
+function newRule(){
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "rules.php");
 
+    form.appendChild(label("title"));
+    form.appendChild(textarea("title"));
+    form.appendChild(label("note"));
+    form.appendChild(textarea("note"));
+    var i;
+    for (i = 0; i < arguments.length; i++){
+        var user=document.createElement("input");
+        user.setAttribute("type", "checkbox");
+        user.setAttribute("name", "users["+i+"]");
+        user.setAttribute("value", arguments[i]);
+        user.setAttribute("class", "checkbox");
+        form.appendChild(user);
+        var uname=document.createElement("label");
+        uname.setAttribute("for", "users");
+        uname.appendChild(document.createTextNode(arguments[i]));
+        form.appendChild(uname);
+    }
+    form.appendChild(action("new"));
+    form.appendChild(submit());
+
+    var parent = document.getElementById("newform");
+    parent.innerHTML = '';
+    parent.appendChild(form);
+}
 function newDiary(){
     var form = document.createElement("form");
     form.setAttribute("method", "post");
@@ -218,6 +255,7 @@ function newDiary(){
     form.appendChild(textarea("title"));
     form.appendChild(label("content"));
     form.appendChild(textarea("content"));
+
     form.appendChild(action("new"));
     form.appendChild(submit());
 

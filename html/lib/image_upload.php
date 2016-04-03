@@ -40,7 +40,7 @@ if(isset($_POST["submit"])){
             echo "The file ". $target_file. " has been uploaded.";
             $dbh = new sqlite3('../../main.db');
             $prepare = $dbh->prepare("INSERT INTO gallery(username, image) VALUES(:username, :image)");
-            $prepare->bindParam(':username', $_POST["username"]);
+            $prepare->bindParam(':username', $_SESSION["username"]);
             $image_path = $SERVER['DOCUMENT_ROOT'].'/img/gallery/' . basename( $_FILES["image_upload"]["name"]);
             $prepare->bindParam(':image', $image_path);
             $result = $prepare->execute();
