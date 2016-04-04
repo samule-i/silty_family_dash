@@ -13,7 +13,7 @@ if(isset($_POST["action"])){
         $prepare->bindParam(':username', $_SESSION["username"]);
     }
     if($_POST["action"] == "edit"){
-        $prepare = $dbh->prepare('UPDATE rules SET title= :title, note= :note WHERE id = :id');
+        $prepare = $dbh->prepare('UPDATE rules SET title= :title, note= :note, applies_to= :applies_to WHERE id = :id');
         $prepare->bindParam(':id', $_POST["id"]);
     }
     if($_POST["action"] == "new" || $_POST["action"] == "edit"){
@@ -68,16 +68,29 @@ $result = $db->query("SELECT * FROM rules ORDER BY id DESC LIMIT 5 OFFSET $offse
 while($row = $result->fetchArray(SQLITE3_ASSOC)){
     if($_SESSION["user_id"]==1 || in_array($_SESSION["username"], explode(',',$row['applies_to']))){
         echo "<div class='post' id='post_" . $row["id"] . "'>";
+        unset($user_checkbox);
         if($_SESSION["user_id"] == 1){
-            echo "<div class='controls'><button class='database' onclick=\"javascript:editReward('".$row["id"]."')\">
+            foreach(list_users() as $s){
+                if(in_array($s, explode(',',$row['applies_to']))){
+                    $user_is_checked = $s.':\'true\'';
+                } else {
+                    $user_is_checked = $s.':\'false\'';
+                }
+                if(!isset($user_checkbox)){
+                    $user_checkbox = $user_is_checked;
+                } else {
+                    $user_checkbox = $user_checkbox.','.$user_is_checked;
+                }
+            }
+            echo "<div class='controls'><button class='database' onclick=\"javascript:editRule('".$row["id"]."', {".$user_checkbox."})\">
             edit
             </button>
-            <button class='database' onclick=\"javascript:archive('notes', '".$row["id"]."')\">
+            <button class='database' onclick=\"javascript:archive('rules', '".$row["id"]."')\">
             archive
             </button></div>";
         }
         echo "<h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
-        <h1 id='applies_to_'".$row["id"]."'>".$row["applies_to"]."</h1>
+        <h1 id='applies_to_".$row["id"]."'>".$row["applies_to"]."</h1>
         <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
         <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p><div class='clearer'>
         <span>

@@ -246,6 +246,49 @@ function newRule(){
     parent.innerHTML = '';
     parent.appendChild(form);
 }
+
+function editRule(id, userlist){
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "rules.php");
+
+    var title=textarea("title");
+    var note=textarea("note");
+
+    form.appendChild(label("title"));
+    form.appendChild(title);
+    form.appendChild(label("note"));
+    form.appendChild(note);
+    var i=0;
+    for (var key in userlist){
+        var user=document.createElement("input");
+        user.setAttribute("type", "checkbox");
+        user.setAttribute("name", "users["+i+"]");
+        i++;
+        user.setAttribute("value", key);
+        user.setAttribute("class", "checkbox");
+        if(userlist[key]=='true'){
+            user.checked=true;
+        } else {
+            user.checked=false;
+        }
+        form.appendChild(user);
+        var uname=document.createElement("label");
+        uname.setAttribute("for", "users");
+        uname.appendChild(document.createTextNode(key));
+        form.appendChild(uname);
+    }
+    form.appendChild(postid(id));
+    form.appendChild(action("edit"));
+    form.appendChild(submit());
+
+    title.innerHTML = document.getElementById("title_"+id).innerHTML;
+    content.innerHTML = document.getElementById("note_"+id).innerHTML;
+
+    var parent = document.getElementById("post_"+id);
+    parent.innerHTML = '';
+    parent.appendChild(form);
+}
 function newDiary(){
     var form = document.createElement("form");
     form.setAttribute("method", "post");
