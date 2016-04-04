@@ -5,61 +5,73 @@ include("lib/ironserver.php");
 authentication();
 ?>
 <?php
+//POST FORM FOR CHANGE USERNAME
+if(isset($_POST["new_username"])){
+    $dbh= new sqlite3('../main.db');
+    $prepare=  $dbh->prepare("SELECT password FROM users WHERE username = :username");
+    $prepare->bindParam(':username', $_SESSION["username"]);
+    $query=$prepare->execute();
+    while($row = $query->fetchArray(SQLITE3_ASSOC)){
+        if(password_verify($_POST['password'], $row['password']) && ($_POST['new_username'] == $_POST['confirm_username']) && !($_POST['new_username'] == '')){
+            $prepare = $dbh->prepare("UPDATE users SET username = :new_username WHERE username = :old_username");
+            $prepare->bindParam(':new_username', $_POST["new_username"]);
+            $prepare->bindParam(':old_username', $_SESSION["username"]);
+            $result=$prepare->execute();
+        }
+    }
+    $dbh->close();
+}
+//POST FORM FOR CHANGE PASSWORD
 if(isset($_POST["current_password"])){
-	$db = new sqlite3('../main.db');
-	$username = "'" . $_SESSION["username"] . "'";
-	$Sqlite3Result = $db->query("SELECT password FROM users WHERE username = $username");
-	if(!$Sqlite3Result){
-		echo "error with Sqlite3Result";
+	$dbh = new sqlite3('../main.db');
+	$prepare = $dbh->prepare("SELECT password FROM users WHERE username = :username");
+    $prepare->bindParam(':username', $_SESSION["username"]);
+    $result=$prepare->execute();
+	if(!$result){
+		echo $dbh->lastErrorMsg();
 		exit();
 	}
-	while($row = $Sqlite3Result->fetchArray(SQLITE3_ASSOC)){
-		if(password_verify($_POST['current_password'], $row['password']) && ($_POST['new_password'] == $_POST['confirm_password']) && !($_POST['new_password'] == '')){
-			$new_password = "'" . password_hash($_POST['new_password'], PASSWORD_DEFAULT) . "'";
-			$Sqlite3Return = $db->exec("UPDATE users SET password = $new_password WHERE username = $username");
+	while($row = $result->fetchArray(SQLITE3_ASSOC)){
+		if(password_verify($_POST['current_password'], $row['password']) && ($_POST['new_password'] == $_POST['confirm_password']) && !empty($_POST['new_password'])){
+			$update_prepare= $dbh->prepare("UPDATE users SET password = :password WHERE username = :username");
+            $update_prepare->bindParam(':password', password_hash($_POST['new_password'], PASSWORD_DEFAULT));
+            $update_prepare->bindParam(':username', $_SESSION['username']);
+            $update_result=$update_prepare->execute();
+            if(!$update_result){
+                echo $dbh->lastErrorMsg();
+                exit();
+            }
 		}
 	}
-	$db->close();
+	$dbh->close();
 }
-
-if(isset($_POST["new_username"])){
-	$db = new sqlite3('../main.db');
-	$username = "'" . $_SESSION["username"] . "'";
-	$new_username = "'".$_POST["new_username"]."'";
-	$Sqlite3Result =  $db->query("SELECT password FROM users WHERE username = $username");
-	while($row = $Sqlite3Result->fetchArray(SQLITE3_ASSOC)){
-		if(password_verify($_POST['password'], $row['password']) && ($_POST['new_username'] == $_POST['confirm_username']) && !($_POST['new_username'] == '')){
-			$Sqlite3Return = $db->exec("UPDATE users SET username = $new_username WHERE username = $username");
-		}
-	}
-}
-
+//POST FORM FOR ADD USER
 if(isset($_POST["add_user_username"])){
-	if($_POST["add_user_username"] == $_POST["confirm_add_user_username"] && !(empty($_POST["add_user_username"]))){
-		$new_user = "'".$_POST["add_user_username"]."'";
-	} else {
+	if($_POST["add_user_username"] == !$_POST["confirm_add_user_username"] && !empty($_POST["add_user_username"])){
 		echo "username error";
-		return;
+		exit();
 	}
-	if($_POST["add_user_password"] == $_POST["confirm_add_user_password"] && !(empty($_POST["add_user_password"]))){
-		$new_password = "'".password_hash($_POST["add_user_password"], PASSWORD_DEFAULT)."'";
-	} else {
+	if($_POST["add_user_password"] == !$_POST["confirm_add_user_password"] && !empty($_POST["add_user_password"])){
 		echo "password error";
-		return;
+		exit();
 	}
-	$db = new sqlite3('../main.db');
-	$statement = $db->query("SELECT count(*) FROM users WHERE username = $new_user");
-	while($result = $statement->fetchArray(SQLITE3_ASSOC)){
-		if($result["count(*)"] == 0){
-			$insert = $db->exec("INSERT INTO users('username', 'password') VALUES($new_user, $new_password)");
-			echo $_POST["add_user_username"] ." does not exist: ". $result["count(*)"];
+	$dbh = new sqlite3('../main.db');
+	$prepare = $dbh->prepare("SELECT count(*) FROM users WHERE username = :username");
+    $prepare->bindParam(':username', $_POST["username"]);
+    $result=$prepare->execute();
+	while($row = $result->fetchArray(SQLITE3_ASSOC)){
+		if($row["count(*)"] == 0){
+			$new_prepare= $dbh->prepare("INSERT INTO users('username', 'password') VALUES(:username, :password)");
+            $new_prepare->bindParam(':username', $_POST['add_user_username']);
+            $new_prepare->bindParam(':password', $_POST['add_user_password']);
+			echo $_POST["add_user_username"] ." does not exist: ". $row["count(*)"];
 		}else{
-			echo $_POST["add_user_username"] ." user already exists: ". $result["count(*)"];
+			echo $_POST["add_user_username"] ." user already exists: ". $row["count(*)"];
 		}
 	}
-	$db->close();
+	$dbh->close();
 }
-
+//POST FORM FOR ADD LINK
 if(isset($_POST["link_title"]) && isset($_POST["link_url"])){
     $dbh = new sqlite3('../main.db');
     $statement = $dbh->prepare('INSERT INTO external_links(username, title, link) VALUES(:username, :title, :url)');
