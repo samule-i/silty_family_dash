@@ -22,7 +22,8 @@ if(isset($_POST["action"])){
         $prepare->bindParam(':title', $_POST["title"]);
         $prepare->bindParam(':note', $_POST["note"]);
         $prepare->bindParam(':cost', $_POST["cost"]);
-        $prepare->bindParam(':image', $_POST["image"]);
+        $filename= download_file($_POST["image"], 'img/rewards/');
+        $prepare->bindParam(':image', $filename);
         $prepare->bindParam(':link', $_POST["link"]);
         $result = $prepare->execute();
         if(!$result){
@@ -118,7 +119,7 @@ $dbh->close();
 ?>
 </div>
 <?php
-sidenav()
+sidenav();
 ?>
 <div class="clearer"><span></span></div>
 </div>
