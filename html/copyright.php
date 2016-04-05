@@ -4,7 +4,6 @@ include("lib/layout.php");
 include("lib/ironserver.php");
 authentication();
 ?>
-
 <html>
 <?php
 doctype();

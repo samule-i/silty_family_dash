@@ -3,33 +3,12 @@ if(!isset($_POST['action'])){
 	header("location: index.php");
 	exit();
 }
-
 function escapechars($string){
 	$string = str_replace("'", "''", $string);
 	$string = str_replace("<br>", "", $string);
 	$string = str_replace("<br><br>", "<br>", $string);
 	return($string);
-
 }
-
-
-function download_file($url, $path){
-	$file = file_get_contents($url);
-	if($file == true){
-		echo "file found at $url<br/>";
-	}else{
-		echo "file not found at $url<br/>";
-	}
-	$result = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/img/rewards/'.basename($url), $file);
-	if($result == false){
-		echo "error saving to $path". basename($url)."<br/>";
-	} else {
-		echo "working APPARANTLY FUCKTHISSHIT <br/>";
-		echo realpath($path);
-	}
-	return $path . basename($url);
-}
-
 if($_POST["action"] == "archive"){
     $archive = $_POST["table"]."_archive";
     $dbh = new sqlite3('../../main.db');
@@ -77,7 +56,6 @@ if($_POST["action"] == "archive"){
     header("location: ../" . $_POST["table"] . ".php");
     exit();
 }
-
 switch($_POST['action']){
 	case "create":
 		unset($_POST['action']);
@@ -174,5 +152,4 @@ switch($_POST['action']){
 		exit();
 		break;
 }
-
 ?>
