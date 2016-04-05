@@ -16,6 +16,40 @@ function authentication(){
 		exit();
 	}
 }
+
+function download_file($url, $path){
+    //set getok
+    $getok=1;
+    $target_dir='/img/rewards/';
+    $target_file=basename($url);
+    $file = file_get_contents($url);
+    $filetype = pathinfo($url,PATHINFO_EXTENSION);
+    $check = getimagesize($url);
+    if($check !== false) {
+        $getok = 1;
+    } else {
+        $getok = 0;
+    }
+    // Check file size
+    if ($file["size"] > 500000) {
+        echo "Sorry, your file is too large.";
+        $getok = 0;
+    }
+    // Allow certain file formats
+    if($filetype != "jpg" && $filetype != "png" && $filetype != "jpeg"
+    && $filetype != "gif" ) {
+        $getok = 0;
+    }
+    // Check if $uploadOk is set to 0 by an error
+    if($getok == 0) {
+        echo "Sorry, your file was not uploaded.";
+    }else{
+        $clean_name = preg_replace("/[^A-Z]+/", "", basename($url)).".".$filetype;
+    	$result = file_put_contents($_SERVER['DOCUMENT_ROOT'].'/img/rewards/'.$clean_name, $file);
+    	return $path . $clean_name;
+    }
+}
+
 function list_users(){
     $dbh = new sqlite3('../main.db');
     $prepare = $dbh->prepare("SELECT username FROM users WHERE NOT id = '1'");
@@ -28,22 +62,6 @@ function list_users(){
         $userlist[] = $row["username"];
     }
     return $userlist;
-}
-
-
-function add_user($username){
-	global $db_path;
-	$db = new sqlite3($db_path);
-	$return = $db->query("SELECT username FROM users");
-	if(in_array($username, $return)){
-		echo "user already exists";
-	} else {
-		$username = "'".$username."'";
-		$statement = $db->prepare('INSERT INTO users (username) VALUES (:username;)');
-		$statement->bindValue(':username', $username);
-		$result = $statement->execute();
-	}
-	$db->close();
 }
 function get_total($table, $user){
 	$dbh = new sqlite3('../main.db');
@@ -126,7 +144,6 @@ function get_total($table, $user){
 	}
 	$dbh->close();
 }
-
 function spent_stars(){
 	global $db_path;
 	$dbh = new sqlite3('../main.db');
@@ -153,7 +170,6 @@ function spent_stars(){
 	return $spent;
 	$dbh->close();
 }
-
 function total_stars(){
 	global $db_path;
 	$db = new sqlite3($db_path);
@@ -168,7 +184,6 @@ function total_stars(){
 	}
 	$db->close();
 }
-
 function user_stars(){
     $dbh = new sqlite3('../main.db');
     foreach(list_users() as $sltyusr){
@@ -182,8 +197,6 @@ function user_stars(){
     $dbh->close();
     return $starlist;
 }
-
-
 function user_spent(){
     $dbh = new sqlite3('../main.db');
     foreach(list_users() as $sltyusr){
@@ -208,48 +221,11 @@ function user_spent(){
     }
     return $return;
 }
-
-
 function page_navigation($table, $page, $user){
 	$page_count = ceil(get_total($table, $user) / $page);
 	for($x = 1; $x<=$page_count ;$x++) {
 		echo "<a href='?offset=" . ((($x -1) * $page));
 		echo "'>" . $x . "</a>";
 	}
-}
-
-function rules($table, $amount){
-	global $db_path;
-	$db = new sqlite3($db_path);
-	if(isset($_GET["offset"])){
-		$offset = $_GET["offset"];
-	} else {
-		$offset = 0;
-	}
-	if(isset($_GET["archive"])){
-		$archive = 1;
-	} else {
-		$archive = 0;
-	}
-	$result = $db->query("SELECT * FROM $table ORDER BY id DESC LIMIT $amount OFFSET $offset");
-	while($row = $result->fetchArray(SQLITE3_ASSOC)){
-		echo "<div class='post' id='post_" . $row["id"] . "'>
-        <h1 id='title_" . $row["id"] . "'>" . $row["title"] . "</h1>
-        <div class='descr'>" . $row["username"] . ", " . gmdate('Y-m-d', $row['date']) . "</div>
-        <p id='note_" . $row["id"] . "'>" . $row["note"] . "</p>";
-		if($_SESSION["username"] == $row["username"]){
-			echo "<button class='database' onclick=\"javascript:editpost({title: 'title', note: 'note'}, {table: '" . $table ."', username: '" . $_SESSION["username"] . "'}, " . $row["id"] . ")\">
-            edit</button>
-            <button class='database' onclick=\"javascript:deletePost({table: '" . $table . "', id: '" . $row["id"] . "'})\">
-            delete
-            </button>";
-		}
-		echo "<div class='clearer'>
-        <span>
-        </span>
-        </div>
-        </div>";
-	}
-	$db->close();
 }
 ?>
