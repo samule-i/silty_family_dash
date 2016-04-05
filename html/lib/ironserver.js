@@ -39,100 +39,6 @@ function confirmDelete(params) {
     document.body.appendChild(form);
     form.submit();
 }
-
-function newform(params, hiddenfields){
-		var form = document.createElement("form");
-		form.setAttribute("method", "post");
-		form.setAttribute("action", "lib/post.php");
-
-		for(var key in params){
-			var newLabel = document.createElement("label")
-			newLabel.setAttribute("for", key);
-			newLabel.innerHTML = key;
-			form.appendChild(newLabel);
-			var textfield = document.createElement("textarea");
-			textfield.setAttribute("type", "textarea");
-			textfield.setAttribute("name", key);
-			form.appendChild(textfield);
-		}
-
-	    for(var key in hiddenfields) {
-            if(hiddenfields.hasOwnProperty(key)) {
-				var hiddenField = document.createElement("input");
-				hiddenField.setAttribute("type", "hidden");
-				hiddenField.setAttribute("name", key);
-				hiddenField.setAttribute("value", hiddenfields[key]);
-				form.appendChild(hiddenField);
-			}
-		}
-
-		var hiddenField = document.createElement("input");
-		hiddenField.setAttribute("type", "hidden");
-		hiddenField.setAttribute("name", "action");
-		hiddenField.setAttribute("value", "create");
-		form.appendChild(hiddenField);
-
-		var submit = document.createElement("input");
-		submit.setAttribute("type", "submit");
-		submit.setAttribute("value", "submit");
-		form.appendChild(submit);
-
-		var attatch = document.getElementById("createPost")
-        attatch.innerHTML = '';
-		attatch.appendChild(form);
-}
-
-function editpost(fields, hiddenfields, id){
-		var form = document.createElement("form");
-		form.setAttribute("method", "post");
-		form.setAttribute("action", "lib/post.php");
-
-		for(var key in fields){
-			var newLabel = document.createElement("label")
-			newLabel.setAttribute("for", key);
-			newLabel.innerHTML = key;
-			form.appendChild(newLabel);
-			var textfield = document.createElement("textarea");
-			textfield.setAttribute("type", "textarea");
-			textfield.setAttribute("name", key);
-			edit = document.getElementById(key+"_"+id).innerHTML;
-			textfield.innerHTML = edit;
-			form.appendChild(textfield);
-		}
-
-	    for(var key in hiddenfields) {
-            if(hiddenfields.hasOwnProperty(key)) {
-            var hiddenField = document.createElement("input");
-            hiddenField.setAttribute("type", "hidden");
-            hiddenField.setAttribute("name", key);
-            hiddenField.setAttribute("value", hiddenfields[key]);
-            form.appendChild(hiddenField);
-         }
-		 var hiddenField = document.createElement("input");
-		 hiddenField.setAttribute("type", "hidden");
-		 hiddenField.setAttribute("name", "id");
-		 hiddenField.setAttribute("value", id);
-		 form.appendChild(hiddenField);
-
-		 var hiddenField = document.createElement("input");
-		 hiddenField.setAttribute("type", "hidden");
-		 hiddenField.setAttribute("name", "action");
-		 hiddenField.setAttribute("value", "edit");
-		 form.appendChild(hiddenField);
-
-		}
-
-		var submit = document.createElement("input");
-		submit.setAttribute("type", "submit");
-		submit.setAttribute("value", "submit");
-		form.appendChild(submit);
-
-		var post = document.getElementById("post_"+id)
-		post.innerHTML = ' ';
-		post.appendChild(form);
-}
-
-
 function label(name){
     var label = document.createElement("label");
     label.setAttribute("for", name);
@@ -146,7 +52,13 @@ function textarea(name){
     textarea.setAttribute("name", name);
     return textarea;
 }
-
+function textbox(name){
+    var textbox = document.createElement("input");
+    textbox.setAttribute("type", "text");
+    textbox.setAttribute("name", name);
+    textbox.setAttribute("class", "textbox");
+    return textbox;
+}
 function list(){
     var list = document.createElement("input");
     list.setAttribute("list", "users");
@@ -223,7 +135,7 @@ function newRule(){
     form.setAttribute("action", "rules.php");
 
     form.appendChild(label("title"));
-    form.appendChild(textarea("title"));
+    form.appendChild(textbox("title"));
     form.appendChild(label("note"));
     form.appendChild(textarea("note"));
     var i;
@@ -252,7 +164,7 @@ function editRule(id, userlist){
     form.setAttribute("method", "post");
     form.setAttribute("action", "rules.php");
 
-    var title=textarea("title");
+    var title=textbox("title");
     var note=textarea("note");
 
     form.appendChild(label("title"));
@@ -282,8 +194,8 @@ function editRule(id, userlist){
     form.appendChild(action("edit"));
     form.appendChild(submit());
 
-    title.innerHTML = document.getElementById("title_"+id).innerHTML;
-    content.innerHTML = document.getElementById("note_"+id).innerHTML;
+    title.value = document.getElementById("title_"+id).innerHTML;
+    note.innerHTML = document.getElementById("note_"+id).innerHTML;
 
     var parent = document.getElementById("post_"+id);
     parent.innerHTML = '';
@@ -295,7 +207,7 @@ function newDiary(){
     form.setAttribute("action", "diary.php");
 
     form.appendChild(label("title"));
-    form.appendChild(textarea("title"));
+    form.appendChild(textbox("title"));
     form.appendChild(label("content"));
     form.appendChild(textarea("content"));
 
@@ -311,7 +223,7 @@ function editDiary(id){
     form.setAttribute("method", "post");
     form.setAttribute("action", "diary.php");
 
-    var title=textarea("title");
+    var title=textbox("title");
     var content=textarea("content");
 
     form.appendChild(label("title"));
@@ -322,7 +234,7 @@ function editDiary(id){
     form.appendChild(action("edit"));
     form.appendChild(submit());
 
-    title.innerHTML = document.getElementById("title_"+id).innerHTML;
+    title.value = document.getElementById("title_"+id).innerHTML;
     content.innerHTML = document.getElementById("content_"+id).innerHTML;
 
     var parent = document.getElementById("post_"+id);
@@ -355,7 +267,7 @@ function newReward(){
     form.setAttribute("action", "rewards.php");
 
     form.appendChild(label("title"));
-    form.appendChild(textarea("title"));
+    form.appendChild(textbox("title"));
     form.appendChild(label("note"));
     form.appendChild(textarea("note"));
     form.appendChild(label("cost"));
@@ -380,7 +292,7 @@ function editReward(id){
     form.setAttribute("method", "post");
     form.setAttribute("action", "rewards.php");
 
-    var title=textarea("title");
+    var title=textbox("title");
     var note=textarea("note");
     var cost=textarea("cost");
     var image=textarea("image");
@@ -400,7 +312,7 @@ function editReward(id){
     form.appendChild(action("edit"));
     form.appendChild(submit());
 
-    title.innerHTML = document.getElementById("title_"+id).innerHTML;
+    title.value = document.getElementById("title_"+id).innerHTML;
     note.innerHTML = document.getElementById("note_"+id).innerHTML;
     cost.innerHTML = document.getElementById("cost_"+id).innerHTML;
     image.innerHTML = document.getElementById("image_"+id).src;
@@ -431,7 +343,7 @@ function newNote(){
     form.setAttribute("action", "notes.php");
 
     form.appendChild(label("title"));
-    form.appendChild(textarea("title"));
+    form.appendChild(textbox("title"));
     form.appendChild(label("note"));
     form.appendChild(textarea("note"));
     form.appendChild(action("new"));
@@ -446,7 +358,7 @@ function editNote(id){
     form.setAttribute("method", "post");
     form.setAttribute("action", "notes.php");
 
-    var title=textarea("title");
+    var title=textbox("title");
     var note=textarea("note");
 
     form.appendChild(label("title"));
@@ -457,7 +369,7 @@ function editNote(id){
     form.appendChild(action("edit"));
     form.appendChild(submit());
 
-    title.innerHTML = document.getElementById("title_"+id).innerHTML;
+    title.value = document.getElementById("title_"+id).innerHTML;
     note.innerHTML = document.getElementById("note_"+id).innerHTML;
 
     var parent = document.getElementById("post_"+id);
