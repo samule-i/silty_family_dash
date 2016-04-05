@@ -29,6 +29,9 @@ input {
 input.checkbox{
     float:left;
 }
+input.textbox{
+    width:100%;
+}
 p,cite,code,ul {
 	font-size: 1.2em;
 	padding-bottom: 1.2em;
@@ -68,6 +71,7 @@ label{
 	background: #F4EDE3;
 	margin: 0 auto;
 	width: 780px;
+    height: auto;
 }
 
 /* header */
@@ -91,17 +95,15 @@ label{
 .navigation {
 	background: #88A8A7;
 	font: bold 1.2em Verdana,sans-serif;
-	height: 44px;
-	padding: 0 18px;
+	padding: 10 10px;
 	width: auto;
     text-align: center;
 }
 .navigation a {
 	color: #F4EDE3;
 	text-decoration: none;
-	padding: 3px 4px;
-	margin-right: 12px;
-	line-height: 44px;
+	padding: 10px 10px;
+	margin-right: 5px;
 }
 .navigation a:hover {
 	background: #FAFFF5;
@@ -110,14 +112,15 @@ label{
 
 /* main */
 .main {
-	clear: both;
-	padding-bottom: 10px;
+    clear: both;
+    padding-bottom: 10px;
 }
 
 /* sub navigation */
 .sidenav {
 	float: right;
 	width: 218px;
+    background-color: #F5B43E;
 }
 .sidenav h1 {
 	background: #BC3522;
@@ -133,9 +136,8 @@ label{
 }
 .sidenav li {
 	list-style: none;
-	background: #F5B43E;
 	color:#F4EDE3;
-	padding: 8px 4px 8px 12px;
+	padding: 15 15;
 }
 .sidenav li a {
 	background: #F5B43E;
@@ -240,13 +242,15 @@ button.database {
 }
 /* footer */
 .footer {
-	background: #BC3522;
-	color: #F4EDE3;
-	font-size: 1.1em;
-	line-height: 40px;
-	margin: 0 auto;
-	text-align: center;
-	width: auto;
+    background: #BC3522;
+    color: #F4EDE3;
+    font-size: 1.1em;
+    line-height: 40px;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    bottom:0;
+    position:relative;
 }
 .footer a {
 	color: #FFD;
