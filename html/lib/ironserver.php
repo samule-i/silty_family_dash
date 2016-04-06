@@ -16,8 +16,12 @@ function authentication(){
 		exit();
 	}
 }
-
-function download_file($url, $path){
+function prepare_db_string($str_in){
+    $str_in=htmlspecialchars($str_in);
+    $str_in=nl2br($str_in);
+    return $str_in;
+}
+function download_file($url, $path){#
     //set getok
     $getok=1;
     $target_dir='/img/rewards/';

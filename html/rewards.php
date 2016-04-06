@@ -19,12 +19,17 @@ if(isset($_POST["action"])){
         $prepare->bindParam(':id', $_POST["id"]);
     }
     if($_POST["action"] == "new" || $_POST["action"] == "edit"){
-        $prepare->bindParam(':title', $_POST["title"]);
-        $prepare->bindParam(':note', $_POST["note"]);
-        $prepare->bindParam(':cost', $_POST["cost"]);
-        $filename= download_file($_POST["image"], 'img/rewards/');
+        $title= prepare_db_string($_POST["title"]);
+        $prepare->bindParam(':title', $title);
+        $note= prepare_db_string($_POST["note"]);
+        $prepare->bindParam(':note', $note);
+        $cost= prepare_db_string($_POST["cost"]);
+        $prepare->bindParam(':cost', $cost);
+        $image=prepare_db_string($_POST["image"]);
+        $filename= download_file($image, 'img/rewards/');
         $prepare->bindParam(':image', $filename);
-        $prepare->bindParam(':link', $_POST["link"]);
+        $link= prepare_db_string($_POST["link"]);
+        $prepare->bindParam(':link', $link);
         $result = $prepare->execute();
         if(!$result){
             echo $dbh->lastErrorMsg();

@@ -1,3 +1,28 @@
+//http://stackoverflow.com/questions/295566/sanitize-rewrite-html-on-the-client-side/430240#430240
+var tagBody = '(?:[^"\'>]|"[^"]*"|\'[^\']*\')*';
+
+var tagOrComment = new RegExp(
+    '<(?:'
+    // Comment body.
+    + '!--(?:(?:-*[^->])*--+|-?)'
+    // Special "raw text" elements whose content should be elided.
+    + '|script\\b' + tagBody + '>[\\s\\S]*?</script\\s*'
+    + '|style\\b' + tagBody + '>[\\s\\S]*?</style\\s*'
+    // Regular name
+    + '|/?[a-z]'
+    + tagBody
+    + ')>',
+    'gi');
+function removeTags(html) {
+  var oldHtml;
+  do {
+    oldHtml = html;
+    html = html.replace(tagOrComment, '');
+  } while (html !== oldHtml);
+  return html.replace(/</g, '&lt;');
+}
+
+
 function deletePost(params){
 	var post = document.getElementById("post_" +params.id);
 	restore = post.innerHTML
@@ -194,8 +219,8 @@ function editRule(id, userlist){
     form.appendChild(action("edit"));
     form.appendChild(submit());
 
-    title.value = document.getElementById("title_"+id).innerHTML;
-    note.innerHTML = document.getElementById("note_"+id).innerHTML;
+    title.value = removeTags(document.getElementById("title_"+id).innerHTML);
+    note.innerHTML = removeTags(document.getElementById("note_"+id).innerHTML);
 
     var parent = document.getElementById("post_"+id);
     parent.innerHTML = '';
@@ -234,8 +259,8 @@ function editDiary(id){
     form.appendChild(action("edit"));
     form.appendChild(submit());
 
-    title.value = document.getElementById("title_"+id).innerHTML;
-    content.innerHTML = document.getElementById("content_"+id).innerHTML;
+    title.value = removeTags(document.getElementById("title_"+id).innerHTML);
+    content.innerHTML = removeTags(document.getElementById("content_"+id).innerHTML);
 
     var parent = document.getElementById("post_"+id);
     parent.innerHTML = '';
@@ -312,11 +337,11 @@ function editReward(id){
     form.appendChild(action("edit"));
     form.appendChild(submit());
 
-    title.value = document.getElementById("title_"+id).innerHTML;
-    note.innerHTML = document.getElementById("note_"+id).innerHTML;
-    cost.innerHTML = document.getElementById("cost_"+id).innerHTML;
-    image.innerHTML = document.getElementById("image_"+id).src;
-    link.innerHTML = document.getElementById("link_"+id).href;
+    title.value = removeTags(document.getElementById("title_"+id).innerHTML);
+    note.innerHTML = removeTags(document.getElementById("note_"+id).innerHTML);
+    cost.innerHTML = removeTags(document.getElementById("cost_"+id).innerHTML);
+    image.innerHTML = removeTags(document.getElementById("image_"+id).src);
+    link.innerHTML = removeTags(document.getElementById("link_"+id).href);
 
     var parent = document.getElementById("post_"+id);
     parent.innerHTML = '';
@@ -369,8 +394,8 @@ function editNote(id){
     form.appendChild(action("edit"));
     form.appendChild(submit());
 
-    title.value = document.getElementById("title_"+id).innerHTML;
-    note.innerHTML = document.getElementById("note_"+id).innerHTML;
+    title.value = removeTags(document.getElementById("title_"+id).innerHTML);
+    note.innerHTML = removeTags(document.getElementById("note_"+id).innerHTML);
 
     var parent = document.getElementById("post_"+id);
     parent.innerHTML = '';

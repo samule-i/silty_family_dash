@@ -17,9 +17,11 @@ if(isset($_POST["action"])){
         $prepare->bindParam(':id', $_POST["id"]);
     }
     if($_POST["action"] == "new" || $_POST["action"] == "edit"){
-        $prepare->bindParam(':title', $_POST["title"]);
-        $prepare->bindParam(':note', $_POST["note"]);
-        $result = $prepare->execute();
+        $title= prepare_db_string($_POST["title"]);
+        $prepare->bindParam(':title', $title);
+        $note= prepare_db_string($_POST["note"]);
+        $prepare->bindParam(':note', $note);
+        $result= $prepare->execute();
         if(!$result){
             echo $dbh->lastErrorMsg();
             exit();
