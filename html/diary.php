@@ -26,6 +26,7 @@ if(isset($_POST["action"])){
         }
     }
     $dbh->close();
+    header("location:diary.php");
 }
 ?>
 <html>

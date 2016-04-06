@@ -37,6 +37,7 @@ if(isset($_POST["action"])){
         $prepare->bindParam(':id', $_POST["id"]);
     }
     $dbh->close();
+    header("location:rewards.php");
 }
 ?>
 

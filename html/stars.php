@@ -19,6 +19,7 @@ if(isset($_POST["owner"])){
         exit();
     }
     $dbh->close();
+    header("location:stars.php");
 }
  ?>
 <html>
