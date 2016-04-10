@@ -4,17 +4,9 @@
 
 ###Displays in full screen application:
 
-Nginx status
+Status for various server services.
 
-Samba status
-
-Mumble-server status
-
-Deluge status
-
-CPU usage
-
-RAM usage
+CPU / RAM usage
 
 Uptime
 
@@ -26,11 +18,14 @@ Section for notes
 
 Section for "stars", reward system for children
 
+Image gallery.
+
 #setup
 ```
 sudo apt-get install git sqlite3 php5-sqlite python3-psutil python3-tk python3-pil.imaging
-git clone http://github.com/formcore/silty_ui
-./silty_ui/silty_ui.py
+wget https://github.com/formcore/silty_family_dash/archive/master.zip
+tar -xvf silty_family_dash-master.zip
+./silty_family_dash-master/silty_ui/silty_ui.py
 ```
 ***
 ##PLANNED UPDATES:

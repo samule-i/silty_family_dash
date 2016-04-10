@@ -286,14 +286,15 @@ exit = Label(root, text="quit",
     font=('Nimbus Sans L', 14),
     bg=colour_1,
     fg=colour_4)
-
+f_width, f_height = (w/2.5), (h/2)
 front = Frame(root)
-clock = Frame(front)
-g_width, g_height = (w/2.5), (h/2)
-gallery = Frame(front, width=g_width, height=g_height)
+clock = Frame(front, height=f_height)
+clock.grid_propagate(False)
+gallery = Frame(front, width=f_width, height=f_height)
 gallery.grid_propagate(False)
 left_panel = Frame(front, width=250)
-note = Frame(front)
+note = Frame(front, height=f_height)
+note.grid_propagate(False)
 stars = Frame(front)
 
 currtime = Label(clock, font=('Nimbus Sans L', 40), bg=colour_2, fg=colour_4)
