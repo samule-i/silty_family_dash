@@ -24,7 +24,7 @@ Image gallery.
 ```
 sudo apt-get install git sqlite3 php5-sqlite python3-psutil python3-tk python3-pil.imaging
 wget https://github.com/formcore/silty_family_dash/archive/master.zip
-tar -xvf silty_family_dash-master.zip
+unzip master.zip
 ./silty_family_dash-master/silty_ui/silty_ui.py
 ```
 ***
