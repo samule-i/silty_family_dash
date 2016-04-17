@@ -41,6 +41,55 @@ def left_panel_processes(event):
 	processes.grid(row=1, sticky=E+W+N+S)
 
 #get data for updates
+def list_users():
+    userlist=[]
+    db_path=current_path()+'/main.db'
+    connect=sqlite3.connect(db_path)
+    cursor=connect.cursor()
+    try:
+        cursor.execute('SELECT username FROM users WHERE NOT id="1"')
+    except sqlite3.OperationalError:
+        pass
+    for (x,) in cursor.fetchall():
+        userlist.append(x)
+    return userlist
+def user_stars():
+    total_stars={}
+    db_path=current_path()+'/main.db'
+    connect=sqlite3.connect(db_path)
+    cursor=connect.cursor()
+    for user in list_users():
+        try:
+            cursor.execute("SELECT count(*) FROM stars WHERE owner = ?", [user])
+            (r,)=cursor.fetchone()
+            total_stars.update({user:r})
+        except sqlite3.OperationalError:
+            pass
+    return total_stars
+def user_spent():
+    total_spend={}
+    db_path=current_path()+'/main.db'
+    connect=sqlite3.connect(db_path)
+    cursor=connect.cursor()
+    for user in list_users():
+        try:
+            cursor.execute("SELECT cost FROM rewards WHERE owner = ? AND NOT award_date=''", [user])
+            t=0
+            for (x,) in cursor.fetchall():
+                try:
+                    t+=x
+                except TypeError:
+                    pass
+            cursor.execute("SELECT cost FROM rewards_archive WHERE owner = ? AND NOT award_date = ''", [user])
+            for (x,) in cursor.fetchall():
+                try:
+                    t+=x
+                except TypeError:
+                    pass
+        except sqlite3.OperationalError:
+            pass
+        total_spend.update({user:t})
+    return total_spend
 def get_stars():
 	db_path = current_path()+'/main.db'
 	connect = sqlite3.connect(db_path)
@@ -200,7 +249,15 @@ def system_update():
     root.after(1000, system_update)
 
 def stars_update():
-    star_chart.config(text=get_stars())
+    i=0
+    userlist=list_users()
+    total_stars=user_stars()
+    total_spend=user_spent()
+    for child in user_list_frame.winfo_children():
+        x=userlist[i]
+        child.config(text=userlist[i]+':'+str(user_stars()[userlist[i]]-user_spent()[userlist[i]])+'/'+str(user_stars()[userlist[i]]))
+        i+=1
+    #star_chart.config(text=get_stars())
     root.after(30000, stars_update)
 
 def note_update():
@@ -287,12 +344,14 @@ exit = Label(root, text="quit",
     bg=colour_1,
     fg=colour_4)
 f_width, f_height = (w/2.5), (h/2)
+fifth = (w/5)
 front = Frame(root)
 clock = Frame(front, height=f_height)
 clock.grid_propagate(False)
 gallery = Frame(front, width=f_width, height=f_height)
 gallery.grid_propagate(False)
-left_panel = Frame(front, width=250)
+left_panel = Frame(front, width=fifth)
+left_panel.grid_propagate(False)
 note = Frame(front, height=f_height)
 note.grid_propagate(False)
 stars = Frame(front)
@@ -342,7 +401,11 @@ curly_star=curly_star.resize((150,150), Image.ANTIALIAS)
 silty_star_image = ImageTk.PhotoImage(curly_star)
 
 silty_star = Label(stars, bg=colour_3, fg=colour_5, image = silty_star_image, anchor=S)
-star_chart = Label(stars, font=('Nimbus Sans L', 22), bg=colour_3, fg=colour_5, anchor=N)
+user_list_frame=Frame(stars)
+for user in list_users():
+    label=Label(user_list_frame, font=('Nimbus Sans L', 12), bg=colour_3, fg=colour_5, anchor=N)
+
+#star_chart = Label(stars, font=('Nimbus Sans L', 22), bg=colour_3, fg=colour_5, anchor=N)
 
 note1 = Label(note)
 note2 = Label(note)
@@ -400,8 +463,10 @@ for child in system.winfo_children():
     child.grid(sticky=N+E+W+S)
 
 stars.grid(row=1, column=2, sticky=N+E+W+S)
-silty_star.grid(sticky=N+E+W+S)
-star_chart.grid(sticky=N+E+W+S)
+for child in stars.winfo_children():
+    child.grid(sticky=N+E+W+S)
+for child in user_list_frame.winfo_children():
+    child.grid(sticky=N+E+W+S)
 
 note.grid(column=2, row=0, sticky=N+E+W+S)
 for child in note.winfo_children():
@@ -448,6 +513,8 @@ Grid.rowconfigure(system, 4, weight=1)
 Grid.columnconfigure(stars, 0, weight=1)
 Grid.rowconfigure(stars, 0, weight=1)
 Grid.rowconfigure(stars, 1, weight=1)
+
+Grid.columnconfigure(user_list_frame, 0, weight=1)
 
 Grid.columnconfigure(clock, 0, weight=3)
 Grid.rowconfigure(clock, 0, weight=1)
