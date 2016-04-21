@@ -40,6 +40,11 @@ if(isset($_POST["action"])){
         $prepare = $dbh->prepare('UPDATE rewards SET award_date = :date_now WHERE id = :id');
         $prepare->bindParam(':date_now', strftime('%s'));
         $prepare->bindParam(':id', $_POST["id"]);
+        $result = $prepare->execute();
+        if(!$result){
+            echo $dbh->lastErrorMsg();
+            exit();
+        }
     }
     $dbh->close();
     header("location:rewards.php");
