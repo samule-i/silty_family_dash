@@ -84,7 +84,7 @@ function sidenav(){
 
 function footer(){
 	echo "<div class='footer'>
-    <span class='left'>&copy; 2015 <a href='http://ironserver.co.uk'>ironserver</a>. Valid <a href='http://jigsaw.w3.org/css-validator/check/referer'>CSS</a> &amp; <a href='http://validator.w3.org/check?uri=referer'>XHTML</a></span>
+    <span class='left'>&copy; 2015 <a href='http://ironserver.co.uk'>ironserver</a>. Leave a btc tip? <b>16tr86QijyMcARYfe8B6pRrP5Zy5nS54Vq</b></span>
     <span class='right'><a href='copyright.php'>copyright information</a></span>
     <div class='clearer'><span></span></div>
     </div>";
