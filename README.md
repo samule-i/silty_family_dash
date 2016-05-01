@@ -20,6 +20,12 @@ Section for "stars", reward system for children
 
 Image gallery.
 
+[Imgur](http://i.imgur.com/bJeqhTy.png)
+[Imgur](http://i.imgur.com/pFhSWZd.png)
+[Imgur](http://i.imgur.com/gei3jAf.png)
+[Imgur](http://i.imgur.com/4MK5YX1.png)
+[Imgur](http://i.imgur.com/zlsTaw0.png)
+
 #setup
 ```
 sudo apt-get install sqlite3 php5-sqlite python3-psutil python3-tk python3-pil python-imaging-tk
@@ -27,10 +33,3 @@ wget https://github.com/formcore/silty_family_dash/archive/master.zip
 unzip master.zip
 ./silty_family_dash-master/silty_ui/silty_ui.py
 ```
-***
-##PLANNED UPDATES:
-* Set "stars" pane to show users individually, as opposed to totals shown currently.  
-
-
-## Known bugs
-* Uptime sometimes shows "garbage" numbers at the end of the string, this is something to do with the admittedly awful method of just cutting up a long string of time  
