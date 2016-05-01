@@ -20,7 +20,7 @@ Section for "stars", reward system for children
 
 Image gallery.
 
-![Imgur](http://i.imgur.com/bJeqhTy.png)
+![Imgur](http://i.imgur.com/RhcwuD1.png)
 ![Imgur](http://i.imgur.com/pFhSWZd.png)
 ![Imgur](http://i.imgur.com/gei3jAf.png)
 ![Imgur](http://i.imgur.com/4MK5YX1.png)
