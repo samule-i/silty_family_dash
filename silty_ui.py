@@ -3,6 +3,7 @@ import time
 import datetime
 import random
 from datetime import timedelta
+from time import strftime
 import os
 import psutil
 import sqlite3
@@ -12,7 +13,7 @@ from PIL import ImageTk, Image
 
 
 #theming
-theme = 'super hacker daru'
+theme = 'celty'
 
 if theme == 'celty':
     colour_1 = '#333233'
@@ -174,8 +175,16 @@ def get_notes():
     db_path = current_path()+'/main.db'
     connect = sqlite3.connect(db_path)
     cursor = connect.cursor()
+    t=datetime.date(int(time.strftime("%Y")), int(strftime("%m")), int(time.strftime("%d")))
+    today=str(time.mktime(t.timetuple()))[:-2:]
     try:
-        cursor.execute('select username, title from notes order by id desc limit 10')
+        cursor.execute('select id from timetable where date = ?', (str(today),))
+    except sqlite3.OperationalError:
+        pass
+    req_id = cursor.fetchall()
+    try:
+        #cursor.execute('select date, time from timetable order by id desc limit 7 offset = ?', req_id[0][0])
+        cursor.execute('select date, time from timetable where id >= ? limit 7', (str(req_id[0][0]),))
     except sqlite3.OperationalError:
         pass
     results = cursor.fetchall()
@@ -301,15 +310,12 @@ def note_update():
     global note5
     global note6
     global note7
-    global note8
-    global note9
-    global note10
     results = get_notes()
     i = 0
     for child in note.winfo_children():
         try:
             #run through each label and write the next note into it.
-            child.config(text=results[i][0] + ':\n' + results[i][1][:20:])
+            child.config(text=datetime.datetime.fromtimestamp(int(results[i][0])).strftime("%a %d") + ': ' + results[i][1])
         except IndexError:
             pass
         i += 1
@@ -451,9 +457,7 @@ note4 = Label(note)
 note5 = Label(note)
 note6 = Label(note)
 note7 = Label(note)
-note8 = Label(note)
-note9 = Label(note)
-note10 = Label(note)
+
 
 for child in system.winfo_children():
     child.config(padx=10, font=('Nimbus Mono L', 11),
@@ -562,9 +566,7 @@ Grid.rowconfigure(note, 3, weight=1)
 Grid.rowconfigure(note, 4, weight=1)
 Grid.rowconfigure(note, 5, weight=1)
 Grid.rowconfigure(note, 6, weight=1)
-Grid.rowconfigure(note, 7, weight=1)
-Grid.rowconfigure(note, 8, weight=1)
-Grid.rowconfigure(note, 9, weight=1)
+
 
 Grid.rowconfigure(gallery, 0, weight=1)
 Grid.columnconfigure(gallery, 0, weight=1)
