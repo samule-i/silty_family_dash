@@ -28,7 +28,8 @@ function navigation(){
 	"stars" => "stars.php",
 	"rewards" => "rewards.php",
 	"notes" => "notes.php",
-    "gallery" => "gallery.php",
+  "gallery" => "gallery.php",
+	"timetable" => "timetable.php",
 	"settings" => "settings.php"
 	);
 	foreach($navigation as $title=>$url){
@@ -84,7 +85,7 @@ function sidenav(){
 
 function footer(){
 	echo "<div class='footer'>
-    <span class='left'>&copy; 2015 <a href='http://ironserver.co.uk'>ironserver</a>. Leave a btc tip? <b>16tr86QijyMcARYfe8B6pRrP5Zy5nS54Vq</b></span>
+    <span class='left'>&copy; 2015 <a href='http://ironserver.co.uk'>ironserver</a>. Leave a tip?  <b>1Juhpz8LhPtgv8CvKiEEAymbuMykh7muqE</b></span>
     <span class='right'><a href='copyright.php'>copyright information</a></span>
     <div class='clearer'><span></span></div>
     </div>";

@@ -21,6 +21,49 @@ function removeTags(html) {
   } while (html !== oldHtml);
   return html.replace(/</g, '&lt;');
 }
+
+
+function deletePost(params){
+	var post = document.getElementById("post_" +params.id);
+	restore = post.innerHTML
+	post.innerHTML = 'Confirm Delete?<br>';
+	var confirm = document.createElement("a");
+	confirm.setAttribute("href", "#");
+	confirm.setAttribute("onclick", "confirmDelete({table:'"+params.table+"', id:'"+params.id+"'});")
+	confirm.innerHTML = "Delete";
+	post.appendChild(confirm);
+	var decline = document.createElement("a");
+	decline.setAttribute("href", params.table+".php");
+	decline.innerHTML = "Cancel";
+	var br = document.createElement("br");
+	post.appendChild(br);
+	post.appendChild(decline);
+}
+
+function confirmDelete(params) {
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "lib/post.php");
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+         }
+    }
+
+	var hiddenField = document.createElement("input");
+	hiddenField.setAttribute("type", "hidden");
+	hiddenField.setAttribute("name", "action");
+	hiddenField.setAttribute("value", "delete");
+	form.appendChild(hiddenField);
+    document.body.appendChild(form);
+    form.submit();
+}
 function label(name){
     var label = document.createElement("label");
     label.setAttribute("for", name);
@@ -372,6 +415,24 @@ function newGallery(){
     form.appendChild(action("new"));
     form.appendChild(submit());
     var parent = document.getElementById("newform");
+    parent.innerHTML = '';
+    parent.appendChild(form);
+}
+
+function editTimetable(id){
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "timetable.php");
+    var time=textarea("time");
+    form.appendChild(label("time"));
+    form.appendChild(time);
+    form.appendChild(postid(id));
+    form.appendChild(action("edit"));
+    form.appendChild(submit());
+
+    time.innerHTML = removeTags(document.getElementById("time_"+id).innerHTML);
+
+    var parent = document.getElementById("time_"+id);
     parent.innerHTML = '';
     parent.appendChild(form);
 }
