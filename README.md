@@ -1,16 +1,31 @@
 # silty_ui
 ## Full-screen display for use on a Raspberrypi. With nginx installed allows for some childrens rewards 
-## system based on rules and rewards. setup
+## system based on rules and rewards. 
+## setup
 ### Install dependencies
-``` sudo apt-get update sudo apt-get install sqlite3 php5-sqlite python3-psutil python3-tk python3-pil 
-python-imaging-tk nginx mumble-server php5-fpm python3-pil.imagetk samba ```
+```
+sudo apt-get update
+sudo apt-get install sqlite3 php5-sqlite python3-psutil python3-tk python3-pil 
+python-imaging-tk nginx mumble-server php5-fpm python3-pil.imagetk samba
+```
+
 ### Download and move packages
-``` git clone http://github.com/formcore/silty_ui sudo mv ./silty_ui /var/www ```
+```
+git clone http://github.com/formcore/silty_ui sudo mv ./silty_ui /var/www
+```
+
 ### Set correct permissions
-``` sudo chown -R www-data:www-data /var/www sudo chown -R root:www-data /var/lib/php5/ sudo chmod -R 775 
-/var/lib/php5/sessions/ ```
+```
+sudo chown -R www-data:www-data /var/www sudo chown -R root:www-data /var/lib/php5/
+sudo chmod -R 775 
+/var/lib/php5/sessions/
+```
+
 ### Run the program
-``` /var/www/silty_ui/silty_ui.py ```
+```
+/var/www/silty_ui/silty_ui.py
+```
+
 ### Displays in full screen application:
 Nginx status Samba status Mumble-server status Deluge status CPU usage RAM usage Uptime Disk usage Date and 
 time Section for notes Section for "stars", reward system for children ***
