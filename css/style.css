@@ -1,0 +1,286 @@
+/* standard elements */
+* {
+	margin: 0;
+	padding: 0;
+}
+a {
+	color: #963;
+}
+a:hover {
+	color: #C60;
+}
+body {
+	background: #DDD;
+	color: #543;
+	font: normal 62.5% "Lucida Sans Unicode",sans-serif;
+}
+form {
+    background-color: #A8C8C7;
+    width: 75%;
+    padding:20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+input {
+	color: #555;
+	font: normal 1.1em "Lucida Sans Unicode",sans-serif;
+    display: block;
+}
+input.checkbox{
+    float:left;
+}
+input.textbox{
+    width:100%;
+}
+p,cite,code,ul {
+	font-size: 1.2em;
+	padding-bottom: 1.2em;
+}
+h1 {
+	font-size: 1.4em;
+	margin-bottom: 4px;
+}
+
+code {
+	background: #FFE;
+	border: 1px solid #EED;
+	border-left: 6px solid #938262;
+	color: #554;
+	display: block;
+	font: normal 1.1em "Lucida Sans Unicode",serif;
+	margin-bottom: 12px;
+	padding: 8px 10px;
+	white-space: pre;
+}
+
+h1,h2,h3 {
+	color: #654;
+	padding-top: 6px;
+}
+
+label{
+    display:block;
+}
+/* misc */
+.clearer {
+	clear: both;
+}
+
+/* structure */
+.container {
+	background: #F4EDE3;
+	margin: 0 auto;
+	width: 780px;
+    height: auto;
+}
+
+/* header */
+.header {
+	background: #BC3522;
+	height: 50px;
+	width: auto;
+}
+
+/* title */
+.title {
+	padding: 0px;
+}
+.title h1 {
+	color: #F4EDE3;
+	font: normal 2.4em "Lucida Sans Unicode","Trebuchet MS",sans-serif;
+	text-align: center;
+}
+
+/* navigation */
+.navigation {
+	background: #88A8A7;
+	font: bold 1.2em Verdana,sans-serif;
+	padding: 10 10px;
+	width: auto;
+    text-align: center;
+}
+.navigation a {
+	color: #F4EDE3;
+	text-decoration: none;
+	padding: 10px 10px;
+	margin-right: 5px;
+}
+.navigation a:hover {
+	background: #FAFFF5;
+	color: #420;
+}
+
+/* main */
+.main {
+    clear: both;
+    padding-bottom: 10px;
+}
+
+/* sub navigation */
+.sidenav {
+	float: right;
+	width: 218px;
+    background-color: #F5B43E;
+}
+.sidenav h1 {
+	background: #BC3522;
+	color: #F4EDE3;
+	font-size: 1.2em;
+	height: 22px;
+	margin: 0;
+	padding-left: 12px;
+}
+.sidenav ul {
+	margin: 0;
+	padding: 0;
+}
+.sidenav li {
+	list-style: none;
+	color:#F4EDE3;
+	padding: 15 15;
+}
+.sidenav li a {
+	background: #F5B43E;
+	color: #F4EDE3;
+	display: block;
+	text-decoration: none;
+}
+.sidenav li a:hover {
+	background: #FAC64A;
+	color: #F4EDE3;
+}
+
+.sidenav textarea {
+	display:block;
+}
+
+/* content */
+.controls {
+    float:left;
+    margin:10px;
+}
+
+.content {
+	padding-top: 12px;
+	float: left;
+	width: 68%;
+    padding-left:20px;
+}
+.content .descr {
+	color: #987E57;
+	font-size: 1.1em;
+	margin-bottom: 6px;
+}
+.content li {
+	list-style: url(img/li.gif);
+	margin-left: 18px;
+}
+
+.content button{
+	background: #CCC3AF;
+	color: #554;
+	display: block;
+	width:100%;
+	padding: 0px;
+	text-decoration: none;
+}
+
+.content textarea {
+	display:block;
+	width:100%;
+}
+
+/* posts */
+.post h1 {
+	font-size:1.2em;
+}
+
+.post {
+border-bottom:2px #F5B43E solid;
+margin-bottom:30px;}
+
+.hidden {
+	display:none;
+}
+
+/* image classes */
+img.icon {
+	height:16px;
+	width:16px;
+}
+
+img.reward {
+	max-width:512px;
+	max-height:256px;
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+}
+img.gallery {
+    max-width:256px;
+    max-height:256px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+a.database{
+    background-color:#88A8A7;
+    color:#F4EDE3;
+    padding: 5px;
+    width:10%;
+    margin:1px;
+    font-size:1em;
+}
+button.database {
+    background-color:#88A8A7;
+    color:#F4EDE3;
+    padding: 5px;
+    border-style:none;
+    margin:1px;
+    font-size:1em;
+}
+/* footer */
+.footer {
+    background: #BC3522;
+    color: #F4EDE3;
+    font-size: 1.1em;
+    line-height: 40px;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    bottom:0;
+    position:relative;
+}
+.footer a {
+	color: #FFD;
+	text-decoration: none;
+}
+.footer a:hover {
+	color: #FFF;
+	text-decoration: underline;
+}
+.footer .left, .footer .right {padding: 0 12px;}
+.footer .right, .footer .right a {color: #C0B8A6;}
+.footer .right a:hover {color: #FFE;}
+
+/* floats */
+.left {float: left;}
+.right {float: right;}
+.clearer {clear: both;}
+
+/* login */
+.login{
+	background: #F5B43E;
+	margin:auto;
+	width:50%;
+}
+.login > form{
+	padding: 20px;
+	font-size:1.6em;
+}
+.login > h1 {
+	width: 100%;
+	background:#BC3522;
+	color:#F4EDE3;
+}
